@@ -1,0 +1,38 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Compilaciones
+Debug/
+Release/
+x64/
+x86/
+bin/
+obj/
+
+# Archivos temporales C++
+*.obj
+*.pch
+*.ipch
+*.pdb
+*.ilk
+*.idb
+*.tlog
+*.lastbuildstate
+*.log
+*.vsidx
+
+# Archivos generados por Visual Studio
+*.VC.db
+*.VC.opendb
+*.cache
+*.tmp
+*.bak
+
+# Archivos generados por Qt
+moc_*
+qrc_*
+ui_*
