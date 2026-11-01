@@ -1,33 +1,46 @@
 #include "ArchivoVentas.h"
-#include <QFile>
-#include <QSaveFile>
+#include <fstream>
+#include <iterator>
 #include <QJsonDocument>
 #include <QJsonParseError>
+#include <QByteArray>
+
+using namespace std;
 
 // Constructor
-ArchivoVentas::ArchivoVentas(const QString& rutaArchivo)
+ArchivoVentas::ArchivoVentas(const string& rutaArchivo)
     : m_rutaArchivo(rutaArchivo)
 {
 }
 
-// Guardar ventas en JSON
+// Guarda las ventas en formato JSON
 bool ArchivoVentas::guardarVentas(const QJsonArray& ventas) const
 {
-    QSaveFile archivo(m_rutaArchivo);
+    ofstream archivo(m_rutaArchivo);
 
-    if (!archivo.open(QIODevice::WriteOnly))
+    if (!archivo.is_open())
     {
         return false;
     }
 
     QJsonDocument documento(ventas);
 
-    archivo.write(documento.toJson(QJsonDocument::Indented));
+    string datos = documento.toJson(
+        QJsonDocument::Indented
+    ).toStdString();
 
-    return archivo.commit();
+    archivo << datos;
+
+    archivo.flush();
+
+    bool correcto = archivo.good();
+
+    archivo.close();
+
+    return correcto && !archivo.fail();
 }
 
-// Cargar ventas desde JSON
+// Carga las ventas desde el archivo JSON
 QJsonArray ArchivoVentas::cargarVentas(bool* correcto) const
 {
     if (correcto != nullptr)
@@ -35,21 +48,35 @@ QJsonArray ArchivoVentas::cargarVentas(bool* correcto) const
         *correcto = false;
     }
 
-    QFile archivo(m_rutaArchivo);
+    ifstream archivo(m_rutaArchivo);
 
-    if (!archivo.open(QIODevice::ReadOnly))
+    if (!archivo.is_open())
     {
         return QJsonArray();
     }
 
-    QByteArray datos = archivo.readAll();
+    string datos(
+        (istreambuf_iterator<char>(archivo)),
+        istreambuf_iterator<char>()
+    );
+
+    archivo.close();
+
+    QByteArray contenido = QByteArray::fromStdString(datos);
 
     QJsonParseError error;
-    QJsonDocument documento =
-        QJsonDocument::fromJson(datos, &error);
 
-    if (error.error != QJsonParseError::NoError ||
-        !documento.isArray())
+    QJsonDocument documento = QJsonDocument::fromJson(
+        contenido,
+        &error
+    );
+
+    if (error.error != QJsonParseError::NoError)
+    {
+        return QJsonArray();
+    }
+
+    if (!documento.isArray())
     {
         return QJsonArray();
     }

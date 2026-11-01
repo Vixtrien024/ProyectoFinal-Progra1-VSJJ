@@ -1,21 +1,21 @@
 #pragma once
-#include <QString>
+#include <string>
 #include <QJsonArray>
+
+using namespace std;
 
 class ArchivoVentas
 {
 public:
     // Constructor
-    explicit ArchivoVentas(
-        const QString& rutaArchivo = "ventas.json"
-    );
+    explicit ArchivoVentas(const string& rutaArchivo = "ventas.json");
 
-    // Guarda las ventas en formato JSON
+    // Guarda las ventas en un archivo JSON
     bool guardarVentas(const QJsonArray& ventas) const;
 
-    // Recupera las ventas guardadas
+    // Carga las ventas desde el archivo JSON
     QJsonArray cargarVentas(bool* correcto = nullptr) const;
 
 private:
-    QString m_rutaArchivo;
+    string m_rutaArchivo;
 };
