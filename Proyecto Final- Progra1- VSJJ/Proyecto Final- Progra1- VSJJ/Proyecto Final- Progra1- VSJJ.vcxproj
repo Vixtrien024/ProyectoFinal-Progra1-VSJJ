@@ -110,6 +110,11 @@
     <ClCompile Include="GestorProducto.cpp" />
     <ClCompile Include="Inventario.cpp" />
     <ClCompile Include="Producto.cpp" />
+    <ClCompile Include="DetalleVenta.cpp" />
+    <ClCompile Include="Venta.cpp" />
+    <ClCompile Include="Carrito.cpp" />
+    <ClCompile Include="GestorVentas.cpp" />
+    <ClCompile Include="ArchivoVentas.cpp" />
     <ClCompile Include="ProyectoFinalProgra1VSJJ.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -118,6 +123,12 @@
     <ClInclude Include="GestorProductos.h" />
     <ClInclude Include="Inventario.h" />
     <ClInclude Include="Producto.h" />
+    <ClInclude Include="DetalleVenta.h" />
+    <ClInclude Include="Venta.h" />
+    <ClInclude Include="Carrito.h" />
+    <ClInclude Include="GestorVentas.h" />
+    <ClInclude Include="ArchivoVentas.h" />
+    <ClInclude Include="IInventario.h" />
     <ClInclude Include="VentanaProductos.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

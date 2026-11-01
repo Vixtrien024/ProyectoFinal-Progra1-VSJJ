@@ -52,6 +52,21 @@
     <ClCompile Include="Producto.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DetalleVenta.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Venta.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Carrito.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GestorVentas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ArchivoVentas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="GestorProducto.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -67,6 +82,24 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Producto.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DetalleVenta.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Venta.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Carrito.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GestorVentas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ArchivoVentas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IInventario.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GestorProductos.h">
