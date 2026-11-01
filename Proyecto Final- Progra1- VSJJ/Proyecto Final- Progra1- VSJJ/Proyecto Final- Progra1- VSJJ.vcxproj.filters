@@ -49,54 +49,37 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Usuario.cpp">
-      <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
+    <ClCompile Include="Producto.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GestorUsuarios.cpp">
-      <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
+    <ClCompile Include="GestorProducto.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Autenticacion.cpp">
-      <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
+    <ClCompile Include="Inventario.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ArchivoUsuarios.cpp">
-      <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
+    <ClCompile Include="ArchivoProductos.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Login.cpp">
-      <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="GestionUsuarios.cpp">
-      <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
+    <ClCompile Include="VentanaProductos.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Usuario.h">
-      <Filter>Header Files\Usuarios, Login  y Permisos.h</Filter>
+    <ClInclude Include="Producto.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GestorUsuarios.h">
-      <Filter>Header Files\Usuarios, Login  y Permisos.h</Filter>
+    <ClInclude Include="GestorProductos.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Autenticacion.h">
-      <Filter>Header Files\Usuarios, Login  y Permisos.h</Filter>
+    <ClInclude Include="Inventario.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ArchivoUsuarios.h">
-      <Filter>Header Files\Usuarios, Login  y Permisos.h</Filter>
+    <ClInclude Include="ArchivoProductos.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Login.h">
-      <Filter>Header Files\Usuarios, Login  y Permisos.h</Filter>
+    <ClInclude Include="VentanaProductos.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GestionUsuarios.h">
-      <Filter>Header Files\Usuarios, Login  y Permisos.h</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <QtUic Include="GestionUsuarios.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="Login.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Form Files" />
   </ItemGroup>
 </Project>

@@ -63,6 +63,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions> QT_NO_DEPRECATED_WARNINGS</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions> QT_NO_DEPRECATED_WARNINGS</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -92,30 +102,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ArchivoUsuarios.cpp" />
-    <ClCompile Include="Autenticacion.cpp" />
-    <ClCompile Include="GestionUsuarios.cpp" />
-    <ClCompile Include="GestorUsuarios.cpp" />
-    <ClCompile Include="Login.cpp" />
-    <ClCompile Include="Usuario.cpp" />
+    <ClCompile Include="VentanaProductos.cpp" />
     <QtRcc Include="ProyectoFinalProgra1VSJJ.qrc" />
-    <QtUic Include="GestionUsuarios.ui" />
-    <QtUic Include="Login.ui" />
     <QtUic Include="ProyectoFinalProgra1VSJJ.ui" />
     <QtMoc Include="ProyectoFinalProgra1VSJJ.h" />
+    <ClCompile Include="ArchivoProductos.cpp" />
+    <ClCompile Include="GestorProducto.cpp" />
+    <ClCompile Include="Inventario.cpp" />
+    <ClCompile Include="Producto.cpp" />
     <ClCompile Include="ProyectoFinalProgra1VSJJ.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ArchivoUsuarios.h" />
-    <ClInclude Include="Autenticacion.h" />
-    <ClInclude Include="GestionUsuarios.h" />
-    <ClInclude Include="GestorUsuarios.h" />
-    <ClInclude Include="Login.h" />
-    <ClInclude Include="Usuario.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Form Files" />
+    <ClInclude Include="ArchivoProductos.h" />
+    <ClInclude Include="GestorProductos.h" />
+    <ClInclude Include="Inventario.h" />
+    <ClInclude Include="Producto.h" />
+    <ClInclude Include="VentanaProductos.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
