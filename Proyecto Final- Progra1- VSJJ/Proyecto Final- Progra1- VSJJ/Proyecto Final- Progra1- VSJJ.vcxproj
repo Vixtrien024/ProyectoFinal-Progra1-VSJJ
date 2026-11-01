@@ -114,6 +114,7 @@
     <ClCompile Include="Venta.cpp" />
     <ClCompile Include="Carrito.cpp" />
     <ClCompile Include="GestorVentas.cpp" />
+    <ClCompile Include="VentanaVentas.cpp" />
     <ClCompile Include="ArchivoVentas.cpp" />
     <ClCompile Include="ProyectoFinalProgra1VSJJ.cpp" />
     <ClCompile Include="main.cpp" />
@@ -127,6 +128,7 @@
     <ClInclude Include="Venta.h" />
     <ClInclude Include="Carrito.h" />
     <ClInclude Include="GestorVentas.h" />
+    <ClInclude Include="VentanaVentas.h" />
     <ClInclude Include="ArchivoVentas.h" />
     <ClInclude Include="IInventario.h" />
     <ClInclude Include="VentanaProductos.h" />

@@ -64,6 +64,9 @@
     <ClCompile Include="GestorVentas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VentanaVentas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="ArchivoVentas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -94,6 +97,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GestorVentas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VentanaVentas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ArchivoVentas.h">
