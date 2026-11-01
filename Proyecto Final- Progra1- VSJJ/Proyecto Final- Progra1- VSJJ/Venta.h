@@ -1,39 +1,28 @@
 #pragma once
-
 #include <string>
 #include <vector>
-#include <QtGlobal>
-#include <QJsonObject>
 #include "DetalleVenta.h"
-
 using namespace std;
 
-// Venta confirmada. Contiene (composicion) sus detalles.
+// Una venta ya cobrada.
 class Venta {
 private:
     int numero;
-    string fecha;
-    string cajero;
     vector<DetalleVenta> detalles;
-    qint64 total;
-    qint64 efectivoRecibido;
-    qint64 cambio;
+    int total;
+    int efectivo;
+    int cambio;
 
 public:
     Venta();
-    Venta(int numero, const string& fecha, const string& cajero,
-        const vector<DetalleVenta>& detalles,
-        qint64 efectivoRecibido);
+    Venta(int numero, vector<DetalleVenta> detalles, int efectivo);
 
-    int getNumero() const;
-    string getFecha() const;
-    string getCajero() const;
-    const vector<DetalleVenta>& getDetalles() const;
-    qint64 getTotal() const;
-    qint64 getEfectivoRecibido() const;
-    qint64 getCambio() const;
+    int getNumero();
+    vector<DetalleVenta> getDetalles();
+    int getTotal();
+    int getEfectivo();
+    int getCambio();
 
-    // Conversion para ArchivoVentas (Moises), que guarda QJsonArray
-    QJsonObject aJson() const;
-    static Venta desdeJson(const QJsonObject& obj);
+    // pendiente: fecha y cajero de la venta
+    // pendiente: guardar la venta en archivo (se coordina con Moises)
 };

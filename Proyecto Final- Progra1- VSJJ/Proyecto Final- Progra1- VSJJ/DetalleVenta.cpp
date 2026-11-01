@@ -1,28 +1,40 @@
 #include "DetalleVenta.h"
 
-DetalleVenta::DetalleVenta()
-    : idProducto(0), nombreProducto(""), precioUnitario(0), cantidad(0) {
+DetalleVenta::DetalleVenta() {
+    idProducto = 0;
+    nombre = "";
+    precio = 0;
+    cantidad = 0;
 }
 
-DetalleVenta::DetalleVenta(int idProducto, const string& nombreProducto,
-    qint64 precioUnitario, int cantidad)
-    : idProducto(idProducto),
-    nombreProducto(nombreProducto),
-    precioUnitario(precioUnitario > 0 ? precioUnitario : 0),
-    cantidad(cantidad > 0 ? cantidad : 0) {
+DetalleVenta::DetalleVenta(int idProducto, string nombre, int precio, int cantidad) {
+    this->idProducto = idProducto;
+    this->nombre = nombre;
+    this->precio = precio;
+    this->cantidad = cantidad;
 }
 
-int DetalleVenta::getIdProducto() const { return idProducto; }
-string DetalleVenta::getNombreProducto() const { return nombreProducto; }
-qint64 DetalleVenta::getPrecioUnitario() const { return precioUnitario; }
-int DetalleVenta::getCantidad() const { return cantidad; }
+int DetalleVenta::getIdProducto() {
+    return idProducto;
+}
 
-bool DetalleVenta::setCantidad(int nuevaCantidad) {
-    if (nuevaCantidad <= 0) return false;
+string DetalleVenta::getNombre() {
+    return nombre;
+}
+
+int DetalleVenta::getPrecio() {
+    return precio;
+}
+
+int DetalleVenta::getCantidad() {
+    return cantidad;
+}
+
+void DetalleVenta::setCantidad(int nuevaCantidad) {
     cantidad = nuevaCantidad;
-    return true;
 }
 
-qint64 DetalleVenta::calcularSubtotal() const {
-    return precioUnitario * cantidad;
+// Subtotal = precio por la cantidad
+int DetalleVenta::calcularSubtotal() {
+    return precio * cantidad;
 }

@@ -1,160 +1,89 @@
 #include "VentanaVentas.h"
-#include <QComboBox>
-#include <QSpinBox>
-#include <QTableWidget>
-#include <QHeaderView>
-#include <QLabel>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QIntValidator>
-#include <QMessageBox>
 
-static QString colones(qint64 monto) {
-    return QString("₡%1").arg(monto);
-}
-
-VentanaVentas::VentanaVentas(GestorVentas& gestor,
-    const vector<Producto>& catalogo, const string& cajero, QWidget* parent)
-    : QWidget(parent), gestor(gestor), catalogo(catalogo), cajero(cajero) {
+VentanaVentas::VentanaVentas(vector<Producto> productos, QWidget* parent) : QWidget(parent) {
+    this->productos = productos;
     setWindowTitle("Ventas y cobro");
-    resize(620, 480);
+    resize(450, 420);
 
-    cmbProducto = new QComboBox;
-    for (const Producto& p : catalogo) {
-        if (!p.estaActivo()) continue;
-        cmbProducto->addItem(QString::fromStdString(p.getNombre()) + "  -  "
-            + colones(p.getPrecio()), p.getId());
+    // Lista con los nombres de los productos
+    cmbProducto = new QComboBox(this);
+    cmbProducto->setGeometry(10, 10, 250, 30);
+    for (int i = 0; i < (int)productos.size(); i++) {
+        cmbProducto->addItem(QString::fromStdString(productos[i].getNombre()));
     }
 
-    spnCantidad = new QSpinBox;
-    spnCantidad->setRange(1, 9999);
+    // Cantidad a comprar
+    spnCantidad = new QSpinBox(this);
+    spnCantidad->setGeometry(270, 10, 60, 30);
+    spnCantidad->setMinimum(1);
 
-    QPushButton* btnAgregar = new QPushButton("Agregar");
-    QPushButton* btnQuitar = new QPushButton("Quitar seleccionado");
+    btnAgregar = new QPushButton("Agregar", this);
+    btnAgregar->setGeometry(340, 10, 100, 30);
 
-    tablaCarrito = new QTableWidget(0, 4);
-    tablaCarrito->setHorizontalHeaderLabels(
-        { "Producto", "Cantidad", "Precio", "Subtotal" });
-    tablaCarrito->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    tablaCarrito->setSelectionBehavior(QAbstractItemView::SelectRows);
-    tablaCarrito->setSelectionMode(QAbstractItemView::SingleSelection);
-    tablaCarrito->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    // Aqui se muestran los productos del carrito
+    listaCarrito = new QListWidget(this);
+    listaCarrito->setGeometry(10, 50, 430, 220);
 
-    lblTotal = new QLabel;
-    lblTotal->setStyleSheet("font-size: 20px; font-weight: bold;");
+    lblTotal = new QLabel("Total: 0", this);
+    lblTotal->setGeometry(10, 280, 200, 30);
 
-    txtEfectivo = new QLineEdit;
+    txtEfectivo = new QLineEdit(this);
     txtEfectivo->setPlaceholderText("Efectivo recibido");
-    txtEfectivo->setValidator(new QIntValidator(0, 999999999, this));
+    txtEfectivo->setGeometry(10, 320, 200, 30);
 
-    QPushButton* btnCobrar = new QPushButton("Cobrar");
-    lblMensaje = new QLabel;
+    btnCobrar = new QPushButton("Cobrar", this);
+    btnCobrar->setGeometry(220, 320, 100, 30);
 
-    QHBoxLayout* fila = new QHBoxLayout;
-    fila->addWidget(cmbProducto, 1);
-    fila->addWidget(spnCantidad);
-    fila->addWidget(btnAgregar);
+    lblMensaje = new QLabel("", this);
+    lblMensaje->setGeometry(10, 360, 430, 30);
 
-    QHBoxLayout* pago = new QHBoxLayout;
-    pago->addWidget(lblTotal, 1);
-    pago->addWidget(txtEfectivo);
-    pago->addWidget(btnCobrar);
-
-    QVBoxLayout* raiz = new QVBoxLayout(this);
-    raiz->addLayout(fila);
-    raiz->addWidget(tablaCarrito, 1);
-    raiz->addWidget(btnQuitar);
-    raiz->addLayout(pago);
-    raiz->addWidget(lblMensaje);
-
-    connect(btnAgregar, &QPushButton::clicked, this, [this] { agregar(); });
-    connect(btnQuitar, &QPushButton::clicked, this, [this] { quitarSeleccionado(); });
-    connect(btnCobrar, &QPushButton::clicked, this, [this] { cobrar(); });
-    connect(txtEfectivo, &QLineEdit::returnPressed, this, [this] { cobrar(); });
-
-    refrescarCarrito();
+    // Cuando se aprieta un boton, se llama a su funcion
+    connect(btnAgregar, SIGNAL(clicked()), this, SLOT(agregar()));
+    connect(btnCobrar, SIGNAL(clicked()), this, SLOT(cobrar()));
 }
 
 void VentanaVentas::agregar() {
-    if (cmbProducto->currentIndex() < 0) {
-        mostrarMensaje("No hay productos disponibles", true);
+    int posicion = cmbProducto->currentIndex();
+    if (posicion < 0) {
+        lblMensaje->setText("No hay productos");
         return;
     }
-    int id = cmbProducto->currentData().toInt();
-    for (const Producto& p : catalogo) {
-        if (p.getId() != id) continue;
-        if (!carrito.agregarProducto(p, spnCantidad->value())) {
-            mostrarMensaje("No se pudo agregar el producto", true);
-            return;
-        }
-        spnCantidad->setValue(1);
-        mostrarMensaje("", false);
-        refrescarCarrito();
-        return;
-    }
-}
 
-void VentanaVentas::quitarSeleccionado() {
-    int fila = tablaCarrito->currentRow();
-    if (fila < 0) {
-        mostrarMensaje("Seleccione una fila para quitar", true);
-        return;
-    }
-    carrito.quitarProducto(carrito.getArticulos()[fila].getIdProducto());
-    refrescarCarrito();
+    carrito.agregarProducto(productos[posicion], spnCantidad->value());
+    lblMensaje->setText("");
+    mostrarCarrito();
 }
 
 void VentanaVentas::cobrar() {
-    if (carrito.estaVacio()) {
-        mostrarMensaje(QString::fromStdString(
-            GestorVentas::mensaje(ResultadoVenta::CarritoVacio)), true);
-        return;
-    }
-    bool ok = false;
-    qint64 efectivo = txtEfectivo->text().toLongLong(&ok);
-    if (!ok) {
-        mostrarMensaje("Escriba el efectivo recibido", true);
+    int efectivo = txtEfectivo->text().toInt();
+
+    string resultado = gestor.procesarVenta(carrito, efectivo);
+
+    if (resultado != "OK") {
+        lblMensaje->setText(QString::fromStdString(resultado));
         return;
     }
 
-    Venta venta;
-    ResultadoVenta r = gestor.procesarVenta(carrito, efectivo, cajero, &venta);
-    if (r != ResultadoVenta::Exitosa) {
-        mostrarMensaje(QString::fromStdString(GestorVentas::mensaje(r)), true);
-        return;
-    }
+    Venta venta = gestor.getUltimaVenta();
+    lblMensaje->setText("Venta " + QString::number(venta.getNumero()) +
+        " realizada. Cambio: " + QString::number(venta.getCambio()));
 
-    QMessageBox::information(this, "Venta realizada",
-        QString("Venta #%1\nTotal: %2\nCambio: %3")
-        .arg(venta.getNumero()).arg(colones(venta.getTotal()))
-        .arg(colones(venta.getCambio())));
     carrito.vaciar();
     txtEfectivo->clear();
-    mostrarMensaje("", false);
-    refrescarCarrito();
+    mostrarCarrito();
 }
 
-void VentanaVentas::refrescarCarrito() {
-    const vector<DetalleVenta>& art = carrito.getArticulos();
-    tablaCarrito->setRowCount(static_cast<int>(art.size()));
-    for (size_t i = 0; i < art.size(); i++) {
-        const DetalleVenta& d = art[i];
-        int r = static_cast<int>(i);
-        tablaCarrito->setItem(r, 0, new QTableWidgetItem(
-            QString::fromStdString(d.getNombreProducto())));
-        tablaCarrito->setItem(r, 1, new QTableWidgetItem(
-            QString::number(d.getCantidad())));
-        tablaCarrito->setItem(r, 2, new QTableWidgetItem(
-            colones(d.getPrecioUnitario())));
-        tablaCarrito->setItem(r, 3, new QTableWidgetItem(
-            colones(d.calcularSubtotal())));
+// Vuelve a escribir la lista del carrito y el total
+void VentanaVentas::mostrarCarrito() {
+    listaCarrito->clear();
+
+    vector<DetalleVenta> articulos = carrito.getArticulos();
+    for (int i = 0; i < (int)articulos.size(); i++) {
+        QString linea = QString::fromStdString(articulos[i].getNombre()) +
+            "  x" + QString::number(articulos[i].getCantidad()) +
+            "  = " + QString::number(articulos[i].calcularSubtotal());
+        listaCarrito->addItem(linea);
     }
-    lblTotal->setText("Total: " + colones(carrito.calcularTotal()));
-}
 
-void VentanaVentas::mostrarMensaje(const QString& texto, bool error) {
-    lblMensaje->setStyleSheet(error ? "color: #b00020;" : "");
-    lblMensaje->setText(texto);
+    lblTotal->setText("Total: " + QString::number(carrito.calcularTotal()));
 }

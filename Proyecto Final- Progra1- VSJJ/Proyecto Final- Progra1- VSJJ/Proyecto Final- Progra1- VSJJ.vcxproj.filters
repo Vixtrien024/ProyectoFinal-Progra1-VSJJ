@@ -67,9 +67,6 @@
     <ClCompile Include="VentanaVentas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ArchivoVentas.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GestorProducto.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -99,15 +96,9 @@
     <ClInclude Include="GestorVentas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VentanaVentas.h">
+    <QtMoc Include="VentanaVentas.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ArchivoVentas.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IInventario.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    </QtMoc>
     <ClInclude Include="GestorProductos.h">
       <Filter>Header Files</Filter>
     </ClInclude>

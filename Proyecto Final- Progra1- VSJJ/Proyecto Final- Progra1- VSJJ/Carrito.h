@@ -1,25 +1,20 @@
 #pragma once
-
 #include <vector>
-#include <QtGlobal>
 #include "DetalleVenta.h"
 #include "Producto.h"
-
 using namespace std;
 
-// Compra en preparacion, aun sin cobrar.
+// Lo que el cliente quiere comprar, antes de pagar.
 class Carrito {
 private:
     vector<DetalleVenta> articulos;
 
 public:
-    // Suma la cantidad si el producto ya esta. false si el producto esta
-    // inactivo o la cantidad no es positiva.
-    bool agregarProducto(const Producto& producto, int cantidad);
-    bool quitarProducto(int idProducto);
+    void agregarProducto(Producto producto, int cantidad);
+    int calcularTotal();
+    vector<DetalleVenta> getArticulos();
+    bool estaVacio();
     void vaciar();
 
-    const vector<DetalleVenta>& getArticulos() const;
-    bool estaVacio() const;
-    qint64 calcularTotal() const;
+    // pendiente: quitar un producto del carrito
 };

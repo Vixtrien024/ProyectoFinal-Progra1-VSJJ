@@ -1,31 +1,25 @@
 #pragma once
-
 #include <string>
-#include <QtGlobal>
-
 using namespace std;
 
-// Una linea de la venta. Guarda una copia del nombre y precio al vender,
-// por eso un cambio posterior de precio no altera ventas ya hechas.
+// Una linea de la venta: un producto y cuantas unidades se compran.
 class DetalleVenta {
 private:
     int idProducto;
-    string nombreProducto;
-    qint64 precioUnitario;
+    string nombre;
+    int precio;
     int cantidad;
 
 public:
     DetalleVenta();
-    DetalleVenta(int idProducto, const string& nombreProducto,
-        qint64 precioUnitario, int cantidad);
+    DetalleVenta(int idProducto, string nombre, int precio, int cantidad);
 
-    int getIdProducto() const;
-    string getNombreProducto() const;
-    qint64 getPrecioUnitario() const;
-    int getCantidad() const;
+    int getIdProducto();
+    string getNombre();
+    int getPrecio();
+    int getCantidad();
 
-    // Devuelve false si la cantidad no es positiva
-    bool setCantidad(int nuevaCantidad);
+    void setCantidad(int nuevaCantidad);
 
-    qint64 calcularSubtotal() const;
+    int calcularSubtotal();
 };

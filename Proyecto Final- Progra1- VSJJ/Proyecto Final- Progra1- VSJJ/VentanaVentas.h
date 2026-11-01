@@ -1,44 +1,41 @@
 #pragma once
-
-#include <string>
 #include <vector>
 #include <QWidget>
+#include <QComboBox>
+#include <QSpinBox>
+#include <QPushButton>
+#include <QListWidget>
+#include <QLabel>
+#include <QLineEdit>
 #include "Carrito.h"
 #include "GestorVentas.h"
 #include "Producto.h"
-
 using namespace std;
 
-class QComboBox;
-class QSpinBox;
-class QTableWidget;
-class QLabel;
-class QLineEdit;
-
-// Pantalla de ventas y cobro. Solo muestra y recoge datos;
-// las reglas viven en Carrito y GestorVentas.
-// Sin Q_OBJECT: usa lambdas, asi no necesita moc.
+// Ventana de ventas: elegir producto, agregarlo al carrito y cobrar.
 class VentanaVentas : public QWidget {
+    Q_OBJECT
+
 private:
-    GestorVentas& gestor;
-    const vector<Producto>& catalogo;
-    string cajero;
+    vector<Producto> productos;
     Carrito carrito;
+    GestorVentas gestor;
 
     QComboBox* cmbProducto;
     QSpinBox* spnCantidad;
-    QTableWidget* tablaCarrito;
+    QPushButton* btnAgregar;
+    QListWidget* listaCarrito;
     QLabel* lblTotal;
     QLineEdit* txtEfectivo;
+    QPushButton* btnCobrar;
     QLabel* lblMensaje;
 
+    void mostrarCarrito();
+
+private slots:
     void agregar();
-    void quitarSeleccionado();
     void cobrar();
-    void refrescarCarrito();
-    void mostrarMensaje(const QString& texto, bool error);
 
 public:
-    VentanaVentas(GestorVentas& gestor, const vector<Producto>& catalogo,
-        const string& cajero, QWidget* parent = nullptr);
+    VentanaVentas(vector<Producto> productos, QWidget* parent = nullptr);
 };

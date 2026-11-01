@@ -1,41 +1,22 @@
 #pragma once
-
 #include <string>
 #include <vector>
-#include <QtGlobal>
 #include "Carrito.h"
 #include "Venta.h"
-#include "IInventario.h"
-#include "ArchivoVentas.h"
-
 using namespace std;
 
-// Resultado de intentar cobrar: la venta solo existe si fue exitosa.
-enum class ResultadoVenta {
-    Exitosa,
-    CarritoVacio,
-    SinExistencias,
-    PagoInsuficiente,
-    ErrorGuardado
-};
-
-// Coordina el cobro: valida, guarda, descuenta inventario y registra.
+// Se encarga de cobrar y guardar las ventas en memoria.
 class GestorVentas {
 private:
-    IInventario& inventario;
-    ArchivoVentas& archivo;
     vector<Venta> ventas;
-    int siguienteNumero;
 
 public:
-    GestorVentas(IInventario& inventario, ArchivoVentas& archivo);
+    // Devuelve "OK" si se cobro, o el motivo si fue rechazada
+    string procesarVenta(Carrito carrito, int efectivo);
 
-    // Carga ventas guardadas; false si el archivo no existe o esta danado
-    bool cargar();
+    int getCantidadVentas();
+    Venta getUltimaVenta();
 
-    ResultadoVenta procesarVenta(const Carrito& carrito, qint64 efectivo,
-        const string& cajero, Venta* ventaGenerada = nullptr);
-
-    const vector<Venta>& getVentas() const;
-    static string mensaje(ResultadoVenta resultado);
+    // pendiente: revisar y descontar existencias (Inventario de Julian)
+    // pendiente: guardar las ventas en archivo (Moises)
 };
