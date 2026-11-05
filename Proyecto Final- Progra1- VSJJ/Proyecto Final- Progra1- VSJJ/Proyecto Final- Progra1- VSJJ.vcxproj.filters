@@ -49,16 +49,22 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Usuario.cpp">
-      <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
+    <ClCompile Include="Producto.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GestorUsuarios.cpp">
-      <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
+    <ClCompile Include="GestorProducto.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Seguridad.cpp">
       <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
     </ClCompile>
     <ClCompile Include="Autenticacion.cpp">
+      <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Usuario.cpp">
+      <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="GestorUsuarios.cpp">
       <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
     </ClCompile>
     <ClCompile Include="ArchivoUsuarios.cpp">
@@ -70,8 +76,32 @@
     <ClCompile Include="GestionUsuarios.cpp">
       <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
     </ClCompile>
+    <ClCompile Include="Inventario.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ArchivoProductos.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VentanaProductos.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Producto.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GestorProductos.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventario.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ArchivoProductos.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VentanaProductos.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Usuario.h">
       <Filter>Header Files\Usuarios, Login  y Permisos.h</Filter>
     </ClInclude>
