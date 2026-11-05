@@ -36,3 +36,6 @@ obj/
 moc_*
 qrc_*
 ui_*
+
+# Datos locales de la aplicacion
+usuarios.json

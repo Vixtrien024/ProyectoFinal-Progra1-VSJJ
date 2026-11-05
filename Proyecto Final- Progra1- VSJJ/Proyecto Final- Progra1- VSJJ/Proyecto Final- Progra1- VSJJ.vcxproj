@@ -63,12 +63,23 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>QT_NO_DEPRECATED_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>QT_NO_DEPRECATED_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)third_party;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -83,6 +94,7 @@
       <ConformanceMode>true</ConformanceMode>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(ProjectDir)third_party;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -97,6 +109,7 @@
     <ClCompile Include="GestionUsuarios.cpp" />
     <ClCompile Include="GestorUsuarios.cpp" />
     <ClCompile Include="Login.cpp" />
+    <ClCompile Include="Seguridad.cpp" />
     <ClCompile Include="Usuario.cpp" />
     <QtRcc Include="ProyectoFinalProgra1VSJJ.qrc" />
     <QtUic Include="GestionUsuarios.ui" />
@@ -107,11 +120,13 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="third_party\nlohmann\json.hpp" />
     <ClInclude Include="ArchivoUsuarios.h" />
     <ClInclude Include="Autenticacion.h" />
-    <ClInclude Include="GestionUsuarios.h" />
+    <QtMoc Include="GestionUsuarios.h" />
     <ClInclude Include="GestorUsuarios.h" />
-    <ClInclude Include="Login.h" />
+    <QtMoc Include="Login.h" />
+    <ClInclude Include="Seguridad.h" />
     <ClInclude Include="Usuario.h" />
   </ItemGroup>
   <ItemGroup>
