@@ -1,3 +1,4 @@
+
 #include "ProyectoFinalProgra1VSJJ.h"
 #include "ArchivoUsuarios.h"
 #include "Autenticacion.h"
@@ -10,20 +11,29 @@
 #include <QtWidgets/QApplication>
 #include <QCoreApplication>
 #include <QDir>
-#include <QString>
+#include <QDialog>
 
-int main(int argc, char *argv[])
+#include <string>
+
+using namespace std;
+
+int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 
     // Archivo de usuarios junto al ejecutable
-    QString rutaUsuarios =
+    string rutaUsuarios =
         QDir(QCoreApplication::applicationDirPath())
-        .filePath("usuarios.json");
+        .filePath("usuarios.json")
+        .toStdString();
 
-    ArchivoUsuarios archivo(rutaUsuarios.toStdString());
+    // Crear sistema de almacenamiento
+    ArchivoUsuarios archivo(rutaUsuarios);
 
+    // Crear gestor de usuarios
     GestorUsuarios gestor(&archivo);
+
+    // Cargar usuarios registrados
     gestor.cargarUsuarios();
 
     // Crear administrador inicial si no hay usuarios
@@ -34,33 +44,39 @@ int main(int argc, char *argv[])
         admin.setId(gestor.generarId());
         admin.setNombre("Administrador");
         admin.setNombreUsuario("admin");
+
+        // Guardar hash, no contrasena en texto plano
         admin.setClaveHash(
-            Seguridad::crearHashClave("admin"));
+            Seguridad::crearHashClave("admin")
+        );
+
         admin.setRol(Rol::Administrador);
         admin.setActivo(true);
 
-        gestor.agregarUsuario(admin);
+        if (!gestor.agregarUsuario(admin)) {
+            return 1;
+        }
     }
 
-    // Autenticacion y ventana de inicio de sesion
+    // Crear sistema de autenticacion
     Autenticacion autenticacion(&gestor);
 
+    // Mostrar ventana de inicio de sesion
     Login login(&autenticacion);
 
     if (login.exec() != QDialog::Accepted) {
         return 0;
     }
 
-    ProyectoFinalProgra1VSJJ window;
+    // Crear ventana principal con los objetos necesarios
+    ProyectoFinalProgra1VSJJ window(
+        &autenticacion,
+        &gestor
+    );
+
+    // Mostrar ventana principal
     window.show();
 
-    // Abrir gestion de usuarios si tiene permiso
-    if (autenticacion.tienePermiso(
-        Permiso::GestionarUsuarios)) {
-
-        GestionUsuarios gestion(&gestor, &autenticacion);
-        gestion.exec();
-    }
-
+    // Ejecutar aplicacion
     return app.exec();
 }

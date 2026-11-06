@@ -133,11 +133,11 @@
     <None Include="Form Files" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="GestionUsuarios.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="Login.h">
       <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="GestionUsuarios.h">
+      <Filter>Header Files\Usuarios, Login  y Permisos.h</Filter>
     </QtMoc>
   </ItemGroup>
 </Project>

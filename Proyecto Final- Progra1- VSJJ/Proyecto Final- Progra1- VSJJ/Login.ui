@@ -6,12 +6,50 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>410</width>
-    <height>246</height>
+    <width>460</width>
+    <height>315</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>La Pulpe - Inicio de sesion</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+QDialog {
+    background-color: #101315;
+}
+
+QLabel {
+    color: #FFFFFF;
+    background: transparent;
+}
+
+QLineEdit {
+    background-color: #242A27;
+    color: #FFFFFF;
+    border: 1px solid #4A5A50;
+    border-radius: 7px;
+    padding: 8px;
+    font-size: 13px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #39E75F;
+}
+
+QPushButton {
+    background-color: #176B3A;
+    color: white;
+    border: 1px solid #39E75F;
+    border-radius: 8px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #218B4B;
+}
+</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item alignment="Qt::AlignmentFlag::AlignHCenter">
@@ -23,6 +61,9 @@
        <bold>true</bold>
        <underline>false</underline>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>LA PULPE</string>
@@ -45,6 +86,9 @@
    </item>
    <item>
     <widget class="QLineEdit" name="txtUsuario">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="minimumSize">
       <size>
        <width>392</width>
@@ -65,11 +109,11 @@
    </item>
    <item>
     <widget class="QLineEdit" name="txtClave">
-     <property name="placeholderText">
-      <string>Ingrese su contraseña</string>
-     </property>
      <property name="echoMode">
       <enum>QLineEdit::EchoMode::Password</enum>
+     </property>
+     <property name="placeholderText">
+      <string>Ingrese su contraseña</string>
      </property>
     </widget>
    </item>
@@ -82,8 +126,40 @@
    </item>
    <item>
     <widget class="QPushButton" name="btnSalir">
+     <property name="styleSheet">
+      <string notr="true">
+QPushButton {
+    background-color: #702D38;
+    color: #FFFFFF;
+    border: 1px solid #B85C6A;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #923D4B;
+    border: 1px solid #E07A89;
+}
+
+QPushButton:pressed {
+    background-color: #54212A;
+}
+</string>
+     </property>
      <property name="text">
       <string>Salir</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../../../../../../../Downloads/log-out.png</normaloff>../../../../../../../../Downloads/log-out.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>16</width>
+       <height>16</height>
+      </size>
      </property>
     </widget>
    </item>
