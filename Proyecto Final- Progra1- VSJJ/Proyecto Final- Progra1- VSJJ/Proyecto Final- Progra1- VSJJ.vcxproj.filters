@@ -21,6 +21,15 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
+    <Filter Include="Source Files\Usuarios, Login y Permisos.cpp">
+      <UniqueIdentifier>{b70d7c21-0d77-4fe3-8825-2767c11e73c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Usuarios, Login  y Permisos.h">
+      <UniqueIdentifier>{f3368675-fa1b-4025-894d-417e24df6fa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Form Files\Usuarios, Login y Permisos.ui">
+      <UniqueIdentifier>{9ca10b02-4105-43fa-8252-95b1222e3651}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="ProyectoFinalProgra1VSJJ.qrc">
@@ -35,9 +44,43 @@
     <ClCompile Include="ProyectoFinalProgra1VSJJ.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Producto.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GestorProducto.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Seguridad.cpp">
+      <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Autenticacion.cpp">
+      <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Usuario.cpp">
+      <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="GestorUsuarios.cpp">
+      <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="ArchivoUsuarios.cpp">
+      <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Login.cpp">
+      <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="GestionUsuarios.cpp">
+      <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventario.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ArchivoProductos.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VentanaProductos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ArchivoVentas.cpp">
@@ -57,6 +100,39 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Producto.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GestorProductos.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventario.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ArchivoProductos.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VentanaProductos.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Usuario.h">
+      <Filter>Header Files\Usuarios, Login  y Permisos.h</Filter>
+    </ClInclude>
+    <ClInclude Include="GestorUsuarios.h">
+      <Filter>Header Files\Usuarios, Login  y Permisos.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Autenticacion.h">
+      <Filter>Header Files\Usuarios, Login  y Permisos.h</Filter>
+    </ClInclude>
+    <ClInclude Include="ArchivoUsuarios.h">
+      <Filter>Header Files\Usuarios, Login  y Permisos.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Seguridad.h">
+      <Filter>Header Files\Usuarios, Login  y Permisos.h</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\nlohmann\json.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="ArchivoVentas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -72,5 +148,24 @@
     <ClInclude Include="TicketHTML.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="GestionUsuarios.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Login.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Form Files" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="GestionUsuarios.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Login.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
 </Project>
