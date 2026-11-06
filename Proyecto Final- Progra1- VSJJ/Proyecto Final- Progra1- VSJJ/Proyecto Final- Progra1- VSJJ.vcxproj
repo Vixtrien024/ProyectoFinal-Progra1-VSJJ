@@ -102,6 +102,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GeneradorTicket.cpp" />
+    <ClCompile Include="HistorialVentas.cpp" />
+    <ClCompile Include="TicketHTML.cpp" />
+    <ClCompile Include="TicketTXT.cpp" />
     <QtRcc Include="ProyectoFinalProgra1VSJJ.qrc" />
     <QtUic Include="ProyectoFinalProgra1VSJJ.ui" />
     <QtMoc Include="ProyectoFinalProgra1VSJJ.h" />
@@ -111,6 +115,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArchivoVentas.h" />
+    <ClInclude Include="GeneradorTicket.h" />
+    <ClInclude Include="HistorialVentas.h" />
+    <ClInclude Include="TicketHTML.h" />
+    <ClInclude Include="TicketTXT.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
