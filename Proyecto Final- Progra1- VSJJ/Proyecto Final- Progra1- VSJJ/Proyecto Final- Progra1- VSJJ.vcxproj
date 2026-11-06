@@ -104,6 +104,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GeneradorTicket.cpp" />
+    <ClCompile Include="HistorialVentas.cpp" />
+    <ClCompile Include="TicketHTML.cpp" />
+    <ClCompile Include="TicketTXT.cpp" />
+    <ClCompile Include="ArchivoVentas.cpp" />
     <ClCompile Include="ArchivoUsuarios.cpp" />
     <ClCompile Include="Autenticacion.cpp" />
     <ClCompile Include="GestionUsuarios.cpp" />
@@ -125,6 +130,11 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArchivoVentas.h" />
+    <ClInclude Include="GeneradorTicket.h" />
+    <ClInclude Include="HistorialVentas.h" />
+    <ClInclude Include="TicketHTML.h" />
+    <ClInclude Include="TicketTXT.h" />
     <ClInclude Include="third_party\nlohmann\json.hpp" />
     <ClInclude Include="ArchivoUsuarios.h" />
     <ClInclude Include="Autenticacion.h" />

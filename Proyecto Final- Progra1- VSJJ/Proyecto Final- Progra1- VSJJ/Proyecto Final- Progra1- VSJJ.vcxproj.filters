@@ -44,8 +44,6 @@
     <ClCompile Include="ProyectoFinalProgra1VSJJ.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -85,6 +83,21 @@
     <ClCompile Include="VentanaProductos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ArchivoVentas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HistorialVentas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneradorTicket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TicketTXT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TicketHTML.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Producto.h">
@@ -118,6 +131,21 @@
       <Filter>Header Files\Usuarios, Login  y Permisos.h</Filter>
     </ClInclude>
     <ClInclude Include="third_party\nlohmann\json.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ArchivoVentas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HistorialVentas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneradorTicket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TicketTXT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TicketHTML.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
