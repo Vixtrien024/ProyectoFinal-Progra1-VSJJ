@@ -1,22 +1,27 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <QtGlobal>
 #include "Carrito.h"
 #include "Venta.h"
+#include "ResultadoVenta.h"
 using namespace std;
 
-// Se encarga de cobrar y guardar las ventas en memoria.
+// Se encarga de validar, cobrar y guardar las ventas en memoria.
 class GestorVentas {
 private:
     vector<Venta> ventas;
 
+    // pendiente: Inventario* inventario;   (modulo de Julian)
+    // pendiente: ArchivoVentas* archivo;   (modulo de Moises)
+
 public:
-    // Devuelve "OK" si se cobro, o el motivo si fue rechazada
-    string procesarVenta(Carrito carrito, int efectivo);
+    // true si el carrito tiene productos y el efectivo alcanza
+    bool validar(Carrito carrito, qint64 efectivo);
 
-    int getCantidadVentas();
-    Venta getUltimaVenta();
+    // Cobra la venta y devuelve el resultado (exitosa o rechazada)
+    ResultadoVenta confirmar(Carrito carrito, qint64 efectivo);
 
-    // pendiente: revisar y descontar existencias (Inventario de Julian)
-    // pendiente: guardar las ventas en archivo (Moises)
+    // Numero que le toca a la proxima venta
+    int siguienteNumero();
 };

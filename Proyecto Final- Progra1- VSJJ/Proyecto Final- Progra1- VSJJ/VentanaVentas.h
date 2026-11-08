@@ -1,41 +1,35 @@
 #pragma once
 #include <vector>
-#include <QWidget>
-#include <QComboBox>
-#include <QSpinBox>
-#include <QPushButton>
-#include <QListWidget>
-#include <QLabel>
-#include <QLineEdit>
+#include <QDialog>
 #include "Carrito.h"
 #include "GestorVentas.h"
 #include "Producto.h"
+#include "ui_VentanaVentas.h"
 using namespace std;
 
 // Ventana de ventas: elegir producto, agregarlo al carrito y cobrar.
-class VentanaVentas : public QWidget {
+class VentanaVentas : public QDialog {
     Q_OBJECT
 
 private:
-    vector<Producto> productos;
+    Ui::VentanaVentas ui;
+
+    GestorVentas* gestor;
     Carrito carrito;
-    GestorVentas gestor;
+    vector<Producto> productos;
 
-    QComboBox* cmbProducto;
-    QSpinBox* spnCantidad;
-    QPushButton* btnAgregar;
-    QListWidget* listaCarrito;
-    QLabel* lblTotal;
-    QLineEdit* txtEfectivo;
-    QPushButton* btnCobrar;
-    QLabel* lblMensaje;
-
-    void mostrarCarrito();
+    // Vuelve a escribir la tabla del carrito y el total
+    void actualizarTotal();
 
 private slots:
-    void agregar();
+    void agregarProducto();
+    void quitarProducto();
     void cobrar();
 
 public:
-    VentanaVentas(vector<Producto> productos, QWidget* parent = nullptr);
+    VentanaVentas(GestorVentas* gestor, QWidget* parent = nullptr);
+
+    // Llena la lista de productos que se pueden vender.
+    // pendiente: se llama con el catalogo de Julian (GestorProductos).
+    void setProductos(vector<Producto> productos);
 };

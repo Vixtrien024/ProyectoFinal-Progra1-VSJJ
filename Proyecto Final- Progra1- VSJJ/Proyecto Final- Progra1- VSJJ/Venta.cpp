@@ -2,41 +2,47 @@
 
 Venta::Venta() {
     numero = 0;
+    fecha = "";
     total = 0;
     efectivo = 0;
     cambio = 0;
 }
 
-Venta::Venta(int numero, vector<DetalleVenta> detalles, int efectivo) {
+Venta::Venta(int numero, string fecha, vector<DetalleVenta> detalles, qint64 efectivo) {
     this->numero = numero;
+    this->fecha = fecha;
     this->detalles = detalles;
     this->efectivo = efectivo;
 
     // El total es la suma de los subtotales
     total = 0;
     for (int i = 0; i < (int)detalles.size(); i++) {
-        total = total + detalles[i].calcularSubtotal();
+        total = total + detalles[i].subtotal();
     }
 
     cambio = efectivo - total;
 }
 
-int Venta::getNumero() {
+int Venta::getNumero() const {
     return numero;
 }
 
-vector<DetalleVenta> Venta::getDetalles() {
+string Venta::getFecha() const {
+    return fecha;
+}
+
+vector<DetalleVenta> Venta::getDetalles() const {
     return detalles;
 }
 
-int Venta::getTotal() {
+qint64 Venta::getTotal() const {
     return total;
 }
 
-int Venta::getEfectivo() {
+qint64 Venta::getEfectivo() const {
     return efectivo;
 }
 
-int Venta::getCambio() {
+qint64 Venta::getCambio() const {
     return cambio;
 }

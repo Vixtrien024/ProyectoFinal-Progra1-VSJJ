@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <QtGlobal>
 #include "DetalleVenta.h"
 using namespace std;
 
@@ -8,21 +9,20 @@ using namespace std;
 class Venta {
 private:
     int numero;
+    string fecha;
     vector<DetalleVenta> detalles;
-    int total;
-    int efectivo;
-    int cambio;
+    qint64 total;
+    qint64 efectivo;
+    qint64 cambio;
 
 public:
     Venta();
-    Venta(int numero, vector<DetalleVenta> detalles, int efectivo);
+    Venta(int numero, string fecha, vector<DetalleVenta> detalles, qint64 efectivo);
 
-    int getNumero();
-    vector<DetalleVenta> getDetalles();
-    int getTotal();
-    int getEfectivo();
-    int getCambio();
-
-    // pendiente: fecha y cajero de la venta
-    // pendiente: guardar la venta en archivo (se coordina con Moises)
+    int getNumero() const;
+    string getFecha() const;
+    vector<DetalleVenta> getDetalles() const;
+    qint64 getTotal() const;
+    qint64 getEfectivo() const;
+    qint64 getCambio() const;
 };

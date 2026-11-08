@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VentanaVentas</class>
+ <widget class="QDialog" name="VentanaVentas">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1000</width>
+    <height>640</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>La Pulpe - Ventas y Cobros</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+QDialog {
+    background-color: #101315;
+}
+</string>
+  </property>
+  <widget class="QLabel" name="lblTitulo">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>5</y>
+     <width>300</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+QLabel {
+    color: #39E75F;
+    font-size: 30px;
+    font-weight: bold;
+    background: transparent;
+}
+</string>
+   </property>
+   <property name="text">
+    <string>La Pulpe</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblSubtitulo">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>45</y>
+     <width>500</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+QLabel {
+    color: #B8C4BD;
+    font-size: 14px;
+    background: transparent;
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Ventas y cobros</string>
+   </property>
+  </widget>
+  <widget class="QFrame" name="panelCarrito">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>80</y>
+     <width>600</width>
+     <height>480</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+QFrame#panelCarrito {
+    background-color: #101315;
+    border: 2px solid #2ECC71;
+    border-radius: 16px;
+}
+</string>
+   </property>
+   <widget class="QLabel" name="lblTituloCarrito">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>400</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QLabel {
+    color: #39E75F;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    background: transparent;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Carrito de compra</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cmbProducto">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>55</y>
+      <width>300</width>
+      <height>38</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QComboBox {
+    background-color: #1C2220;
+    color: #FFFFFF;
+    border: 2px solid #2ECC71;
+    border-radius: 10px;
+    padding: 6px;
+    font-size: 14px;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #1C2220;
+    color: #FFFFFF;
+    selection-background-color: #176B3A;
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spnCantidad">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>55</y>
+      <width>90</width>
+      <height>38</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QSpinBox {
+    background-color: #1C2220;
+    color: #FFFFFF;
+    border: 2px solid #2ECC71;
+    border-radius: 10px;
+    padding: 6px;
+    font-size: 14px;
+}
+</string>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>9999</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnAgregar">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>55</y>
+      <width>150</width>
+      <height>38</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QPushButton {
+    background-color: #176B3A;
+    color: #FFFFFF;
+    border: 2px solid #2ECC71;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #234B35;
+    border: 2px solid #4CFF88;
+}
+
+QPushButton:pressed {
+    background-color: #0F4A28;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Agregar</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tablaCarrito">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>110</y>
+      <width>560</width>
+      <height>300</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QTableWidget {
+    background-color: #171C19;
+    color: #FFFFFF;
+    border: 1px solid #2ECC71;
+    gridline-color: #234B35;
+    selection-background-color: #234B35;
+    font-size: 14px;
+}
+
+QHeaderView::section {
+    background-color: #176B3A;
+    color: #FFFFFF;
+    font-weight: bold;
+    border: none;
+    padding: 8px;
+}
+</string>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="selectionBehavior">
+     <enum>QAbstractItemView::SelectRows</enum>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::SingleSelection</enum>
+    </property>
+    <column>
+     <property name="text">
+      <string>Producto</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Cantidad</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Precio</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Subtotal</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QPushButton" name="btnQuitar">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>425</y>
+      <width>220</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QPushButton {
+    background-color: #702D38;
+    color: #FFFFFF;
+    border: 1px solid #B85C6A;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #923D4B;
+    border: 1px solid #E07A89;
+}
+
+QPushButton:pressed {
+    background-color: #54212A;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Quitar seleccionado</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QFrame" name="panelCobro">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>80</y>
+     <width>360</width>
+     <height>480</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+QFrame#panelCobro {
+    background-color: #101315;
+    border: 2px solid #2ECC71;
+    border-radius: 16px;
+}
+</string>
+   </property>
+   <widget class="QLabel" name="lblTituloCobro">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>300</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QLabel {
+    color: #39E75F;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    background: transparent;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Cobro</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblTotal">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>60</y>
+      <width>320</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QLabel {
+    color: #39E75F;
+    font-size: 30px;
+    font-weight: bold;
+    border: none;
+    background: transparent;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Total: ₡0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblEfectivo">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>140</y>
+      <width>300</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QLabel {
+    color: #B8C4BD;
+    font-size: 14px;
+    border: none;
+    background: transparent;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Efectivo recibido</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="txtEfectivo">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>168</y>
+      <width>320</width>
+      <height>42</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QLineEdit {
+    background-color: #1C2220;
+    color: #FFFFFF;
+    border: 2px solid #2ECC71;
+    border-radius: 10px;
+    padding: 6px;
+    font-size: 16px;
+}
+</string>
+    </property>
+    <property name="placeholderText">
+     <string>Ej: 5000</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnCobrar">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>240</y>
+      <width>320</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QPushButton {
+    background-color: #1C2220;
+    color: #FFFFFF;
+    border: 2px solid #2ECC71;
+    border-radius: 16px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #234B35;
+    border: 2px solid #4CFF88;
+}
+
+QPushButton:pressed {
+    background-color: #176B3A;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Cobrar</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QLabel" name="lblMensaje">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>580</y>
+     <width>820</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+QLabel {
+    color: #FFFFFF;
+    font-size: 14px;
+    background: transparent;
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnRegresar">
+   <property name="geometry">
+    <rect>
+     <x>850</x>
+     <y>575</y>
+     <width>140</width>
+     <height>45</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+QPushButton {
+    background-color: #702D38;
+    color: #FFFFFF;
+    border: 1px solid #B85C6A;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #923D4B;
+    border: 1px solid #E07A89;
+}
+
+QPushButton:pressed {
+    background-color: #54212A;
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Regresar</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

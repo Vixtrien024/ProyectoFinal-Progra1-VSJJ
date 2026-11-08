@@ -1,40 +1,40 @@
 #include "DetalleVenta.h"
 
 DetalleVenta::DetalleVenta() {
-    idProducto = 0;
-    nombre = "";
-    precio = 0;
+    codigoProducto = 0;
+    nombreProducto = "";
     cantidad = 0;
+    precioUnitario = 0;
 }
 
-DetalleVenta::DetalleVenta(int idProducto, string nombre, int precio, int cantidad) {
-    this->idProducto = idProducto;
-    this->nombre = nombre;
-    this->precio = precio;
+DetalleVenta::DetalleVenta(int codigoProducto, string nombreProducto, int cantidad, qint64 precioUnitario) {
+    this->codigoProducto = codigoProducto;
+    this->nombreProducto = nombreProducto;
     this->cantidad = cantidad;
+    this->precioUnitario = precioUnitario;
 }
 
-int DetalleVenta::getIdProducto() {
-    return idProducto;
+int DetalleVenta::getCodigoProducto() const {
+    return codigoProducto;
 }
 
-string DetalleVenta::getNombre() {
-    return nombre;
+string DetalleVenta::getNombreProducto() const {
+    return nombreProducto;
 }
 
-int DetalleVenta::getPrecio() {
-    return precio;
-}
-
-int DetalleVenta::getCantidad() {
+int DetalleVenta::getCantidad() const {
     return cantidad;
+}
+
+qint64 DetalleVenta::getPrecioUnitario() const {
+    return precioUnitario;
 }
 
 void DetalleVenta::setCantidad(int nuevaCantidad) {
     cantidad = nuevaCantidad;
 }
 
-// Subtotal = precio por la cantidad
-int DetalleVenta::calcularSubtotal() {
-    return precio * cantidad;
+// Subtotal = precio unitario por la cantidad
+qint64 DetalleVenta::subtotal() const {
+    return precioUnitario * cantidad;
 }

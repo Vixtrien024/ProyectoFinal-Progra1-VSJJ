@@ -1,25 +1,27 @@
 #pragma once
 #include <string>
+#include <QtGlobal>
 using namespace std;
 
 // Una linea de la venta: un producto y cuantas unidades se compran.
+// Guarda el nombre y el precio del momento de la compra.
 class DetalleVenta {
 private:
-    int idProducto;
-    string nombre;
-    int precio;
+    int codigoProducto;
+    string nombreProducto;
     int cantidad;
+    qint64 precioUnitario;
 
 public:
     DetalleVenta();
-    DetalleVenta(int idProducto, string nombre, int precio, int cantidad);
+    DetalleVenta(int codigoProducto, string nombreProducto, int cantidad, qint64 precioUnitario);
 
-    int getIdProducto();
-    string getNombre();
-    int getPrecio();
-    int getCantidad();
+    int getCodigoProducto() const;
+    string getNombreProducto() const;
+    int getCantidad() const;
+    qint64 getPrecioUnitario() const;
 
     void setCantidad(int nuevaCantidad);
 
-    int calcularSubtotal();
+    qint64 subtotal() const;
 };
