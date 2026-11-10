@@ -52,7 +52,7 @@
     <ClCompile Include="ArchivoProductos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VentanaProductos.cpp">
+    <ClCompile Include="GestionProductos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -69,8 +69,15 @@
     <ClInclude Include="ArchivoProductos.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VentanaProductos.h">
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="GestionProductos.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="GestionProductos.ui">
+      <Filter>Resource Files</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>

@@ -102,7 +102,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="VentanaProductos.cpp" />
+    <ClCompile Include="GestionProductos.cpp" />
     <QtRcc Include="ProyectoFinalProgra1VSJJ.qrc" />
     <QtUic Include="ProyectoFinalProgra1VSJJ.ui" />
     <QtMoc Include="ProyectoFinalProgra1VSJJ.h" />
@@ -118,7 +118,10 @@
     <ClInclude Include="GestorProductos.h" />
     <ClInclude Include="Inventario.h" />
     <ClInclude Include="Producto.h" />
-    <ClInclude Include="VentanaProductos.h" />
+    <QtMoc Include="GestionProductos.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="GestionProductos.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

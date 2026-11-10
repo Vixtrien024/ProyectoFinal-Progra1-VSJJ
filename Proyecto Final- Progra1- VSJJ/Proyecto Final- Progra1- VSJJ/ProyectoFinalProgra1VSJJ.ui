@@ -9,21 +9,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>400</height>
+    <width>1280</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>ProyectoFinalProgra1VSJJ</string>
-  </property>  <widget class="QMenuBar" name="menuBar" />
-  <widget class="QToolBar" name="mainToolBar" />
-  <widget class="QWidget" name="centralWidget" />
-  <widget class="QStatusBar" name="statusBar" />
+   <string>La Pulpe - Productos e Inventario</string>
+  </property>
  </widget>
  <layoutDefault spacing="6" margin="11" />
  <pixmapfunction></pixmapfunction>
  <resources>
-   <include location="ProyectoFinalProgra1VSJJ.qrc"/>
+  <include location="ProyectoFinalProgra1VSJJ.qrc"/>
  </resources>
  <connections/>
 </UI>
