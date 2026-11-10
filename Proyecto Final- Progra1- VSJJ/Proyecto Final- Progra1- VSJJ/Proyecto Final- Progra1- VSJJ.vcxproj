@@ -104,6 +104,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GestionProductos.cpp" />
+    <ClCompile Include="GeneradorTicket.cpp" />
+    <ClCompile Include="HistorialVentas.cpp" />
+    <ClCompile Include="TicketHTML.cpp" />
+    <ClCompile Include="TicketTXT.cpp" />
+    <ClCompile Include="ArchivoVentas.cpp" />
     <ClCompile Include="ArchivoUsuarios.cpp" />
     <ClCompile Include="Autenticacion.cpp" />
     <ClCompile Include="GestionUsuarios.cpp" />
@@ -111,20 +117,33 @@
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="Seguridad.cpp" />
     <ClCompile Include="Usuario.cpp" />
-    <ClCompile Include="VentanaProductos.cpp" />
+    <ClCompile Include="VentanaHistorial.cpp" />
     <QtRcc Include="ProyectoFinalProgra1VSJJ.qrc" />
     <QtUic Include="GestionUsuarios.ui" />
     <QtUic Include="Login.ui" />
     <QtUic Include="ProyectoFinalProgra1VSJJ.ui" />
+    <QtUic Include="VentanaVentas.ui" />
     <QtMoc Include="ProyectoFinalProgra1VSJJ.h" />
     <ClCompile Include="ArchivoProductos.cpp" />
     <ClCompile Include="GestorProducto.cpp" />
     <ClCompile Include="Inventario.cpp" />
     <ClCompile Include="Producto.cpp" />
+    <ClCompile Include="DetalleVenta.cpp" />
+    <ClCompile Include="Venta.cpp" />
+    <ClCompile Include="Carrito.cpp" />
+    <ClCompile Include="GestorVentas.cpp" />
+    <ClCompile Include="ResultadoVenta.cpp" />
+    <ClCompile Include="VentanaVentas.cpp" />
     <ClCompile Include="ProyectoFinalProgra1VSJJ.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="VentanaHistorial.ui" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArchivoVentas.h" />
+    <ClInclude Include="GeneradorTicket.h" />
+    <ClInclude Include="HistorialVentas.h" />
+    <ClInclude Include="TicketHTML.h" />
+    <ClInclude Include="TicketTXT.h" />
     <ClInclude Include="third_party\nlohmann\json.hpp" />
     <ClInclude Include="ArchivoUsuarios.h" />
     <ClInclude Include="Autenticacion.h" />
@@ -137,7 +156,17 @@
     <ClInclude Include="GestorProductos.h" />
     <ClInclude Include="Inventario.h" />
     <ClInclude Include="Producto.h" />
-    <ClInclude Include="VentanaProductos.h" />
+    <QtMoc Include="VentanaHistorial.h" />
+    <ClInclude Include="DetalleVenta.h" />
+    <ClInclude Include="Venta.h" />
+    <ClInclude Include="Carrito.h" />
+    <ClInclude Include="GestorVentas.h" />
+    <ClInclude Include="ResultadoVenta.h" />
+    <QtMoc Include="VentanaVentas.h" />
+    <QtMoc Include="GestionProductos.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="GestionProductos.ui" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Form Files" />

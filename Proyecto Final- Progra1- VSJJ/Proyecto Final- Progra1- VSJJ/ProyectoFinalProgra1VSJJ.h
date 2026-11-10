@@ -10,6 +10,9 @@
 
 using namespace std;
 
+// Ventana principal de La Pulpe.
+// Crea el archivo, el gestor y el inventario, y dentro de ella se muestra
+// la pantalla que se dibujo en GestionProductos.ui.
 class ProyectoFinalProgra1VSJJ : public QMainWindow
 {
     Q_OBJECT

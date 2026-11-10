@@ -38,18 +38,37 @@
     <QtUic Include="ProyectoFinalProgra1VSJJ.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="VentanaVentas.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
     <QtMoc Include="ProyectoFinalProgra1VSJJ.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <ClCompile Include="ProyectoFinalProgra1VSJJ.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Producto.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DetalleVenta.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Venta.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Carrito.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GestorVentas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultadoVenta.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VentanaVentas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GestorProducto.cpp">
@@ -82,7 +101,22 @@
     <ClCompile Include="ArchivoProductos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VentanaProductos.cpp">
+    <ClCompile Include="GestionProductos.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ArchivoVentas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HistorialVentas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneradorTicket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TicketTXT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TicketHTML.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -90,6 +124,24 @@
     <ClInclude Include="Producto.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DetalleVenta.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Venta.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Carrito.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GestorVentas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultadoVenta.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="VentanaVentas.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
     <ClInclude Include="GestorProductos.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -99,9 +151,11 @@
     <ClInclude Include="ArchivoProductos.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VentanaProductos.h">
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="GestionProductos.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
+    </QtMoc>
     <ClInclude Include="Usuario.h">
       <Filter>Header Files\Usuarios, Login  y Permisos.h</Filter>
     </ClInclude>
@@ -120,12 +174,35 @@
     <ClInclude Include="third_party\nlohmann\json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ArchivoVentas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HistorialVentas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneradorTicket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TicketTXT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TicketHTML.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="GestionProductos.ui">
+      <Filter>Resource Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="GestionUsuarios.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="Login.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VentanaHistorial.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
