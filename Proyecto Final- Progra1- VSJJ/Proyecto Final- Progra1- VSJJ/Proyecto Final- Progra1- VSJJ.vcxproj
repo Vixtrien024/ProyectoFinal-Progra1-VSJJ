@@ -116,6 +116,7 @@
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="Seguridad.cpp" />
     <ClCompile Include="Usuario.cpp" />
+    <ClCompile Include="VentanaHistorial.cpp" />
     <ClCompile Include="VentanaProductos.cpp" />
     <QtRcc Include="ProyectoFinalProgra1VSJJ.qrc" />
     <QtUic Include="GestionUsuarios.ui" />
@@ -128,6 +129,7 @@
     <ClCompile Include="Producto.cpp" />
     <ClCompile Include="ProyectoFinalProgra1VSJJ.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="VentanaHistorial.ui" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArchivoVentas.h" />
@@ -147,6 +149,7 @@
     <ClInclude Include="GestorProductos.h" />
     <ClInclude Include="Inventario.h" />
     <ClInclude Include="Producto.h" />
+    <QtMoc Include="VentanaHistorial.h" />
     <ClInclude Include="VentanaProductos.h" />
   </ItemGroup>
   <ItemGroup>
