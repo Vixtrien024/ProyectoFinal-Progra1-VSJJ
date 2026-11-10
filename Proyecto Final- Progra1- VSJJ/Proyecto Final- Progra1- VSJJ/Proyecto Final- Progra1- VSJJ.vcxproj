@@ -36,7 +36,7 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>6.12.0_msvc2022_arm64</QtInstall>
+    <QtInstall>6.12.0_msvc2022_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
@@ -104,6 +104,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GestionProductos.cpp" />
     <ClCompile Include="GeneradorTicket.cpp" />
     <ClCompile Include="HistorialVentas.cpp" />
     <ClCompile Include="TicketHTML.cpp" />
@@ -116,7 +117,6 @@
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="Seguridad.cpp" />
     <ClCompile Include="Usuario.cpp" />
-    <ClCompile Include="VentanaProductos.cpp" />
     <QtRcc Include="ProyectoFinalProgra1VSJJ.qrc" />
     <QtUic Include="GestionUsuarios.ui" />
     <QtUic Include="Login.ui" />
@@ -160,7 +160,10 @@
     <ClInclude Include="GestorVentas.h" />
     <ClInclude Include="ResultadoVenta.h" />
     <QtMoc Include="VentanaVentas.h" />
-    <ClInclude Include="VentanaProductos.h" />
+    <QtMoc Include="GestionProductos.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="GestionProductos.ui" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Form Files" />

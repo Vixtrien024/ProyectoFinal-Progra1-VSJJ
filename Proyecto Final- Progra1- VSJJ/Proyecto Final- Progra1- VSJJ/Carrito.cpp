@@ -11,14 +11,14 @@ bool Carrito::agregar(Producto producto, int cantidad) {
 
     // Si el producto ya esta en el carrito, solo se suma la cantidad
     for (int i = 0; i < (int)articulos.size(); i++) {
-        if (articulos[i].getCodigoProducto() == producto.getId()) {
+        if (articulos[i].getCodigoProducto() == producto.getCodigo()) {
             articulos[i].setCantidad(articulos[i].getCantidad() + cantidad);
             return true;
         }
     }
 
     // Si no estaba, se agrega una linea nueva
-    DetalleVenta nuevo(producto.getId(), producto.getNombre(), cantidad, producto.getPrecio());
+    DetalleVenta nuevo(producto.getCodigo(), producto.getNombre(), cantidad, producto.getPrecio());
     articulos.push_back(nuevo);
     return true;
 }

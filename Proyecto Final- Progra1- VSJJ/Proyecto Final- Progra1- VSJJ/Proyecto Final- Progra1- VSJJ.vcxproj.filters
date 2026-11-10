@@ -101,7 +101,7 @@
     <ClCompile Include="ArchivoProductos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VentanaProductos.cpp">
+    <ClCompile Include="GestionProductos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ArchivoVentas.cpp">
@@ -151,9 +151,11 @@
     <ClInclude Include="ArchivoProductos.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VentanaProductos.h">
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="GestionProductos.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
+    </QtMoc>
     <ClInclude Include="Usuario.h">
       <Filter>Header Files\Usuarios, Login  y Permisos.h</Filter>
     </ClInclude>
@@ -188,6 +190,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="GestionProductos.ui">
+      <Filter>Resource Files</Filter>
+    </QtUic>
   <ItemGroup>
     <QtUic Include="GestionUsuarios.ui">
       <Filter>Form Files</Filter>
