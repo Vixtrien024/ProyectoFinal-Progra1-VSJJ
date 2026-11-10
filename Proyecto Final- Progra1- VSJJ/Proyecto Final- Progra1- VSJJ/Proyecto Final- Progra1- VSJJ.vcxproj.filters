@@ -155,11 +155,15 @@
     <QtUic Include="GestionProductos.ui">
       <Filter>Resource Files</Filter>
     </QtUic>
+  </ItemGroup>
   <ItemGroup>
     <QtUic Include="GestionUsuarios.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="Login.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VentanaHistorial.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -173,5 +177,13 @@
     <QtMoc Include="Login.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="VentanaHistorial.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="VentanaHistorial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
