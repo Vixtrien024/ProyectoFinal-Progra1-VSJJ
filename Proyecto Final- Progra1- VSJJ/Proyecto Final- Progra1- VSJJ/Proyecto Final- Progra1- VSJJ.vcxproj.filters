@@ -21,6 +21,15 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
+    <Filter Include="Source Files\Usuarios, Login y Permisos.cpp">
+      <UniqueIdentifier>{b70d7c21-0d77-4fe3-8825-2767c11e73c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Usuarios, Login  y Permisos.h">
+      <UniqueIdentifier>{f3368675-fa1b-4025-894d-417e24df6fa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Form Files\Usuarios, Login y Permisos.ui">
+      <UniqueIdentifier>{9ca10b02-4105-43fa-8252-95b1222e3651}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="ProyectoFinalProgra1VSJJ.qrc">
