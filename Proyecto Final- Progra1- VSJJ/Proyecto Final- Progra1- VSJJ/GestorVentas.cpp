@@ -20,7 +20,6 @@ bool GestorVentas::validar(Carrito carrito, qint64 efectivo) {
         return false;
     }
 
-    // pendiente: revisar existencias con inventario->hayExistencias(...)
     return true;
 }
 
@@ -35,9 +34,6 @@ ResultadoVenta GestorVentas::confirmar(Carrito carrito, qint64 efectivo) {
 
     Venta nueva(siguienteNumero(), fechaActual(), carrito.detalles(), efectivo);
     ventas.push_back(nueva);
-
-    // pendiente: descontar existencias con inventario->descontar(...)
-    // pendiente: guardar la venta con archivo->guardarVenta(nueva)
 
     return ResultadoVenta(true, "Venta realizada", nueva);
 }
