@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+	<class>VentanaHistorial</class>
+	<widget class="QWidget" name="VentanaHistorial">
+		<property name="geometry">
+			<rect>
+				<x>0</x>
+				<y>0</y>
+				<width>1100</width>
+				<height>700</height>
+			</rect>
+		</property>
+		<property name="windowTitle">
+			<string>La Pulpe - Historial y Tickets</string>
+		</property>
+		<property name="styleSheet">
+			<string notr="true">
+				QWidget#VentanaHistorial {
+				background-color: #0B1110;
+				color: white;
+				}
+
+				QLabel {
+				color: white;
+				font-size: 14px;
+				}
+
+				QPushButton {
+				background-color: #064E32;
+				color: white;
+				border: 2px solid #20D875;
+				border-radius: 8px;
+				padding: 8px;
+				font-weight: bold;
+				}
+
+				QPushButton:hover {
+				background-color: #087A49;
+				}
+
+				QPushButton:pressed {
+				background-color: #043D28;
+				}
+
+				QLineEdit {
+				background-color: #202725;
+				color: white;
+				border: 1px solid #555555;
+				border-radius: 7px;
+				padding: 8px;
+				}
+
+				QTableWidget {
+				background-color: #101817;
+				color: white;
+				gridline-color: #263A32;
+				border: 1px solid #20D875;
+				selection-background-color: #087A49;
+				selection-color: white;
+				}
+
+				QHeaderView::section {
+				background-color: #08653B;
+				color: white;
+				padding: 8px;
+				font-weight: bold;
+				border: 1px solid #064E32;
+				}
+			</string>
+		</property>
+
+		<widget class="QLabel" name="lblTitulo">
+			<property name="geometry">
+				<rect>
+					<x>35</x>
+					<y>35</y>
+					<width>430</width>
+					<height>45</height>
+				</rect>
+			</property>
+			<property name="styleSheet">
+				<string notr="true">
+					color: #20D875;
+					font-size: 26px;
+					font-weight: bold;
+				</string>
+			</property>
+			<property name="text">
+				<string>Historial de Ventas</string>
+			</property>
+		</widget>
+
+		<widget class="QLineEdit" name="txtBuscarVenta">
+			<property name="geometry">
+				<rect>
+					<x>35</x>
+					<y>110</y>
+					<width>360</width>
+					<height>42</height>
+				</rect>
+			</property>
+			<property name="placeholderText">
+				<string>Buscar por número de venta...</string>
+			</property>
+		</widget>
+
+		<widget class="QPushButton" name="btnActualizar">
+			<property name="geometry">
+				<rect>
+					<x>410</x>
+					<y>110</y>
+					<width>140</width>
+					<height>42</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Actualizar</string>
+			</property>
+		</widget>
+
+		<widget class="QLabel" name="lblDetalleVenta">
+			<property name="geometry">
+				<rect>
+					<x>610</x>
+					<y>115</y>
+					<width>300</width>
+					<height>35</height>
+				</rect>
+			</property>
+			<property name="styleSheet">
+				<string notr="true">
+					color: #20D875;
+					font-size: 20px;
+					font-weight: bold;
+				</string>
+			</property>
+			<property name="text">
+				<string>Detalle de Venta</string>
+			</property>
+		</widget>
+
+		<widget class="QTableWidget" name="tablaVentas">
+			<property name="geometry">
+				<rect>
+					<x>35</x>
+					<y>180</y>
+					<width>515</width>
+					<height>360</height>
+				</rect>
+			</property>
+			<property name="editTriggers">
+				<set>QAbstractItemView::NoEditTriggers</set>
+			</property>
+			<property name="selectionBehavior">
+				<enum>QAbstractItemView::SelectRows</enum>
+			</property>
+			<property name="selectionMode">
+				<enum>QAbstractItemView::SingleSelection</enum>
+			</property>
+			<column>
+				<property name="text">
+					<string>N.º Venta</string>
+				</property>
+			</column>
+			<column>
+				<property name="text">
+					<string>Productos</string>
+				</property>
+			</column>
+			<column>
+				<property name="text">
+					<string>Fecha</string>
+				</property>
+			</column>
+			<column>
+				<property name="text">
+					<string>Total</string>
+				</property>
+			</column>
+		</widget>
+
+		<widget class="QTableWidget" name="tablaDetalles">
+			<property name="geometry">
+				<rect>
+					<x>585</x>
+					<y>180</y>
+					<width>480</width>
+					<height>360</height>
+				</rect>
+			</property>
+			<property name="editTriggers">
+				<set>QAbstractItemView::NoEditTriggers</set>
+			</property>
+			<column>
+				<property name="text">
+					<string>Producto</string>
+				</property>
+			</column>
+			<column>
+				<property name="text">
+					<string>Cantidad</string>
+				</property>
+			</column>
+			<column>
+				<property name="text">
+					<string>Precio</string>
+				</property>
+			</column>
+			<column>
+				<property name="text">
+					<string>Subtotal</string>
+				</property>
+			</column>
+		</widget>
+
+		<widget class="QLabel" name="lblTotalVenta">
+			<property name="geometry">
+				<rect>
+					<x>585</x>
+					<y>560</y>
+					<width>420</width>
+					<height>35</height>
+				</rect>
+			</property>
+			<property name="styleSheet">
+				<string notr="true">
+					color: #20D875;
+					font-size: 20px;
+					font-weight: bold;
+				</string>
+			</property>
+			<property name="text">
+				<string>Total de la venta: ₡0</string>
+			</property>
+		</widget>
+
+		<widget class="QPushButton" name="btnTicketTXT">
+			<property name="geometry">
+				<rect>
+					<x>585</x>
+					<y>615</y>
+					<width>205</width>
+					<height>45</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Generar Ticket TXT</string>
+			</property>
+		</widget>
+
+		<widget class="QPushButton" name="btnTicketHTML">
+			<property name="geometry">
+				<rect>
+					<x>805</x>
+					<y>615</y>
+					<width>205</width>
+					<height>45</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Generar Ticket HTML</string>
+			</property>
+		</widget>
+
+		<widget class="QPushButton" name="btnCerrar">
+			<property name="geometry">
+				<rect>
+					<x>35</x>
+					<y>615</y>
+					<width>150</width>
+					<height>45</height>
+				</rect>
+			</property>
+			<property name="styleSheet">
+				<string notr="true">
+					QPushButton {
+					background-color: #8B2635;
+					color: white;
+					border: 2px solid #B83B4B;
+					border-radius: 8px;
+					padding: 8px;
+					font-weight: bold;
+					}
+
+					QPushButton:hover {
+					background-color: #B83B4B;
+					}
+
+					QPushButton:pressed {
+					background-color: #651925;
+					}
+				</string>
+			</property>
+			<property name="text">
+				<string>Cerrar</string>
+			</property>
+		</widget>
+
+	</widget>
+	<resources/>
+	<connections/>
+</ui>
