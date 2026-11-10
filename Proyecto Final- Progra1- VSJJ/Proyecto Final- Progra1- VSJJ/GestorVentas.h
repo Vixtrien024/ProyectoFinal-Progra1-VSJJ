@@ -12,9 +12,6 @@ class GestorVentas {
 private:
     vector<Venta> ventas;
 
-    // pendiente: Inventario* inventario;   (modulo de Julian)
-    // pendiente: ArchivoVentas* archivo;   (modulo de Moises)
-
 public:
     // true si el carrito tiene productos y el efectivo alcanza
     bool validar(Carrito carrito, qint64 efectivo);

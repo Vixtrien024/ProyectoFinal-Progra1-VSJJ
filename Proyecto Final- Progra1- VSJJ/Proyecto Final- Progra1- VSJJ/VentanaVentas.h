@@ -30,6 +30,5 @@ public:
     VentanaVentas(GestorVentas* gestor, QWidget* parent = nullptr);
 
     // Llena la lista de productos que se pueden vender.
-    // pendiente: se llama con el catalogo de Julian (GestorProductos).
     void setProductos(vector<Producto> productos);
 };
