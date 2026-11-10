@@ -104,6 +104,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GestionProductos.cpp" />
     <ClCompile Include="GeneradorTicket.cpp" />
     <ClCompile Include="HistorialVentas.cpp" />
     <ClCompile Include="TicketHTML.cpp" />
@@ -117,7 +118,6 @@
     <ClCompile Include="Seguridad.cpp" />
     <ClCompile Include="Usuario.cpp" />
     <ClCompile Include="VentanaHistorial.cpp" />
-    <ClCompile Include="VentanaProductos.cpp" />
     <QtRcc Include="ProyectoFinalProgra1VSJJ.qrc" />
     <QtUic Include="GestionUsuarios.ui" />
     <QtUic Include="Login.ui" />
@@ -150,7 +150,10 @@
     <ClInclude Include="Inventario.h" />
     <ClInclude Include="Producto.h" />
     <QtMoc Include="VentanaHistorial.h" />
-    <ClInclude Include="VentanaProductos.h" />
+    <QtMoc Include="GestionProductos.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="GestionProductos.ui" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Form Files" />
