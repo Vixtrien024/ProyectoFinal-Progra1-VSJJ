@@ -38,6 +38,9 @@
     <QtUic Include="ProyectoFinalProgra1VSJJ.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="VentanaVentas.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
     <QtMoc Include="ProyectoFinalProgra1VSJJ.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -48,6 +51,24 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Producto.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DetalleVenta.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Venta.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Carrito.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GestorVentas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultadoVenta.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VentanaVentas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GestorProducto.cpp">
@@ -103,6 +124,24 @@
     <ClInclude Include="Producto.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DetalleVenta.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Venta.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Carrito.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GestorVentas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultadoVenta.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="VentanaVentas.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
     <ClInclude Include="GestorProductos.h">
       <Filter>Header Files</Filter>
     </ClInclude>
