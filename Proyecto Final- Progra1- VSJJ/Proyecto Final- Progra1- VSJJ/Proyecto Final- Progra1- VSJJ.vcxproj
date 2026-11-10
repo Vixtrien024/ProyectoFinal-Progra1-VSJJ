@@ -65,12 +65,12 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PreprocessorDefinitions> QT_NO_DEPRECATED_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>QT_NO_DEPRECATED_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PreprocessorDefinitions> QT_NO_DEPRECATED_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>QT_NO_DEPRECATED_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -79,6 +79,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)third_party;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -93,6 +94,7 @@
       <ConformanceMode>true</ConformanceMode>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(ProjectDir)third_party;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -103,7 +105,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GestionProductos.cpp" />
+    <ClCompile Include="GeneradorTicket.cpp" />
+    <ClCompile Include="HistorialVentas.cpp" />
+    <ClCompile Include="TicketHTML.cpp" />
+    <ClCompile Include="TicketTXT.cpp" />
+    <ClCompile Include="ArchivoVentas.cpp" />
+    <ClCompile Include="ArchivoUsuarios.cpp" />
+    <ClCompile Include="Autenticacion.cpp" />
+    <ClCompile Include="GestionUsuarios.cpp" />
+    <ClCompile Include="GestorUsuarios.cpp" />
+    <ClCompile Include="Login.cpp" />
+    <ClCompile Include="Seguridad.cpp" />
+    <ClCompile Include="Usuario.cpp" />
     <QtRcc Include="ProyectoFinalProgra1VSJJ.qrc" />
+    <QtUic Include="GestionUsuarios.ui" />
+    <QtUic Include="Login.ui" />
     <QtUic Include="ProyectoFinalProgra1VSJJ.ui" />
     <QtMoc Include="ProyectoFinalProgra1VSJJ.h" />
     <ClCompile Include="ArchivoProductos.cpp" />
@@ -114,6 +130,19 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArchivoVentas.h" />
+    <ClInclude Include="GeneradorTicket.h" />
+    <ClInclude Include="HistorialVentas.h" />
+    <ClInclude Include="TicketHTML.h" />
+    <ClInclude Include="TicketTXT.h" />
+    <ClInclude Include="third_party\nlohmann\json.hpp" />
+    <ClInclude Include="ArchivoUsuarios.h" />
+    <ClInclude Include="Autenticacion.h" />
+    <QtMoc Include="GestionUsuarios.h" />
+    <ClInclude Include="GestorUsuarios.h" />
+    <QtMoc Include="Login.h" />
+    <ClInclude Include="Seguridad.h" />
+    <ClInclude Include="Usuario.h" />
     <ClInclude Include="ArchivoProductos.h" />
     <ClInclude Include="GestorProductos.h" />
     <ClInclude Include="Inventario.h" />
@@ -122,6 +151,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="GestionProductos.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Form Files" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

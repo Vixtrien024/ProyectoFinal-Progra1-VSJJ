@@ -1,13 +1,66 @@
-// Main del proyecto final.
-// La ventana principal crea el archivo, el gestor y la pantalla de productos.
-#include <QApplication>
 #include "ProyectoFinalProgra1VSJJ.h"
+#include "ArchivoUsuarios.h"
+#include "Autenticacion.h"
+#include "GestionUsuarios.h"
+#include "GestorUsuarios.h"
+#include "Login.h"
+#include "Seguridad.h"
+#include "Usuario.h"
 
-int main(int argc, char* argv[]) {
-    QApplication app(argc, argv);//Inicia Qt (siempre va primero)
+#include <QtWidgets/QApplication>
+#include <QCoreApplication>
+#include <QDir>
+#include <QString>
 
-    ProyectoFinalProgra1VSJJ ventanaPrincipal;//Crea el gestor y la pantalla de productos
-    ventanaPrincipal.show();//Muestra la ventana
+int main(int argc, char *argv[])
+{
+    QApplication app(argc, argv);
 
-    return app.exec();//Mantiene el programa abierto hasta que se cierre la ventana
-}//fin de main
+    // Archivo de usuarios junto al ejecutable
+    QString rutaUsuarios =
+        QDir(QCoreApplication::applicationDirPath())
+        .filePath("usuarios.json");
+
+    ArchivoUsuarios archivo(rutaUsuarios.toStdString());
+
+    GestorUsuarios gestor(&archivo);
+    gestor.cargarUsuarios();
+
+    // Crear administrador inicial si no hay usuarios
+    if (gestor.listarUsuarios().empty()) {
+
+        Usuario admin;
+
+        admin.setId(gestor.generarId());
+        admin.setNombre("Administrador");
+        admin.setNombreUsuario("admin");
+        admin.setClaveHash(
+            Seguridad::crearHashClave("admin"));
+        admin.setRol(Rol::Administrador);
+        admin.setActivo(true);
+
+        gestor.agregarUsuario(admin);
+    }
+
+    // Autenticacion y ventana de inicio de sesion
+    Autenticacion autenticacion(&gestor);
+
+    Login login(&autenticacion);
+
+    if (login.exec() != QDialog::Accepted) {
+        return 0;
+    }
+
+    ProyectoFinalProgra1VSJJ window;
+    window.show();
+
+    // Abrir gestion de usuarios si tiene permiso
+    if (autenticacion.tienePermiso(
+        Permiso::GestionarUsuarios)) {
+
+        GestionUsuarios gestion(&gestor, &autenticacion);
+        gestion.exec();
+    }
+
+    return app.exec();
+}
