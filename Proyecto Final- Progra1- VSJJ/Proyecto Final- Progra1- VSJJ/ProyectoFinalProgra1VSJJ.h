@@ -7,9 +7,14 @@
 #include "ui_ProyectoFinalProgra1VSJJ.h"
 #include "Autenticacion.h"
 #include "GestorUsuarios.h"
+#include "ArchivoProductos.h"
+#include "GestorProductos.h"
+#include "Inventario.h"
 
 using namespace std;
 
+// Ventana principal de La Pulpe.
+// Muestra el menu de modulos y administra el acceso segun el rol.
 class ProyectoFinalProgra1VSJJ : public QMainWindow
 {
     Q_OBJECT
@@ -24,6 +29,11 @@ private:
 
     // Gestor de usuarios
     GestorUsuarios* gestorUsuarios;
+
+    // Modulo de productos e inventario
+    ArchivoProductos archivo;//El archivo de texto donde se guardan los productos
+    GestorProductos gestor;//La coleccion de productos (carga lo que haya en el archivo)
+    Inventario inventario;//El control de existencias (lo usara el modulo de ventas)
 
 public:
 

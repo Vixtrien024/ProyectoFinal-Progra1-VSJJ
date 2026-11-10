@@ -104,6 +104,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GestionProductos.cpp" />
+    <ClCompile Include="GeneradorTicket.cpp" />
+    <ClCompile Include="HistorialVentas.cpp" />
+    <ClCompile Include="TicketHTML.cpp" />
+    <ClCompile Include="TicketTXT.cpp" />
+    <ClCompile Include="ArchivoVentas.cpp" />
     <ClCompile Include="ArchivoUsuarios.cpp" />
     <ClCompile Include="Autenticacion.cpp" />
     <ClCompile Include="GestionUsuarios.cpp" />
@@ -111,7 +117,6 @@
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="Seguridad.cpp" />
     <ClCompile Include="Usuario.cpp" />
-    <ClCompile Include="VentanaProductos.cpp" />
     <QtRcc Include="ProyectoFinalProgra1VSJJ.qrc" />
     <QtUic Include="GestionUsuarios.ui" />
     <QtUic Include="Login.ui" />
@@ -125,6 +130,11 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArchivoVentas.h" />
+    <ClInclude Include="GeneradorTicket.h" />
+    <ClInclude Include="HistorialVentas.h" />
+    <ClInclude Include="TicketHTML.h" />
+    <ClInclude Include="TicketTXT.h" />
     <ClInclude Include="third_party\nlohmann\json.hpp" />
     <ClInclude Include="ArchivoUsuarios.h" />
     <ClInclude Include="Autenticacion.h" />
@@ -137,7 +147,10 @@
     <ClInclude Include="GestorProductos.h" />
     <ClInclude Include="Inventario.h" />
     <ClInclude Include="Producto.h" />
-    <ClInclude Include="VentanaProductos.h" />
+    <QtMoc Include="GestionProductos.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="GestionProductos.ui" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Form Files" />

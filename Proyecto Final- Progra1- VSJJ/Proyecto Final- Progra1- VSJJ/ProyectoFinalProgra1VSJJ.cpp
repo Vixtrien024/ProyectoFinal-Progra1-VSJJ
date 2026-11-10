@@ -1,6 +1,7 @@
 
 #include "ProyectoFinalProgra1VSJJ.h"
 #include "GestionUsuarios.h"
+#include "GestionProductos.h"
 
 #include <QMessageBox>
 #include <QPushButton>
@@ -13,7 +14,10 @@ ProyectoFinalProgra1VSJJ::ProyectoFinalProgra1VSJJ(
     Autenticacion* autenticacion,
     GestorUsuarios* gestorUsuarios,
     QWidget* parent
-) : QMainWindow(parent)
+) : QMainWindow(parent),
+    archivo("productos.txt"),
+    gestor(&archivo),
+    inventario(&gestor)
 {
     ui.setupUi(this);
 
@@ -161,13 +165,18 @@ void ProyectoFinalProgra1VSJJ::abrirProductos()
         return;
     }
 
-    // Pendiente de conectar con el modulo de Julian
-    QMessageBox::information(
-        this,
-        "Productos e Inventario",
-        "El modulo de productos se conectara "
-        "cuando este disponible la ventana correspondiente."
-    );
+    // Se abre la pantalla de productos como ventana independiente.
+    // Las reglas las aplica el gestor compartido de esta ventana.
+    GestionProductos* pantalla = new GestionProductos(&gestor);
+
+    pantalla->setAttribute(Qt::WA_DeleteOnClose);
+    pantalla->setMinimumSize(1280, 700);
+    pantalla->setWindowTitle("La Pulpe - Productos e Inventario");
+
+    connect(pantalla, &GestionProductos::regresar,
+        pantalla, &QWidget::close);
+
+    pantalla->show();
 }
 
 // Abrir ventas y cobros
