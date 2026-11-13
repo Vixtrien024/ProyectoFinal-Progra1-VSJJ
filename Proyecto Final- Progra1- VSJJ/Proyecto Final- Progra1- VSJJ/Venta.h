@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <QtGlobal>
+#include <QJsonObject>
 #include "DetalleVenta.h"
 using namespace std;
 
@@ -25,4 +26,10 @@ public:
     qint64 getTotal() const;
     qint64 getEfectivo() const;
     qint64 getCambio() const;
+
+    // Convierte la venta a JSON para guardarla en el archivo
+    QJsonObject aJson() const;
+
+    // Crea una venta a partir de un JSON leido del archivo
+    static Venta desdeJson(const QJsonObject& objeto);
 };
