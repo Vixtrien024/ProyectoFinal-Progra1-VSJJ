@@ -1,92 +1,182 @@
+
 #include "ArchivoProductos.h"
 
 #include <fstream>
 #include <sstream>
 
-// Constructor
+#include <QSaveFile>
+#include <QString>
+#include <QByteArray>
+
+// ================= CONSTRUCTOR =================
+
 ArchivoProductos::ArchivoProductos(const string& ruta)
     : ruta(ruta) {
-}//fin del constructor
+}
 
+// ================= CARGAR PRODUCTOS =================
 
-// Cargar los productos desde el archivo
 vector<Producto> ArchivoProductos::cargar() {
 
     vector<Producto> productos;
+
     ifstream entrada(ruta);
 
-    if (!entrada.is_open()) {//La primera vez el archivo todavia no existe
+    // Si el archivo no existe, devolver lista vacia
+    if (!entrada.is_open()) {
         return productos;
-    }//fin del if
+    }
 
     string linea;
+
     while (getline(entrada, linea)) {
 
-        if (linea.empty()) continue;
+        if (linea.empty()) {
+            continue;
+        }
 
-        // Separar la linea en campos usando ';'
         vector<string> campos;
         stringstream ss(linea);
         string campo;
+
+        // Separar los datos utilizando ;
         while (getline(ss, campo, ';')) {
             campos.push_back(campo);
-        }//fin del while interno
+        }
 
-        if (campos.size() != 6) continue;//Linea danada: se ignora
+        // Cada producto debe tener 6 campos
+        if (campos.size() != 6) {
+            continue;
+        }
 
         try {
+
             int codigo = stoi(campos[0]);
             qint64 precio = stoll(campos[2]);
             int existencias = stoi(campos[4]);
 
-            Producto producto(codigo, campos[1], precio, campos[3], existencias);
+            // Validar valores
+            if (codigo <= 0 ||
+                campos[1].empty() ||
+                precio <= 0 ||
+                existencias < 0) {
+                continue;
+            }
 
-            if (campos[5] != "1") {//1 = activo, 0 = desactivado
+            // Validar estado
+            if (campos[5] != "0" &&
+                campos[5] != "1") {
+                continue;
+            }
+
+            Producto producto(
+                codigo,
+                campos[1],
+                precio,
+                campos[3],
+                existencias
+            );
+
+            // Recuperar el estado del producto
+            if (campos[5] == "0") {
                 producto.desactivar();
-            }//fin del if
+            }
 
             productos.push_back(producto);
-        }//fin del try
+        }
         catch (...) {
-            continue;//Un numero invalido: se ignora esa linea
-        }//fin del catch
 
-    }//fin del while
+            // Ignorar registros con numeros invalidos
+            continue;
+        }
+    }
+
+    entrada.close();
 
     return productos;
-}//fin de cargar
+}
 
+// ================= GUARDAR PRODUCTOS =================
 
-// Guardar todos los productos en el archivo
-bool ArchivoProductos::guardar(const vector<Producto>& productos) {
+bool ArchivoProductos::guardar(
+    const vector<Producto>& productos) {
 
-    ofstream salida(ruta, ios::trunc);//trunc: borra lo anterior y escribe de nuevo
-
-    if (!salida.is_open()) {
-        return false;
-    }//fin del if
+    // Preparar todos los datos en memoria
+    ostringstream contenido;
 
     for (const Producto& p : productos) {
 
-        // Un ';' o un salto de linea dentro de un texto romperia el formato
         string nombre = p.getNombre();
         string categoria = p.getCategoria();
-        for (char& c : nombre) {
-            if (c == ';') c = ',';
-            if (c == '\n' || c == '\r') c = ' ';
-        }//fin del for nombre
-        for (char& c : categoria) {
-            if (c == ';') c = ',';
-            if (c == '\n' || c == '\r') c = ' ';
-        }//fin del for categoria
 
-        salida << p.getCodigo() << ';'
+        // Evitar caracteres que dañen el formato
+        for (char& c : nombre) {
+
+            if (c == ';') {
+                c = ',';
+            }
+
+            if (c == '\n' || c == '\r') {
+                c = ' ';
+            }
+        }
+
+        for (char& c : categoria) {
+
+            if (c == ';') {
+                c = ',';
+            }
+
+            if (c == '\n' || c == '\r') {
+                c = ' ';
+            }
+        }
+
+        // Escribir los seis campos
+        contenido
+            << p.getCodigo() << ';'
             << nombre << ';'
             << p.getPrecio() << ';'
             << categoria << ';'
             << p.getExistencias() << ';'
-            << (p.estaActivo() ? 1 : 0) << '\n';
-    }//fin del for
+            << (p.estaActivo() ? 1 : 0)
+            << '\n';
 
-    return salida.good();
-}//fin de guardar
+        if (!contenido.good()) {
+            return false;
+        }
+    }
+
+    // Abrir el archivo de forma segura
+    QSaveFile archivo(
+        QString::fromStdString(ruta)
+    );
+
+    if (!archivo.open(QIODevice::WriteOnly)) {
+        return false;
+    }
+
+    // Convertir el contenido a bytes
+    string texto = contenido.str();
+
+    QByteArray datos(
+        texto.data(),
+        static_cast<qsizetype>(texto.size())
+    );
+
+    // Escribir todos los datos
+    qint64 escritos = archivo.write(datos);
+
+    if (escritos != datos.size()) {
+
+        archivo.cancelWriting();
+        return false;
+    }
+
+    // Confirmar la escritura
+    if (!archivo.commit()) {
+        return false;
+    }
+
+    return true;
+}

@@ -2,6 +2,7 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include <QStackedWidget>
 #include <string>
 
 #include "ui_ProyectoFinalProgra1VSJJ.h"
@@ -10,6 +11,7 @@
 #include "ArchivoProductos.h"
 #include "GestorProductos.h"
 #include "Inventario.h"
+#include "GestionProductos.h"
 
 using namespace std;
 
@@ -34,6 +36,12 @@ private:
     ArchivoProductos archivo;//El archivo de texto donde se guardan los productos
     GestorProductos gestor;//La coleccion de productos (carga lo que haya en el archivo)
     Inventario inventario;//El control de existencias (lo usara el modulo de ventas)
+
+    // Contenedor que alterna entre el menu y las pantallas de los modulos
+    QStackedWidget* paginas;
+    QWidget* paginaMenu;//El menu dibujado en ProyectoFinalProgra1VSJJ.ui
+    QWidget* paginaProductos;//La pagina que contiene la pantalla de productos
+    GestionProductos* pantallaProductos;//El widget promovido desde GestionProductos.ui
 
 public:
 
@@ -63,6 +71,9 @@ private slots:
 
     // Cerrar sesion
     void cerrarSesion();
+
+    // Volver al menu principal desde una pantalla de modulo
+    void mostrarMenu();
 
 private:
 

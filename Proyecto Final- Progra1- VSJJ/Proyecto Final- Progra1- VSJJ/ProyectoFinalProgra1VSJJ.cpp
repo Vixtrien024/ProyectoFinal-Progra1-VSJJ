@@ -24,6 +24,24 @@ ProyectoFinalProgra1VSJJ::ProyectoFinalProgra1VSJJ(
     this->autenticacion = autenticacion;
     this->gestorUsuarios = gestorUsuarios;
 
+    // --- Integrar la pantalla de productos dentro de la ventana principal ---
+    // El centralWidget del .ui es un QStackedWidget: la primera pagina es el
+    // menu (pageMenu) y la segunda (pageProductos) contiene el widget promovido
+    // GestionProductos, que representa GestionProductos.ui.
+    paginas = ui.centralWidget;
+    paginaMenu = ui.pageMenu;
+    paginaProductos = ui.pageProductos;
+    pantallaProductos = ui.pantallaProductos;
+
+    // El widget promovido se creo sin gestor; se le asigna el de esta ventana
+    pantallaProductos->setGestor(&gestor);
+
+    paginas->setCurrentWidget(paginaMenu);
+
+    // El boton "Regresar" de la pantalla de productos vuelve al menu
+    connect(pantallaProductos, &GestionProductos::regresar,
+        this, &ProyectoFinalProgra1VSJJ::mostrarMenu);
+
     // Conectar botones de la ventana principal
     connect(ui.btnProductos, &QPushButton::clicked,
         this, &ProyectoFinalProgra1VSJJ::abrirProductos);
@@ -159,24 +177,48 @@ bool ProyectoFinalProgra1VSJJ::verificarAcceso(
 }
 
 // Abrir productos e inventario
+
 void ProyectoFinalProgra1VSJJ::abrirProductos()
 {
+    // Verificar permisos del usuario
     if (!verificarAcceso(Permiso::GestionarProductos)) {
         return;
     }
 
-    // Se abre la pantalla de productos como ventana independiente.
-    // Las reglas las aplica el gestor compartido de esta ventana.
-    GestionProductos* pantalla = new GestionProductos(&gestor);
+    // Comprobar que la interfaz esté disponible
+    if (paginas == nullptr ||
+        paginaProductos == nullptr ||
+        pantallaProductos == nullptr) {
 
-    pantalla->setAttribute(Qt::WA_DeleteOnClose);
-    pantalla->setMinimumSize(1280, 700);
-    pantalla->setWindowTitle("La Pulpe - Productos e Inventario");
+        QMessageBox::critical(
+            this,
+            "Error",
+            "No se pudo abrir la ventana de Productos e Inventario."
+        );
 
-    connect(pantalla, &GestionProductos::regresar,
-        pantalla, &QWidget::close);
+        return;
+    }
 
-    pantalla->show();
+    // Actualizar productos registrados
+    pantallaProductos->actualizarTabla();
+
+    // Mostrar la interfaz de Julian
+    paginas->setCurrentWidget(paginaProductos);
+
+    // Ajustar el tamaño de la ventana
+    setMinimumSize(1280, 700);
+    resize(1280, 700);
+}
+
+
+// Volver al menu principal desde una pantalla de modulo
+void ProyectoFinalProgra1VSJJ::mostrarMenu()
+{
+    paginas->setCurrentWidget(paginaMenu);
+
+    // El menu fue disenado a 900x600
+    setMinimumSize(0, 0);
+    resize(900, 600);
 }
 
 // Abrir ventas y cobros
