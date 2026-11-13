@@ -6,27 +6,93 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>780</width>
-    <height>540</height>
+    <width>820</width>
+    <height>580</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>La Pulpe - Gestion de usuarios</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+QDialog {
+    background-color: #101315;
+}
+
+QLabel {
+    color: #FFFFFF;
+    background: transparent;
+    font-size: 13px;
+}
+
+QLineEdit, QComboBox {
+    background-color: #242A27;
+    color: white;
+    border: 1px solid #4A5A50;
+    border-radius: 6px;
+    padding: 7px;
+}
+
+QLineEdit:focus, QComboBox:focus {
+    border: 2px solid #39E75F;
+}
+
+QTableWidget {
+    background-color: #1C2220;
+    alternate-background-color: #252C28;
+    color: white;
+    gridline-color: #39463E;
+    border: 1px solid #39E75F;
+    selection-background-color: #176B3A;
+    selection-color: white;
+}
+
+QHeaderView::section {
+    background-color: #176B3A;
+    color: white;
+    padding: 7px;
+    border: 1px solid #285D3B;
+    font-weight: bold;
+}
+
+QPushButton {
+    background-color: #176B3A;
+    color: white;
+    border: 1px solid #39E75F;
+    border-radius: 7px;
+    padding: 8px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #218B4B;
+}
+</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QLabel" name="lblTitulo">
      <property name="font">
       <font>
-       <pointsize>16</pointsize>
+       <pointsize>-1</pointsize>
        <bold>true</bold>
       </font>
      </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
+     <property name="styleSheet">
+      <string notr="true">
+QLabel {
+    color: #39E75F;
+    font-size: 22px;
+    font-weight: bold;
+    background: transparent;
+}
+</string>
      </property>
      <property name="text">
       <string>Gestion de usuarios</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
     </widget>
    </item>
@@ -40,7 +106,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="txtNombre" />
+      <widget class="QLineEdit" name="txtNombre"/>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="lblNombreUsuario">
@@ -50,7 +116,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="txtNombreUsuario" />
+      <widget class="QLineEdit" name="txtNombreUsuario"/>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="lblClave">
@@ -77,7 +143,7 @@
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QComboBox" name="cmbRol" />
+      <widget class="QComboBox" name="cmbRol"/>
      </item>
     </layout>
    </item>
@@ -98,6 +164,10 @@
        <property name="text">
         <string>Agregar</string>
        </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../../../../../../../../Downloads/plus.png</normaloff>../../../../../../../../Downloads/plus.png</iconset>
+       </property>
       </widget>
      </item>
      <item>
@@ -105,12 +175,42 @@
        <property name="text">
         <string>Modificar</string>
        </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../../../../../../../../Downloads/pencil.png</normaloff>../../../../../../../../Downloads/pencil.png</iconset>
+       </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btnDesactivar">
+       <property name="styleSheet">
+        <string notr="true">
+QPushButton {
+    background-color: #702D38;
+    color: #FFFFFF;
+    border: 1px solid #B85C6A;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #923D4B;
+    border: 1px solid #E07A89;
+}
+
+QPushButton:pressed {
+    background-color: #54212A;
+}
+</string>
+       </property>
        <property name="text">
         <string>Desactivar</string>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../../../../../../../../Downloads/arrow-down-wide-narrow.png</normaloff>../../../../../../../../Downloads/arrow-down-wide-narrow.png</iconset>
        </property>
       </widget>
      </item>
@@ -119,12 +219,42 @@
        <property name="text">
         <string>Limpiar</string>
        </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../../../../../../../../Downloads/brush-cleaning.png</normaloff>../../../../../../../../Downloads/brush-cleaning.png</iconset>
+       </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btnCerrar">
+       <property name="styleSheet">
+        <string notr="true">
+QPushButton {
+    background-color: #702D38;
+    color: #FFFFFF;
+    border: 1px solid #B85C6A;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #923D4B;
+    border: 1px solid #E07A89;
+}
+
+QPushButton:pressed {
+    background-color: #54212A;
+}
+</string>
+       </property>
        <property name="text">
         <string>Cerrar</string>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../../../../../../../../Downloads/log-out.png</normaloff>../../../../../../../../Downloads/log-out.png</iconset>
        </property>
       </widget>
      </item>
