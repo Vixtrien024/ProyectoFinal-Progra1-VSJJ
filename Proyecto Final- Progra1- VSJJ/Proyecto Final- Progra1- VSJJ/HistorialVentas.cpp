@@ -1,5 +1,9 @@
+
 #include "HistorialVentas.h"
 #include "GeneradorTicket.h"
+
+#include <QJsonArray>
+#include <QJsonObject>
 
 using namespace std;
 
@@ -12,23 +16,51 @@ HistorialVentas::HistorialVentas(ArchivoVentas* archivoVentas)
 // Devuelve todas las ventas registradas
 vector<Venta> HistorialVentas::listar()
 {
+    vector<Venta> ventas;
+
     if (archivo == nullptr)
     {
-        return {};
+        return ventas;
     }
 
-    return archivo->cargar();
+    bool correcto = false;
+
+    QJsonArray datos = archivo->cargarVentas(&correcto);
+
+    if (!correcto)
+    {
+        return ventas;
+    }
+
+    for (const QJsonValue& valor : datos)
+    {
+        if (valor.isObject())
+        {
+            QJsonObject objeto = valor.toObject();
+
+            Venta venta = Venta::desdeJson(objeto);
+
+            ventas.push_back(venta);
+        }
+    }
+
+    return ventas;
 }
 
-// Busca una venta por su número
+// Busca una venta por su numero
 optional<Venta> HistorialVentas::buscar(int numero)
 {
-    if (archivo == nullptr)
+    vector<Venta> ventas = listar();
+
+    for (const Venta& venta : ventas)
     {
-        return nullopt;
+        if (venta.getNumero() == numero)
+        {
+            return venta;
+        }
     }
 
-    return archivo->buscar(numero);
+    return nullopt;
 }
 
 // Busca una venta y genera su ticket
@@ -36,12 +68,7 @@ bool HistorialVentas::generarTicket(
     int numero,
     GeneradorTicket& generador)
 {
-    if (archivo == nullptr)
-    {
-        return false;
-    }
-
-    optional<Venta> venta = archivo->buscar(numero);
+    optional<Venta> venta = buscar(numero);
 
     if (!venta.has_value())
     {

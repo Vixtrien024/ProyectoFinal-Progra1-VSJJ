@@ -2,31 +2,57 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include <QStackedWidget>
 #include <string>
 
 #include "ui_ProyectoFinalProgra1VSJJ.h"
+
+// Modulo de usuarios
 #include "Autenticacion.h"
 #include "GestorUsuarios.h"
 
+// Modulo de productos e inventario
+#include "ArchivoProductos.h"
+#include "GestorProductos.h"
+#include "Inventario.h"
+#include "GestionProductos.h"
+
+// Modulo de ventas
+#include "GestorVentas.h"
+
 using namespace std;
 
-// Ventana principal de La Pulpe.
-// Crea el archivo, el gestor y el inventario, y dentro de ella se muestra
-// la pantalla que se dibujo en GestionProductos.ui.
+// Ventana principal del sistema La Pulpe
 class ProyectoFinalProgra1VSJJ : public QMainWindow
 {
     Q_OBJECT
 
 private:
 
-    // Interfaz grafica
+    // Interfaz grafica principal
     Ui::ProyectoFinalProgra1VSJJClass ui;
 
-    // Sistema de autenticacion
+    // Autenticacion y usuarios
     Autenticacion* autenticacion;
-
-    // Gestor de usuarios
     GestorUsuarios* gestorUsuarios;
+
+    // Productos e inventario
+    ArchivoProductos archivo;
+    GestorProductos gestor;
+    Inventario inventario;
+
+    // Ventas y cobros
+    // Se mantiene una sola instancia para compartir
+    // las ventas realizadas entre los modulos.
+    GestorVentas gestorVentas;
+
+    // Navegacion entre pantallas
+    QStackedWidget* paginas;
+    QWidget* paginaMenu;
+    QWidget* paginaProductos;
+
+    // Interfaz de productos de Julian
+    GestionProductos* pantallaProductos;
 
 public:
 
@@ -42,10 +68,10 @@ public:
 
 private slots:
 
-    // Abrir modulo de productos
+    // Abrir productos e inventario
     void abrirProductos();
 
-    // Abrir modulo de ventas
+    // Abrir ventas y cobros
     void abrirVentas();
 
     // Abrir historial y tickets
@@ -57,14 +83,17 @@ private slots:
     // Cerrar sesion
     void cerrarSesion();
 
+    // Regresar al menu principal
+    void mostrarMenu();
+
 private:
 
     // Mostrar informacion del usuario conectado
     void mostrarUsuarioActual();
 
-    // Habilitar botones segun permisos
+    // Configurar permisos segun el rol
     void configurarPermisos();
 
-    // Verificar acceso a un modulo
+    // Verificar permisos de acceso
     bool verificarAcceso(Permiso permiso);
 };

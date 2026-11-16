@@ -1,129 +1,159 @@
+
 #include "GestorProductos.h"
 
-// Constructor: carga lo que haya guardado en el archivo
+// Constructor: carga los productos guardados
 GestorProductos::GestorProductos(ArchivoProductos* archivo)
     : archivo(archivo) {
 
     if (this->archivo != nullptr) {
         productos = this->archivo->cargar();
-    }//fin del if
-}//fin del constructor
+    }
+}
 
-
-// Buscar la posicion de un producto en el vector
+// Buscar la posicion de un producto por codigo
 int GestorProductos::posicionDe(int codigo) const {
+
     for (size_t i = 0; i < productos.size(); i++) {
+
         if (productos[i].getCodigo() == codigo) {
             return static_cast<int>(i);
-        }//fin del if
-    }//fin del for
+        }
+    }
 
-    return -1;//No se encontro el producto
-}//fin de posicionDe
+    return -1;
+}
 
-
-// Agregar producto
+// Agregar un producto nuevo
 bool GestorProductos::agregar(const Producto& producto) {
 
-    // Validar los datos antes de aceptar el producto
+    // Validar los datos
     if (producto.getCodigo() <= 0 ||
         producto.getNombre().empty() ||
-        producto.getPrecio() <= 0) {
+        producto.getPrecio() <= 0 ||
+        producto.getExistencias() < 0) {
         return false;
-    }//fin del if
+    }
 
-    // Revisa que el codigo no se repita con otro producto ya existente
+    // Evitar codigos repetidos
     if (posicionDe(producto.getCodigo()) != -1) {
         return false;
-    }//fin del if
+    }
 
-    productos.push_back(producto);//Agregar el producto
-    return guardar();
-}//fin de agregar
+    // Agregar temporalmente
+    productos.push_back(producto);
 
+    // Guardar los cambios
+    if (!guardar()) {
 
-// Modificar producto (se identifica por su codigo)
+        // Si falla, quitar el producto agregado
+        productos.pop_back();
+        return false;
+    }
+
+    return true;
+}
+
+// Modificar un producto existente
 bool GestorProductos::modificar(const Producto& producto) {
 
     int pos = posicionDe(producto.getCodigo());
 
     if (pos == -1) {
         return false;
-    }//fin del if
+    }
 
-    // Crear una copia para validar los cambios antes de aplicarlos
-    Producto actualizado = productos[pos];
+    // Guardar una copia del producto original
+    Producto original = productos[pos];
+
+    // Crear una copia para aplicar los cambios
+    Producto actualizado = original;
 
     if (!actualizado.setNombre(producto.getNombre())) {
         return false;
-    }//fin del if
+    }
 
     if (!actualizado.setPrecio(producto.getPrecio())) {
         return false;
-    }//fin del if
+    }
 
     if (!actualizado.setExistencias(producto.getExistencias())) {
         return false;
-    }//fin del if
+    }
 
     actualizado.setCategoria(producto.getCategoria());
 
+    // Actualizar el estado
     if (producto.estaActivo()) {
         actualizado.activar();
-    }//fin del if
+    }
     else {
         actualizado.desactivar();
-    }//fin del else
+    }
 
     // Aplicar los cambios
     productos[pos] = actualizado;
 
-    return guardar();
-}//fin de modificar
+    // Intentar guardar
+    if (!guardar()) {
 
+        // Restaurar el producto original
+        productos[pos] = original;
+        return false;
+    }
 
-// Desactivar producto (nunca se elimina de la lista)
+    return true;
+}
+
+// Desactivar un producto
 bool GestorProductos::desactivar(int codigo) {
 
     int pos = posicionDe(codigo);
 
-    if (pos == -1) {//valida el producto que se debe desactivar
+    if (pos == -1) {
         return false;
-    }//fin del if
+    }
 
+    // Guardar el estado anterior
+    Producto original = productos[pos];
+
+    // Desactivar
     productos[pos].desactivar();
-    return guardar();
-}//fin de desactivar
 
+    // Intentar guardar
+    if (!guardar()) {
 
-// Buscar producto por codigo
-// Devuelve una copia: asi nadie queda con un puntero que se pueda danar
-// cuando el vector crece.
+        // Restaurar si falla
+        productos[pos] = original;
+        return false;
+    }
+
+    return true;
+}
+
+// Buscar un producto por codigo
 optional<Producto> GestorProductos::buscar(int codigo) const {
 
     int pos = posicionDe(codigo);
 
     if (pos == -1) {
-        return nullopt;//No se encontro el producto
-    }//fin del if
+        return nullopt;
+    }
 
     return productos[pos];
-}//fin de buscar
+}
 
-
-// Listar productos
+// Obtener la lista de productos
 vector<Producto> GestorProductos::listar() const {
     return productos;
-}//fin de listar
+}
 
-
-// Guardar en el archivo
-// Si no se dio archivo (modo solo memoria) no hay nada que guardar.
+// Guardar todos los productos
 bool GestorProductos::guardar() {
 
+    // Permite trabajar solamente en memoria
     if (archivo == nullptr) {
         return true;
-    }//fin del if
+    }
 
     return archivo->guardar(productos);
-}//fin de guardar
+}

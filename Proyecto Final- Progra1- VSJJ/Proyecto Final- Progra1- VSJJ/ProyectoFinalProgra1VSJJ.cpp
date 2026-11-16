@@ -1,10 +1,15 @@
 
 #include "ProyectoFinalProgra1VSJJ.h"
+
 #include "GestionUsuarios.h"
+#include "GestionProductos.h"
+#include "VentanaVentas.h"
+#include "VentanaHistorial.h"
 
 #include <QMessageBox>
 #include <QPushButton>
 #include <QLabel>
+#include <QString>
 
 using namespace std;
 
@@ -13,36 +18,80 @@ ProyectoFinalProgra1VSJJ::ProyectoFinalProgra1VSJJ(
     Autenticacion* autenticacion,
     GestorUsuarios* gestorUsuarios,
     QWidget* parent
-) : QMainWindow(parent)
+) : QMainWindow(parent),
+    archivo("productos.txt"),
+    gestor(&archivo),
+    inventario(&gestor)
 {
     ui.setupUi(this);
 
     this->autenticacion = autenticacion;
     this->gestorUsuarios = gestorUsuarios;
 
-    // Conectar botones de la ventana principal
-    connect(ui.btnProductos, &QPushButton::clicked,
-        this, &ProyectoFinalProgra1VSJJ::abrirProductos);
+    // Configurar las paginas de la ventana principal
+    paginas = ui.centralWidget;
+    paginaMenu = ui.pageMenu;
+    paginaProductos = ui.pageProductos;
+    pantallaProductos = ui.pantallaProductos;
 
-    connect(ui.btnVentas, &QPushButton::clicked,
-        this, &ProyectoFinalProgra1VSJJ::abrirVentas);
+    // Conectar el gestor de productos
+    pantallaProductos->setGestor(&gestor);
 
-    connect(ui.btnHistorial, &QPushButton::clicked,
-        this, &ProyectoFinalProgra1VSJJ::abrirHistorial);
+    // Mostrar inicialmente el menu principal
+    paginas->setCurrentWidget(paginaMenu);
 
-    connect(ui.btnUsuarios, &QPushButton::clicked,
-        this, &ProyectoFinalProgra1VSJJ::abrirUsuarios);
+    // Boton regresar de productos
+    connect(
+        pantallaProductos,
+        &GestionProductos::regresar,
+        this,
+        &ProyectoFinalProgra1VSJJ::mostrarMenu
+    );
 
-    connect(ui.btnCerrarSesion, &QPushButton::clicked,
-        this, &ProyectoFinalProgra1VSJJ::cerrarSesion);
+    // Boton Productos
+    connect(
+        ui.btnProductos,
+        &QPushButton::clicked,
+        this,
+        &ProyectoFinalProgra1VSJJ::abrirProductos
+    );
 
-    // Mostrar usuario conectado
+    // Boton Ventas
+    connect(
+        ui.btnVentas,
+        &QPushButton::clicked,
+        this,
+        &ProyectoFinalProgra1VSJJ::abrirVentas
+    );
+
+    // Boton Historial
+    connect(
+        ui.btnHistorial,
+        &QPushButton::clicked,
+        this,
+        &ProyectoFinalProgra1VSJJ::abrirHistorial
+    );
+
+    // Boton Usuarios
+    connect(
+        ui.btnUsuarios,
+        &QPushButton::clicked,
+        this,
+        &ProyectoFinalProgra1VSJJ::abrirUsuarios
+    );
+
+    // Boton Cerrar Sesion
+    connect(
+        ui.btnCerrarSesion,
+        &QPushButton::clicked,
+        this,
+        &ProyectoFinalProgra1VSJJ::cerrarSesion
+    );
+
     mostrarUsuarioActual();
-
-    // Configurar acceso segun el rol
     configurarPermisos();
 
-    // Ocultar barras que no utilizaremos
+    // Ocultar barras innecesarias
     if (menuBar() != nullptr) {
         menuBar()->hide();
     }
@@ -79,7 +128,6 @@ void ProyectoFinalProgra1VSJJ::mostrarUsuarioActual()
     }
 
     string nombre = usuario->getNombre();
-
     string rol;
 
     if (usuario->getRol() == Rol::Administrador) {
@@ -91,14 +139,18 @@ void ProyectoFinalProgra1VSJJ::mostrarUsuarioActual()
 
     string informacion = nombre + " - " + rol;
 
-    ui.lblUsuarioActual->setText(informacion.c_str());
+    ui.lblUsuarioActual->setText(
+        QString::fromStdString(informacion)
+    );
 
     string bienvenida = "Bienvenido a La Pulpe, " + nombre;
 
-    ui.lblBienvenido->setText(bienvenida.c_str());
+    ui.lblBienvenido->setText(
+        QString::fromStdString(bienvenida)
+    );
 }
 
-// Configurar botones segun permisos
+// Configurar permisos
 void ProyectoFinalProgra1VSJJ::configurarPermisos()
 {
     if (autenticacion == nullptr) {
@@ -134,9 +186,10 @@ void ProyectoFinalProgra1VSJJ::configurarPermisos()
     );
 }
 
-// Verificar acceso
+// Verificar permisos
 bool ProyectoFinalProgra1VSJJ::verificarAcceso(
-    Permiso permiso)
+    Permiso permiso
+)
 {
     if (autenticacion == nullptr ||
         !autenticacion->tienePermiso(permiso)) {
@@ -154,55 +207,102 @@ bool ProyectoFinalProgra1VSJJ::verificarAcceso(
     return true;
 }
 
-// Abrir productos e inventario
+// Abrir Productos e Inventario
 void ProyectoFinalProgra1VSJJ::abrirProductos()
 {
     if (!verificarAcceso(Permiso::GestionarProductos)) {
         return;
     }
 
-    // Pendiente de conectar con el modulo de Julian
-    QMessageBox::information(
-        this,
-        "Productos e Inventario",
-        "El modulo de productos se conectara "
-        "cuando este disponible la ventana correspondiente."
-    );
+    if (paginas == nullptr ||
+        paginaProductos == nullptr ||
+        pantallaProductos == nullptr) {
+
+        QMessageBox::critical(
+            this,
+            "Error",
+            "No se pudo abrir Productos e Inventario."
+        );
+
+        return;
+    }
+
+    pantallaProductos->actualizarTabla();
+
+    paginas->setCurrentWidget(paginaProductos);
+
+    setMinimumSize(1280, 700);
+    resize(1280, 700);
 }
 
-// Abrir ventas y cobros
+// Regresar al menu principal
+void ProyectoFinalProgra1VSJJ::mostrarMenu()
+{
+    if (paginas == nullptr || paginaMenu == nullptr) {
+        return;
+    }
+
+    paginas->setCurrentWidget(paginaMenu);
+
+    setMinimumSize(0, 0);
+    resize(900, 600);
+}
+
+// Abrir Ventas y Cobros
 void ProyectoFinalProgra1VSJJ::abrirVentas()
 {
     if (!verificarAcceso(Permiso::RegistrarVenta)) {
         return;
     }
 
-    // Pendiente de conectar con el modulo de Josue
-    QMessageBox::information(
-        this,
-        "Ventas y Cobros",
-        "El modulo de ventas se conectara "
-        "cuando este disponible la ventana correspondiente."
+    // Crear la ventana de Josue
+    VentanaVentas ventana(&gestorVentas, this);
+
+    // Cargar los productos registrados por Julian
+    ventana.setProductos(gestor.listar());
+
+    ventana.setWindowTitle(
+        "La Pulpe - Ventas y Cobros"
     );
+
+    // Abrir la ventana de ventas
+    ventana.exec();
+
+    // Al cerrar, mostrar el menu
+    mostrarMenu();
 }
 
-// Abrir historial y tickets
+// Abrir Historial y Tickets
 void ProyectoFinalProgra1VSJJ::abrirHistorial()
 {
     if (!verificarAcceso(Permiso::ConsultarHistorial)) {
         return;
     }
 
-    // Pendiente de conectar con el modulo de Moises
-    QMessageBox::information(
-        this,
-        "Historial y Tickets",
-        "El modulo de historial se conectara "
-        "cuando este disponible la ventana correspondiente."
+    // Crear la ventana de Moises
+    VentanaHistorial* ventana = new VentanaHistorial();
+
+    ventana->setWindowTitle(
+        "La Pulpe - Historial y Tickets"
     );
+
+    // Liberar la memoria cuando se cierre
+    ventana->setAttribute(Qt::WA_DeleteOnClose);
+
+    // Cerrar esta ventana cuando se cierre
+    // la ventana principal
+    connect(
+        this,
+        &QObject::destroyed,
+        ventana,
+        &QWidget::close
+    );
+
+    // Mostrar historial
+    ventana->show();
 }
 
-// Abrir gestion de usuarios
+// Abrir Gestion de Usuarios
 void ProyectoFinalProgra1VSJJ::abrirUsuarios()
 {
     if (!verificarAcceso(Permiso::GestionarUsuarios)) {
@@ -218,12 +318,14 @@ void ProyectoFinalProgra1VSJJ::abrirUsuarios()
         return;
     }
 
-    // Abrir ventana de gestion de usuarios
-    GestionUsuarios ventana(gestorUsuarios, autenticacion, this);
+    GestionUsuarios ventana(
+        gestorUsuarios,
+        autenticacion,
+        this
+    );
 
     ventana.exec();
 
-    // Actualizar datos y permisos al regresar
     mostrarUsuarioActual();
     configurarPermisos();
 }
@@ -246,6 +348,5 @@ void ProyectoFinalProgra1VSJJ::cerrarSesion()
         autenticacion->cerrarSesion();
     }
 
-    // Cerrar ventana principal
     close();
 }
