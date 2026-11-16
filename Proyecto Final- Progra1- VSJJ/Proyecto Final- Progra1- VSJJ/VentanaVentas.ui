@@ -227,13 +227,13 @@ QHeaderView::section {
 </string>
     </property>
     <property name="editTriggers">
-     <set>QAbstractItemView::NoEditTriggers</set>
-    </property>
-    <property name="selectionBehavior">
-     <enum>QAbstractItemView::SelectRows</enum>
+     <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
     </property>
     <property name="selectionMode">
-     <enum>QAbstractItemView::SingleSelection</enum>
+     <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
+    </property>
+    <property name="selectionBehavior">
+     <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
     </property>
     <column>
      <property name="text">
@@ -439,28 +439,28 @@ QPushButton:pressed {
      <string>Cobrar</string>
     </property>
    </widget>
-  </widget>
-  <widget class="QLabel" name="lblMensaje">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>580</y>
-     <width>820</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">
+   <widget class="QLabel" name="lblMensaje">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>370</y>
+      <width>820</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
 QLabel {
     color: #FFFFFF;
     font-size: 14px;
     background: transparent;
 }
 </string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QPushButton" name="btnRegresar">
    <property name="geometry">
