@@ -5,11 +5,14 @@
 #include "GestionProductos.h"
 #include "VentanaVentas.h"
 #include "VentanaHistorial.h"
+#include "VentanaActividades.h"
 
 #include <QMessageBox>
 #include <QPushButton>
 #include <QLabel>
 #include <QString>
+#include <QRect>
+#include <QEvent>
 
 using namespace std;
 
@@ -26,6 +29,7 @@ ProyectoFinalProgra1VSJJ::ProyectoFinalProgra1VSJJ(
     autenticacion(autenticacion),
     gestorUsuarios(gestorUsuarios),
     gestorActividades(gestorActividades),
+    btnRegistroActividades(nullptr),
     archivo("productos.txt"),
     gestor(&archivo),
     inventario(&gestor),
@@ -43,11 +47,36 @@ ProyectoFinalProgra1VSJJ::ProyectoFinalProgra1VSJJ(
     gestorVentas.setInventario(&inventario);
 
     // ======================================
+    // CONECTAR ACTIVIDADES DE PRODUCTOS
+    // ======================================
+
+    gestor.setGestorActividades(
+        this->gestorActividades
+    );
+
+    gestor.setAutenticacion(
+        this->autenticacion
+    );
+
+    // ======================================
+    // CONECTAR ACTIVIDADES DE VENTAS
+    // ======================================
+
+    gestorVentas.setGestorActividades(
+        this->gestorActividades
+    );
+
+    gestorVentas.setAutenticacion(
+        this->autenticacion
+    );
+
+    // ======================================
     // REGISTRO DE ACTIVIDADES
     // ======================================
 
-    // Utilizar el mismo gestor creado en main.cpp.
-    // No se crea una segunda instancia.
+    // Compartir el mismo gestor creado
+    // en main.cpp.
+
     if (this->autenticacion != nullptr)
     {
         this->autenticacion->setGestorActividades(
@@ -64,13 +93,13 @@ ProyectoFinalProgra1VSJJ::ProyectoFinalProgra1VSJJ(
     paginaProductos = ui.pageProductos;
     pantallaProductos = ui.pantallaProductos;
 
-    // Conectar el gestor de productos
+    // Conectar gestor de productos
     if (pantallaProductos != nullptr)
     {
         pantallaProductos->setGestor(&gestor);
     }
 
-    // Mostrar inicialmente el menu principal
+    // Mostrar inicialmente el menu
     if (paginas != nullptr && paginaMenu != nullptr)
     {
         paginas->setCurrentWidget(paginaMenu);
@@ -146,6 +175,12 @@ ProyectoFinalProgra1VSJJ::ProyectoFinalProgra1VSJJ(
     );
 
     // ======================================
+    // CREAR BOTON DE ACTIVIDADES
+    // ======================================
+
+    configurarBotonActividades();
+
+    // ======================================
     // MOSTRAR USUARIO Y PERMISOS
     // ======================================
 
@@ -178,8 +213,140 @@ ProyectoFinalProgra1VSJJ::ProyectoFinalProgra1VSJJ(
 
 ProyectoFinalProgra1VSJJ::~ProyectoFinalProgra1VSJJ()
 {
-    // El gestor de actividades pertenece a main.cpp.
-    // No se elimina ni se desconecta aqui.
+    // El gestor de actividades pertenece
+    // a main.cpp.
+    // No se elimina aqui.
+}
+
+// ==========================================
+// CONFIGURAR BOTON DE ACTIVIDADES
+// ==========================================
+
+void ProyectoFinalProgra1VSJJ::configurarBotonActividades()
+{
+    if (paginaMenu == nullptr)
+    {
+        return;
+    }
+
+    // Evitar crear el boton dos veces
+    if (btnRegistroActividades != nullptr)
+    {
+        return;
+    }
+
+    // ======================================
+    // CREAR BOTON
+    // ======================================
+
+    btnRegistroActividades = new QPushButton(
+        "Registro de Actividades",
+        paginaMenu
+    );
+
+    btnRegistroActividades->setObjectName(
+        "btnRegistroActividades"
+    );
+
+    btnRegistroActividades->setCursor(
+        Qt::PointingHandCursor
+    );
+
+    // ======================================
+    // ESTILO DEL BOTON
+    // ======================================
+
+    btnRegistroActividades->setStyleSheet(R"(
+        QPushButton#btnRegistroActividades {
+            background-color: #187545;
+            color: white;
+            border: 1px solid #12613A;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-family: "Segoe UI";
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        QPushButton#btnRegistroActividades:hover {
+            background-color: #105B34;
+        }
+
+        QPushButton#btnRegistroActividades:pressed {
+            background-color: #0C4729;
+        }
+
+        QPushButton#btnRegistroActividades:disabled {
+            background-color: #46554A;
+            color: #B0B8B2;
+        }
+    )");
+
+    // ======================================
+    // UBICAR BOTON EN EL MENU
+    // ======================================
+
+    // No agregar al layout principal.
+    // Asi no se modifican los cuatro
+    // botones grandes del menu.
+
+    // Obtener la posicion del boton
+    // Cerrar Sesion respecto a pageMenu,
+    // aunque este dentro de otro widget.
+
+    QRect posicionCerrar(
+        ui.btnCerrarSesion->mapTo(
+            paginaMenu,
+            QPoint(0, 0)
+        ),
+        ui.btnCerrarSesion->size()
+    );
+
+    int anchoBoton = 205;
+    int altoBoton = posicionCerrar.height();
+
+    if (altoBoton < 40)
+    {
+        altoBoton = 45;
+    }
+
+    // Colocar a la izquierda de Cerrar Sesion
+    int x = posicionCerrar.x()
+        - anchoBoton - 12;
+
+    int y = posicionCerrar.y();
+
+    // Evitar salir por el lado izquierdo
+    if (x < 10)
+    {
+        x = 10;
+    }
+
+    btnRegistroActividades->setGeometry(
+        x,
+        y,
+        anchoBoton,
+        altoBoton
+    );
+
+    // Mostrar por encima del fondo
+    btnRegistroActividades->raise();
+
+    // ======================================
+    // CONECTAR BOTON
+    // ======================================
+
+    connect(
+        btnRegistroActividades,
+        &QPushButton::clicked,
+        this,
+        &ProyectoFinalProgra1VSJJ::abrirRegistroActividades
+    );
+
+    // Inicialmente oculto.
+    // configurarPermisos() decide
+    // si debe mostrarse.
+    btnRegistroActividades->hide();
 }
 
 // ==========================================
@@ -190,17 +357,30 @@ void ProyectoFinalProgra1VSJJ::mostrarUsuarioActual()
 {
     if (autenticacion == nullptr)
     {
-        ui.lblUsuarioActual->setText("Sin sesion");
-        ui.lblBienvenido->setText("Acceso no autorizado");
+        ui.lblUsuarioActual->setText(
+            "Sin sesion"
+        );
+
+        ui.lblBienvenido->setText(
+            "Acceso no autorizado"
+        );
+
         return;
     }
 
-    Usuario* usuario = autenticacion->getUsuarioActual();
+    Usuario* usuario =
+        autenticacion->getUsuarioActual();
 
     if (usuario == nullptr)
     {
-        ui.lblUsuarioActual->setText("Sin sesion");
-        ui.lblBienvenido->setText("Acceso no autorizado");
+        ui.lblUsuarioActual->setText(
+            "Sin sesion"
+        );
+
+        ui.lblBienvenido->setText(
+            "Acceso no autorizado"
+        );
+
         return;
     }
 
@@ -216,7 +396,8 @@ void ProyectoFinalProgra1VSJJ::mostrarUsuarioActual()
         rol = "Cajero";
     }
 
-    string informacion = nombre + " - " + rol;
+    string informacion =
+        nombre + " - " + rol;
 
     ui.lblUsuarioActual->setText(
         QString::fromStdString(informacion)
@@ -242,8 +423,19 @@ void ProyectoFinalProgra1VSJJ::configurarPermisos()
         ui.btnVentas->setEnabled(false);
         ui.btnHistorial->setEnabled(false);
         ui.btnUsuarios->setEnabled(false);
+
+        if (btnRegistroActividades != nullptr)
+        {
+            btnRegistroActividades->hide();
+            btnRegistroActividades->setEnabled(false);
+        }
+
         return;
     }
+
+    // ======================================
+    // PERMISO PRODUCTOS
+    // ======================================
 
     ui.btnProductos->setEnabled(
         autenticacion->tienePermiso(
@@ -251,11 +443,19 @@ void ProyectoFinalProgra1VSJJ::configurarPermisos()
         )
     );
 
+    // ======================================
+    // PERMISO VENTAS
+    // ======================================
+
     ui.btnVentas->setEnabled(
         autenticacion->tienePermiso(
             Permiso::RegistrarVenta
         )
     );
+
+    // ======================================
+    // PERMISO HISTORIAL
+    // ======================================
 
     ui.btnHistorial->setEnabled(
         autenticacion->tienePermiso(
@@ -263,11 +463,37 @@ void ProyectoFinalProgra1VSJJ::configurarPermisos()
         )
     );
 
+    // ======================================
+    // PERMISO USUARIOS
+    // ======================================
+
     ui.btnUsuarios->setEnabled(
         autenticacion->tienePermiso(
             Permiso::GestionarUsuarios
         )
     );
+
+    // ======================================
+    // PERMISO REGISTRO DE ACTIVIDADES
+    // ======================================
+
+    Usuario* usuario =
+        autenticacion->getUsuarioActual();
+
+    bool esAdministrador =
+        usuario != nullptr &&
+        usuario->getRol() == Rol::Administrador;
+
+    if (btnRegistroActividades != nullptr)
+    {
+        btnRegistroActividades->setVisible(
+            esAdministrador
+        );
+
+        btnRegistroActividades->setEnabled(
+            esAdministrador
+        );
+    }
 }
 
 // ==========================================
@@ -284,10 +510,12 @@ bool ProyectoFinalProgra1VSJJ::verificarAcceso(
         QMessageBox::warning(
             this,
             "Acceso denegado",
-            "No tiene permisos para acceder a este modulo."
+            "No tiene permisos para acceder "
+            "a este modulo."
         );
 
         configurarPermisos();
+
         return false;
     }
 
@@ -300,7 +528,8 @@ bool ProyectoFinalProgra1VSJJ::verificarAcceso(
 
 void ProyectoFinalProgra1VSJJ::abrirProductos()
 {
-    if (!verificarAcceso(Permiso::GestionarProductos))
+    if (!verificarAcceso(
+        Permiso::GestionarProductos))
     {
         return;
     }
@@ -318,10 +547,15 @@ void ProyectoFinalProgra1VSJJ::abrirProductos()
         return;
     }
 
+    // Actualizar productos
     pantallaProductos->actualizarTabla();
 
-    paginas->setCurrentWidget(paginaProductos);
+    // Mostrar pagina
+    paginas->setCurrentWidget(
+        paginaProductos
+    );
 
+    // Ajustar ventana
     setMinimumSize(1280, 700);
     resize(1280, 700);
 }
@@ -332,12 +566,15 @@ void ProyectoFinalProgra1VSJJ::abrirProductos()
 
 void ProyectoFinalProgra1VSJJ::mostrarMenu()
 {
-    if (paginas == nullptr || paginaMenu == nullptr)
+    if (paginas == nullptr ||
+        paginaMenu == nullptr)
     {
         return;
     }
 
-    paginas->setCurrentWidget(paginaMenu);
+    paginas->setCurrentWidget(
+        paginaMenu
+    );
 
     setMinimumSize(0, 0);
     resize(900, 600);
@@ -349,25 +586,29 @@ void ProyectoFinalProgra1VSJJ::mostrarMenu()
 
 void ProyectoFinalProgra1VSJJ::abrirVentas()
 {
-    if (!verificarAcceso(Permiso::RegistrarVenta))
+    if (!verificarAcceso(
+        Permiso::RegistrarVenta))
     {
         return;
     }
 
-    // Crear ventana de ventas de Josue
-    VentanaVentas ventana(&gestorVentas, this);
+    // Ventana de ventas de Josue
+    VentanaVentas ventana(
+        &gestorVentas,
+        this
+    );
 
-    // Cargar productos del inventario de Julian
-    ventana.setProductos(gestor.listar());
+    // Cargar productos de Julian
+    ventana.setProductos(
+        gestor.listar()
+    );
 
     ventana.setWindowTitle(
         "La Pulpe - Ventas y Cobros"
     );
 
-    // Mostrar ventana de ventas
     ventana.exec();
 
-    // Regresar al menu principal
     mostrarMenu();
 }
 
@@ -377,22 +618,27 @@ void ProyectoFinalProgra1VSJJ::abrirVentas()
 
 void ProyectoFinalProgra1VSJJ::abrirHistorial()
 {
-    if (!verificarAcceso(Permiso::ConsultarHistorial))
+    if (!verificarAcceso(
+        Permiso::ConsultarHistorial))
     {
         return;
     }
 
-    // Crear ventana de historial de Moises
-    VentanaHistorial* ventana = new VentanaHistorial();
+    // Ventana de historial de Moises
+    VentanaHistorial* ventana =
+        new VentanaHistorial();
 
     ventana->setWindowTitle(
         "La Pulpe - Historial y Tickets"
     );
 
     // Liberar memoria al cerrar
-    ventana->setAttribute(Qt::WA_DeleteOnClose);
+    ventana->setAttribute(
+        Qt::WA_DeleteOnClose
+    );
 
-    // Cerrar historial al destruir la ventana principal
+    // Cerrar historial cuando se
+    // destruya la ventana principal
     connect(
         this,
         &QObject::destroyed,
@@ -409,7 +655,8 @@ void ProyectoFinalProgra1VSJJ::abrirHistorial()
 
 void ProyectoFinalProgra1VSJJ::abrirUsuarios()
 {
-    if (!verificarAcceso(Permiso::GestionarUsuarios))
+    if (!verificarAcceso(
+        Permiso::GestionarUsuarios))
     {
         return;
     }
@@ -433,8 +680,84 @@ void ProyectoFinalProgra1VSJJ::abrirUsuarios()
 
     ventana.exec();
 
+    // Actualizar usuario y permisos
     mostrarUsuarioActual();
     configurarPermisos();
+}
+
+// ==========================================
+// ABRIR REGISTRO DE ACTIVIDADES
+// ==========================================
+
+void ProyectoFinalProgra1VSJJ::abrirRegistroActividades()
+{
+    // ======================================
+    // VERIFICAR SESION
+    // ======================================
+
+    if (autenticacion == nullptr)
+    {
+        QMessageBox::warning(
+            this,
+            "Acceso denegado",
+            "Debe iniciar sesion para acceder "
+            "al registro de actividades."
+        );
+
+        return;
+    }
+
+    Usuario* usuario =
+        autenticacion->getUsuarioActual();
+
+    // ======================================
+    // VERIFICAR ADMINISTRADOR
+    // ======================================
+
+    if (usuario == nullptr ||
+        usuario->getRol() != Rol::Administrador)
+    {
+        QMessageBox::warning(
+            this,
+            "Acceso denegado",
+            "Solo los administradores pueden "
+            "consultar el registro de actividades."
+        );
+
+        configurarPermisos();
+
+        return;
+    }
+
+    // ======================================
+    // VERIFICAR GESTOR
+    // ======================================
+
+    if (gestorActividades == nullptr)
+    {
+        QMessageBox::critical(
+            this,
+            "Error",
+            "No se pudo acceder al gestor "
+            "de actividades."
+        );
+
+        return;
+    }
+
+    // ======================================
+    // ABRIR VENTANA DE ACTIVIDADES
+    // ======================================
+
+    VentanaActividades ventana(
+        gestorActividades,
+        this
+    );
+
+    ventana.exec();
+
+    // Regresar al menu
+    mostrarMenu();
 }
 
 // ==========================================
@@ -455,7 +778,7 @@ void ProyectoFinalProgra1VSJJ::cerrarSesion()
         return;
     }
 
-    // Registrar LOGOUT mediante Autenticacion
+    // Registrar LOGOUT
     if (autenticacion != nullptr)
     {
         autenticacion->cerrarSesion();

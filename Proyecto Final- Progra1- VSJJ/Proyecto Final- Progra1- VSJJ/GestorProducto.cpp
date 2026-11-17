@@ -211,7 +211,7 @@ bool GestorProductos::modificar(const Producto& producto)
     );
 
     // ======================================
-    // REGISTRAR AJUSTE DE INVENTARIO
+    // REGISTRAR AJUSTE MANUAL DE INVENTARIO
     // ======================================
 
     // Registrar existencias solamente si cambiaron
@@ -230,6 +230,92 @@ bool GestorProductos::modificar(const Producto& producto)
             to_string(actualizado.getExistencias())
         );
     }
+
+    return true;
+}
+
+// ==========================================
+// ACTUALIZAR EXISTENCIAS INTERNAMENTE
+// ==========================================
+
+bool GestorProductos::actualizarExistenciasInterno(
+    int codigo,
+    int nuevasExistencias)
+{
+    // ======================================
+    // VALIDAR DATOS
+    // ======================================
+
+    // No permitir codigos invalidos
+    if (codigo <= 0)
+    {
+        return false;
+    }
+
+    // No permitir existencias negativas
+    if (nuevasExistencias < 0)
+    {
+        return false;
+    }
+
+    // ======================================
+    // BUSCAR PRODUCTO
+    // ======================================
+
+    int pos = posicionDe(codigo);
+
+    if (pos == -1)
+    {
+        return false;
+    }
+
+    // No modificar productos desactivados
+    if (!productos[pos].estaActivo())
+    {
+        return false;
+    }
+
+    // ======================================
+    // GUARDAR ESTADO ORIGINAL
+    // ======================================
+
+    Producto original = productos[pos];
+
+    // ======================================
+    // ACTUALIZAR EXISTENCIAS
+    // ======================================
+
+    if (!productos[pos].setExistencias(
+        nuevasExistencias))
+    {
+        return false;
+    }
+
+    // ======================================
+    // GUARDAR CAMBIOS
+    // ======================================
+
+    if (!guardar())
+    {
+        // Restaurar el valor anterior en memoria
+        productos[pos] = original;
+
+        return false;
+    }
+
+    // ======================================
+    // OPERACION COMPLETADA
+    // ======================================
+
+    // No registrar PRODUCTO_MODIFICADO.
+    // No registrar INVENTARIO_AJUSTADO.
+    //
+    // Las ventas exitosas se registran
+    // desde GestorVentas.cpp.
+    //
+    // Si una venta falla, el inventario
+    // puede restaurarse sin generar
+    // registros de modificaciones manuales.
 
     return true;
 }

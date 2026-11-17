@@ -195,6 +195,9 @@
     <ClInclude Include="TicketHTML.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <QtMoc Include="VentanaActividades.h">
+      <Filter>Header Files\Usuarios, Login  y Permisos.h</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="GestionProductos.ui">
@@ -234,6 +237,9 @@
       <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
     </ClCompile>
     <ClCompile Include="GestorActividades.cpp">
+      <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="VentanaActividades.cpp">
       <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,64 +1,114 @@
+
 #include "Inventario.h"
 
-// Constructor
+using namespace std;
+
+// ==========================================
+// CONSTRUCTOR
+// ==========================================
+
 Inventario::Inventario(GestorProductos* gestor)
-    : gestor(gestor) {
-}//fin del constructor
+    : gestor(gestor)
+{
+}
 
+// ==========================================
+// COMPROBAR EXISTENCIAS
+// ==========================================
 
-// Comprobar si hay suficientes existencias
-bool Inventario::hayExistencias(int codigo, int cantidad) const {
-
-    if (gestor == nullptr || cantidad <= 0) {
+bool Inventario::hayExistencias(
+    int codigo,
+    int cantidad) const
+{
+    // Verificar gestor y cantidad
+    if (gestor == nullptr || cantidad <= 0)
+    {
         return false;
-    }//fin del if
+    }
 
-    optional<Producto> producto = gestor->buscar(codigo);
+    // Buscar el producto
+    optional<Producto> producto =
+        gestor->buscar(codigo);
 
-    if (!producto.has_value() || !producto->estaActivo()) {
+    // Verificar que exista y este activo
+    if (!producto.has_value() ||
+        !producto->estaActivo())
+    {
         return false;
-    }//fin del if
+    }
 
+    // Verificar cantidad disponible
     return producto->getExistencias() >= cantidad;
+}
 
-}//fin de hayExistencias
+// ==========================================
+// DESCONTAR EXISTENCIAS POR VENTA
+// ==========================================
 
-
-// Descontar existencias
-bool Inventario::descontar(int codigo, int cantidad) {
-
-    if (!hayExistencias(codigo, cantidad)) {
+bool Inventario::descontar(
+    int codigo,
+    int cantidad)
+{
+    // Verificar que existan suficientes unidades
+    if (!hayExistencias(codigo, cantidad))
+    {
         return false;
-    }//fin del if
+    }
 
-    // buscar devuelve una copia: se cambia la copia y luego se manda al gestor,
-    // que es quien actualiza la coleccion y guarda en el archivo.
-    Producto producto = *gestor->buscar(codigo);
+    // Obtener producto actual
+    optional<Producto> encontrado =
+        gestor->buscar(codigo);
 
-    producto.setExistencias(producto.getExistencias() - cantidad);
-
-    return gestor->modificar(producto);
-
-}//fin de descontar
-
-
-// Reponer existencias
-bool Inventario::reponer(int codigo, int cantidad) {
-
-    if (gestor == nullptr || cantidad <= 0) {
+    if (!encontrado.has_value())
+    {
         return false;
-    }//fin del if
+    }
 
-    optional<Producto> encontrado = gestor->buscar(codigo);
+    // Calcular nuevas existencias
+    int nuevasExistencias =
+        encontrado->getExistencias() - cantidad;
 
-    if (!encontrado.has_value() || !encontrado->estaActivo()) {
+    // Actualizar y guardar sin registrar
+    // una modificacion manual del producto
+    return gestor->actualizarExistenciasInterno(
+        codigo,
+        nuevasExistencias
+    );
+}
+
+// ==========================================
+// REPONER EXISTENCIAS
+// ==========================================
+
+bool Inventario::reponer(
+    int codigo,
+    int cantidad)
+{
+    // Verificar gestor y cantidad
+    if (gestor == nullptr || cantidad <= 0)
+    {
         return false;
-    }//fin del if
+    }
 
-    Producto producto = *encontrado;
+    // Buscar producto
+    optional<Producto> encontrado =
+        gestor->buscar(codigo);
 
-    producto.setExistencias(producto.getExistencias() + cantidad);
+    // Verificar que exista y este activo
+    if (!encontrado.has_value() ||
+        !encontrado->estaActivo())
+    {
+        return false;
+    }
 
-    return gestor->modificar(producto);
+    // Calcular existencias restauradas
+    int nuevasExistencias =
+        encontrado->getExistencias() + cantidad;
 
-}//fin de reponer
+    // Guardar sin generar actividades
+    // de modificacion manual
+    return gestor->actualizarExistenciasInterno(
+        codigo,
+        nuevasExistencias
+    );
+}

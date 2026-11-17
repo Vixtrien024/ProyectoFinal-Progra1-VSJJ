@@ -23,6 +23,9 @@
 // Modulo de ventas
 #include "GestorVentas.h"
 
+// Declaracion anticipada del boton
+class QPushButton;
+
 using namespace std;
 
 // ==========================================
@@ -52,9 +55,13 @@ private:
     // REGISTRO DE ACTIVIDADES
     // ======================================
 
-    // Se comparte el gestor creado en main.cpp
+    // Se comparte el gestor creado en main.cpp.
     // No se crea una segunda instancia.
     GestorActividades* gestorActividades;
+
+    // Boton de acceso al registro
+    // Se creara desde C++ sin modificar el .ui
+    QPushButton* btnRegistroActividades;
 
     // ======================================
     // PRODUCTOS E INVENTARIO
@@ -114,6 +121,9 @@ private slots:
     // Abrir gestion de usuarios
     void abrirUsuarios();
 
+    // Abrir registro de actividades
+    void abrirRegistroActividades();
+
     // Cerrar sesion
     void cerrarSesion();
 
@@ -121,6 +131,10 @@ private slots:
     void mostrarMenu();
 
 private:
+
+    // ======================================
+    // INFORMACION Y PERMISOS
+    // ======================================
 
     // Mostrar informacion del usuario conectado
     void mostrarUsuarioActual();
@@ -130,4 +144,12 @@ private:
 
     // Verificar permisos de acceso
     bool verificarAcceso(Permiso permiso);
+
+    // ======================================
+    // CONFIGURACION DEL NUEVO BOTON
+    // ======================================
+
+    // Crear y ubicar el boton de actividades
+    // dentro del menu principal.
+    void configurarBotonActividades();
 };

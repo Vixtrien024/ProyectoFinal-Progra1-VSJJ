@@ -22,7 +22,10 @@ class GestorProductos
 {
 private:
 
-    // Coleccion de productos
+    // ======================================
+    // COLECCION DE PRODUCTOS
+    // ======================================
+
     vector<Producto> productos;
 
     // Archivo donde se guardan los productos
@@ -39,6 +42,10 @@ private:
     // Permite identificar al usuario conectado
     Autenticacion* autenticacion;
 
+    // ======================================
+    // METODOS INTERNOS
+    // ======================================
+
     // Buscar la posicion de un producto
     int posicionDe(int codigo) const;
 
@@ -54,7 +61,9 @@ public:
     // CONSTRUCTOR
     // ======================================
 
-    GestorProductos(ArchivoProductos* archivo);
+    GestorProductos(
+        ArchivoProductos* archivo
+    );
 
     // ======================================
     // CONECTAR REGISTRO DE ACTIVIDADES
@@ -73,19 +82,59 @@ public:
     // ======================================
 
     // Agregar producto nuevo
-    bool agregar(const Producto& producto);
+    bool agregar(
+        const Producto& producto
+    );
 
     // Modificar producto existente
-    bool modificar(const Producto& producto);
+    // Registra la modificacion manual
+    bool modificar(
+        const Producto& producto
+    );
 
     // Desactivar producto sin eliminarlo
-    bool desactivar(int codigo);
+    bool desactivar(
+        int codigo
+    );
+
+    // ======================================
+    // ACTUALIZACION INTERNA DE INVENTARIO
+    // ======================================
+
+    // Actualizar existencias sin generar
+    // actividades de modificacion manual.
+    //
+    // Se utilizara desde Inventario para
+    // descontar productos durante una venta
+    // o restaurarlos cuando sea necesario.
+    //
+    // El cambio se guarda en productos.txt.
+    // Si falla el guardado, se restaura
+    // el valor anterior en memoria.
+    //
+    // El registro de ventas exitosas se
+    // realiza desde GestorVentas.
+
+    bool actualizarExistenciasInterno(
+        int codigo,
+        int nuevasExistencias
+    );
+
+    // ======================================
+    // CONSULTAS DE PRODUCTOS
+    // ======================================
 
     // Buscar producto por codigo
-    optional<Producto> buscar(int codigo) const;
+    optional<Producto> buscar(
+        int codigo
+    ) const;
 
     // Obtener todos los productos
     vector<Producto> listar() const;
+
+    // ======================================
+    // GUARDAR PRODUCTOS
+    // ======================================
 
     // Guardar productos en el archivo
     bool guardar();
