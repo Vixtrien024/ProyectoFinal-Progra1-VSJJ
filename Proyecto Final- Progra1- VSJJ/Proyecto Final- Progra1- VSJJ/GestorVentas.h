@@ -13,10 +13,24 @@
 
 using namespace std;
 
-// Se encarga de validar, cobrar y guardar las ventas.
+// Declaraciones anticipadas
+class GestorActividades;
+class Autenticacion;
+
+// ==========================================
+// GESTOR DE VENTAS - LA PULPE
+// ==========================================
+
+// Se encarga de validar, cobrar y guardar
+// las ventas realizadas en el sistema.
+
 class GestorVentas
 {
 private:
+
+    // ======================================
+    // DATOS DE VENTAS
+    // ======================================
 
     // Ventas registradas en el sistema
     vector<Venta> ventas;
@@ -24,32 +38,81 @@ private:
     // Archivo donde se guardan las ventas
     ArchivoVentas archivoVentas;
 
-    // Inventario compartido con el modulo de productos
+    // Inventario compartido con productos
     Inventario* inventario = nullptr;
 
-    // Cargar ventas guardadas en el archivo JSON
+    // ======================================
+    // REGISTRO DE ACTIVIDADES
+    // ======================================
+
+    // Gestor compartido con toda la aplicacion
+    GestorActividades* gestorActividades = nullptr;
+
+    // Permite identificar al usuario conectado
+    Autenticacion* autenticacion = nullptr;
+
+    // Registrar una actividad de ventas
+    void registrarActividadVenta(
+        const string& tipo,
+        const string& descripcion
+    );
+
+    // ======================================
+    // ARCHIVOS
+    // ======================================
+
+    // Cargar ventas guardadas en JSON
     void cargarVentas();
 
-    // Guardar las ventas en el archivo JSON
+    // Guardar ventas en JSON
     bool guardarVentas();
 
 public:
 
-    // Constructor
+    // ======================================
+    // CONSTRUCTOR
+    // ======================================
+
     GestorVentas();
 
-    // Asignar el inventario que utilizara ventas
-    void setInventario(Inventario* inventarioActual);
+    // ======================================
+    // CONEXIONES
+    // ======================================
 
-    // Verifica el carrito y el efectivo recibido
-    bool validar(Carrito carrito, qint64 efectivo);
+    // Asignar inventario compartido
+    void setInventario(
+        Inventario* inventarioActual
+    );
 
-    // Confirma una venta y devuelve su resultado
-    ResultadoVenta confirmar(Carrito carrito, qint64 efectivo);
+    // Conectar registro de actividades
+    void setGestorActividades(
+        GestorActividades* gestorActividades
+    );
 
-    // Obtiene el numero de la siguiente venta
+    // Conectar autenticacion
+    void setAutenticacion(
+        Autenticacion* autenticacion
+    );
+
+    // ======================================
+    // OPERACIONES DE VENTAS
+    // ======================================
+
+    // Verificar carrito y efectivo
+    bool validar(
+        Carrito carrito,
+        qint64 efectivo
+    );
+
+    // Confirmar venta y devolver resultado
+    ResultadoVenta confirmar(
+        Carrito carrito,
+        qint64 efectivo
+    );
+
+    // Obtener siguiente numero de venta
     int siguienteNumero();
 
-    // Devuelve las ventas registradas
+    // Obtener ventas registradas
     vector<Venta> listarVentas() const;
 };
