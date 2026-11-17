@@ -163,5 +163,35 @@
         "fecha": "2026-11-16 20:11:11",
         "numero": 11,
         "total": 3500
+    },
+    {
+        "cambio": 250,
+        "detalles": [
+            {
+                "cantidad": 1,
+                "codigoProducto": 7993,
+                "nombreProducto": "Arroz Tio Pelon 99%",
+                "precioUnitario": 1750
+            }
+        ],
+        "efectivo": 2000,
+        "fecha": "2026-11-17 13:01:00",
+        "numero": 12,
+        "total": 1750
+    },
+    {
+        "cambio": 250,
+        "detalles": [
+            {
+                "cantidad": 1,
+                "codigoProducto": 7993,
+                "nombreProducto": "Arroz Tio Pelon 99%",
+                "precioUnitario": 1750
+            }
+        ],
+        "efectivo": 2000,
+        "fecha": "2026-11-17 13:04:47",
+        "numero": 13,
+        "total": 1750
     }
 ]
