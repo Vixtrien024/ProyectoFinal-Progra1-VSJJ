@@ -3,47 +3,101 @@
 
 #include <string>
 #include <vector>
+
 #include "Usuario.h"
 #include "ArchivoUsuarios.h"
+#include "GestorActividades.h"
 
 using namespace std;
 
-class GestorUsuarios {
+// Declaracion anticipada
+class Autenticacion;
+
+// ==========================================
+// GESTOR DE USUARIOS - LA PULPE
+// ==========================================
+
+class GestorUsuarios
+{
 private:
-    // Lista de usuarios registrados
+
+    // Lista de usuarios
     vector<Usuario> usuarios;
 
-    // Archivo para guardar y cargar usuarios
+    // Archivo JSON de usuarios
     ArchivoUsuarios* archivo;
 
+    // Registro de actividades
+    GestorActividades* gestorActividades;
+
+    // Sistema de autenticacion
+    Autenticacion* autenticacion;
+
+    // Registrar movimientos de usuarios
+    void registrarActividadUsuario(
+        string tipo,
+        string descripcion
+    );
+
+    // Contar administradores activos
+    int contarAdministradoresActivos() const;
+
 public:
+
     // Constructor
     GestorUsuarios(ArchivoUsuarios* archivo);
 
-    // Agregar un usuario
+    // Conectar registro de actividades
+    void setGestorActividades(
+        GestorActividades* gestorActividades
+    );
+
+    // Conectar autenticacion
+    void setAutenticacion(
+        Autenticacion* autenticacion
+    );
+
+    // ======================================
+    // ADMINISTRACION DE USUARIOS
+    // ======================================
+
+    // Agregar usuario
     bool agregarUsuario(Usuario usuario);
 
-    // Buscar un usuario por su ID
+    // Buscar por ID
     Usuario* buscarPorId(int id);
 
-    // Buscar un usuario por su nombre de usuario
-    Usuario* buscarPorNombre(string nombreUsuario);
+    // Buscar por nombre
+    Usuario* buscarPorNombre(
+        string nombreUsuario
+    );
 
-    // Modificar los datos de un usuario
+    // Modificar usuario
     bool modificarUsuario(Usuario usuario);
 
-    // Desactivar un usuario
+    // Desactivar usuario
     bool desactivarUsuario(int id);
 
-    // Obtener todos los usuarios
+    // Activar usuario
+    bool activarUsuario(int id);
+
+    // Eliminar usuario definitivamente
+    bool eliminarUsuario(int id);
+
+    // Listar usuarios
     vector<Usuario> listarUsuarios() const;
 
-    // Guardar los usuarios en JSON
+    // ======================================
+    // ARCHIVOS JSON
+    // ======================================
+
     bool guardarUsuarios();
 
-    // Cargar los usuarios desde JSON
     bool cargarUsuarios();
 
-    // Generar un ID para un usuario nuevo
+    // ======================================
+    // IDENTIFICADORES
+    // ======================================
+
     int generarId() const;
 };

@@ -1,0 +1,32 @@
+========================================
+                LA PULPE
+========================================
+       COMPROBANTE DE VENTA
+========================================
+
+Numero de venta: 4
+Fecha: 2026-11-13 16:03:14
+Cliente: Consumidor final
+
+----------------------------------------
+PRODUCTOS VENDIDOS
+----------------------------------------
+
+Producto: Arroz Tio Pelon 99%
+Codigo: 7993
+Cantidad: 4
+Precio unitario: CRC 1750
+Subtotal: CRC 7000
+
+========================================
+TOTAL: CRC 7000
+EFECTIVO RECIBIDO: CRC 50000
+CAMBIO: CRC 43000
+========================================
+
+       Gracias por su compra!
+         Vuelva pronto!
+
+========================================
+                LA PULPE
+========================================

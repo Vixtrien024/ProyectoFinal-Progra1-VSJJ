@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VentanaHistorial</class>
+ <widget class="QWidget" name="VentanaHistorial">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1180</width>
+    <height>760</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1100</width>
+    <height>720</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>La Pulpe - Historial y Tickets</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+				QWidget#VentanaHistorial {
+				background-color: #07110F;
+				color: #F4F7F5;
+				}
+
+				QLabel {
+				color: #F4F7F5;
+				background: transparent;
+				border: none;
+				}
+
+				QLineEdit, QDateEdit {
+				background-color: #1B2222;
+				color: #F4F7F5;
+				border: 2px solid #485050;
+				border-radius: 10px;
+				padding: 8px;
+				font-size: 15px;
+				}
+
+				QLineEdit:focus, QDateEdit:focus {
+				border: 2px solid #20D875;
+				}
+
+				QPushButton {
+				background-color: #064D30;
+				color: white;
+				border: 2px solid #20D875;
+				border-radius: 12px;
+				padding: 8px;
+				font-size: 15px;
+				font-weight: bold;
+				}
+
+				QPushButton:hover {
+				background-color: #087A49;
+				}
+
+				QPushButton:pressed {
+				background-color: #043D28;
+				}
+
+				QTableWidget {
+				background-color: #0B1513;
+				alternate-background-color: #14201D;
+				color: white;
+				gridline-color: #233E33;
+				border: 1px solid #138A52;
+				border-radius: 8px;
+				font-size: 15px;
+				selection-background-color: #087D4B;
+				selection-color: white;
+				}
+
+				QTableWidget::item {
+				padding: 8px;
+				}
+
+				QHeaderView::section {
+				background-color: #075A38;
+				color: white;
+				border: none;
+				border-bottom: 1px solid #20D875;
+				padding: 10px;
+				font-size: 15px;
+				font-weight: bold;
+				}
+
+				QTableCornerButton::section {
+				background-color: #075A38;
+				border: none;
+				}
+
+				QScrollBar:vertical {
+				background: #0B1513;
+				width: 12px;
+				}
+
+				QScrollBar::handle:vertical {
+				background: #176A46;
+				border-radius: 5px;
+				min-height: 25px;
+				}
+			</string>
+  </property>
+  <layout class="QVBoxLayout" name="layoutPrincipal">
+   <property name="spacing">
+    <number>12</number>
+   </property>
+   <property name="leftMargin">
+    <number>16</number>
+   </property>
+   <property name="topMargin">
+    <number>16</number>
+   </property>
+   <property name="rightMargin">
+    <number>16</number>
+   </property>
+   <property name="bottomMargin">
+    <number>16</number>
+   </property>
+   <item>
+    <widget class="QFrame" name="frameEncabezado">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>90</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QFrame#frameEncabezado {
+							background-color: #07110F;
+							border: none;
+							}</string>
+     </property>
+     <layout class="QVBoxLayout" name="layoutEncabezado">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>10</number>
+      </property>
+      <property name="topMargin">
+       <number>4</number>
+      </property>
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
+      <property name="bottomMargin">
+       <number>4</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" name="layoutEncabezadoSuperior">
+        <property name="spacing">
+         <number>10</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="lblMarca">
+          <property name="styleSheet">
+           <string notr="true">color: #39E989; font-size: 34px; font-weight: bold;</string>
+          </property>
+          <property name="text">
+           <string>La Pulpe</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="spacerEncabezado">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblUsuario">
+          <property name="styleSheet">
+           <string notr="true">color: #39E989; font-size: 17px; font-weight: bold;</string>
+          </property>
+          <property name="text">
+           <string>Administrador</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="lblSubtitulo">
+        <property name="styleSheet">
+         <string notr="true">color: #D3DBD7; font-size: 17px;</string>
+        </property>
+        <property name="text">
+         <string>Historial de ventas y generación de tickets</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="lblEstado">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>34</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white; font-size: 17px; padding-left: 8px;</string>
+     </property>
+     <property name="text">
+      <string>Bienvenido a La Pulpe.</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="frameContenido">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QFrame#frameContenido {
+							background-color: #07110F;
+							border: 2px solid #20D875;
+							border-radius: 28px;
+							}</string>
+     </property>
+     <layout class="QVBoxLayout" name="layoutContenido">
+      <property name="spacing">
+       <number>12</number>
+      </property>
+      <property name="leftMargin">
+       <number>18</number>
+      </property>
+      <property name="topMargin">
+       <number>18</number>
+      </property>
+      <property name="rightMargin">
+       <number>18</number>
+      </property>
+      <property name="bottomMargin">
+       <number>18</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" name="layoutFiltros">
+        <property name="spacing">
+         <number>12</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="lblTitulo">
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: #39E989; font-size: 24px; font-weight: bold;</string>
+          </property>
+          <property name="text">
+           <string>▤  Historial de Ventas</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="txtBuscarVenta">
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="placeholderText">
+           <string>Buscar por número de venta, cliente o fecha...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblDesde">
+          <property name="styleSheet">
+           <string notr="true">font-size: 16px; font-weight: bold;</string>
+          </property>
+          <property name="text">
+           <string>Desde:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDateEdit" name="fechaDesde">
+          <property name="minimumSize">
+           <size>
+            <width>130</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="displayFormat">
+           <string>dd/MM/yyyy</string>
+          </property>
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+          <property name="date">
+           <date>
+            <year>2026</year>
+            <month>10</month>
+            <day>1</day>
+           </date>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblHasta">
+          <property name="styleSheet">
+           <string notr="true">font-size: 16px; font-weight: bold;</string>
+          </property>
+          <property name="text">
+           <string>Hasta:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDateEdit" name="fechaHasta">
+          <property name="minimumSize">
+           <size>
+            <width>130</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="displayFormat">
+           <string>dd/MM/yyyy</string>
+          </property>
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+          <property name="date">
+           <date>
+            <year>2026</year>
+            <month>11</month>
+            <day>5</day>
+           </date>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnFiltrar">
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Filtrar</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="layoutTablas">
+        <property name="spacing">
+         <number>18</number>
+        </property>
+        <item>
+         <widget class="QTableWidget" name="tablaVentas">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>200</height>
+           </size>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+          </property>
+          <property name="showGrid">
+           <bool>false</bool>
+          </property>
+          <property name="rowCount">
+           <number>0</number>
+          </property>
+          <property name="columnCount">
+           <number>5</number>
+          </property>
+          <column>
+           <property name="text">
+            <string>Numero</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Fecha</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Total</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Efectivo</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Cambio</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="frameDetalle">
+          <property name="minimumSize">
+           <size>
+            <width>330</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QFrame#frameDetalle {
+												background-color: #0A1714;
+												border: 2px solid #20D875;
+												border-radius: 25px;
+												}</string>
+          </property>
+          <layout class="QVBoxLayout" name="layoutDetalle">
+           <property name="spacing">
+            <number>6</number>
+           </property>
+           <property name="leftMargin">
+            <number>12</number>
+           </property>
+           <property name="topMargin">
+            <number>12</number>
+           </property>
+           <property name="rightMargin">
+            <number>12</number>
+           </property>
+           <property name="bottomMargin">
+            <number>12</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="lblDetalleVenta">
+             <property name="styleSheet">
+              <string notr="true">color: #39E989; font-size: 22px; font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>▤  Detalle de la Venta</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lblNumeroVenta">
+             <property name="styleSheet">
+              <string notr="true">font-size: 16px;</string>
+             </property>
+             <property name="text">
+              <string>N° Venta:    -</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lblFechaVenta">
+             <property name="styleSheet">
+              <string notr="true">font-size: 16px;</string>
+             </property>
+             <property name="text">
+              <string>Fecha:          -</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lblClienteVenta">
+             <property name="styleSheet">
+              <string notr="true">font-size: 16px;</string>
+             </property>
+             <property name="text">
+              <string>Cliente:        -</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTableWidget" name="tablaDetalles">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>120</height>
+              </size>
+             </property>
+             <property name="editTriggers">
+              <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+             </property>
+             <property name="showGrid">
+              <bool>false</bool>
+             </property>
+             <property name="rowCount">
+              <number>0</number>
+             </property>
+             <property name="columnCount">
+              <number>4</number>
+             </property>
+             <column>
+              <property name="text">
+               <string>Producto</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Cantidad</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Precio</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Subtotal</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="lineaDetalle">
+             <property name="styleSheet">
+              <string notr="true">color: #20D875; border: 1px solid #20D875;</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Shape::HLine</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lblTotalVenta">
+             <property name="styleSheet">
+              <string notr="true">color: #39E989; font-size: 26px; font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>Total:  ₡0</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="layoutBotones">
+        <property name="spacing">
+         <number>16</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="btnActualizar">
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Actualizar</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnTicketTXT">
+          <property name="minimumSize">
+           <size>
+            <width>220</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Generar Ticket (TXT)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnTicketHTML">
+          <property name="minimumSize">
+           <size>
+            <width>230</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Generar Ticket (HTML)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="spacerBotones">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnCerrar">
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+												background-color: #702330;
+												color: white;
+												border: 2px solid #E24D68;
+												border-radius: 12px;
+												font-size: 16px;
+												font-weight: bold;
+												}
+
+												QPushButton:hover {
+												background-color: #A13247;
+												}
+
+												QPushButton:pressed {
+												background-color: #501824;
+												}</string>
+          </property>
+          <property name="text">
+           <string>Regresar</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -17,6 +17,7 @@ class GestionUsuarios : public QDialog
     Q_OBJECT
 
 private:
+
     // Interfaz grafica
     Ui::GestionUsuarios ui;
 
@@ -28,6 +29,7 @@ private:
     int idSeleccionado;
 
 public:
+
     // Constructor
     GestionUsuarios(
         GestorUsuarios* gestor,
@@ -48,6 +50,12 @@ private slots:
 
     // Desactivar un usuario
     void desactivarUsuario();
+
+    // Activar nuevamente un usuario
+    void activarUsuario();
+
+    // Eliminar definitivamente un usuario
+    void eliminarUsuario();
 
     // Seleccionar un usuario de la tabla
     void seleccionarUsuario(int fila, int columna);

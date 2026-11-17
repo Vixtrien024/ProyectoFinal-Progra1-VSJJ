@@ -1,4 +1,3 @@
-
 #include "Seguridad.h"
 
 #include <QCryptographicHash>
