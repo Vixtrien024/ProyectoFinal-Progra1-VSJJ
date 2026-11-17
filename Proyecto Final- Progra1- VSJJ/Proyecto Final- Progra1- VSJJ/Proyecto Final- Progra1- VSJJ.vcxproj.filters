@@ -151,6 +151,12 @@
     <ClInclude Include="ArchivoProductos.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Actividad.h">
+      <Filter>Header Files\Usuarios, Login  y Permisos.h</Filter>
+    </ClInclude>
+    <ClInclude Include="GestorActividades.h">
+      <Filter>Header Files\Usuarios, Login  y Permisos.h</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="GestionProductos.h">
@@ -223,6 +229,12 @@
   <ItemGroup>
     <ClCompile Include="VentanaHistorial.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Actividad.cpp">
+      <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="GestorActividades.cpp">
+      <Filter>Source Files\Usuarios, Login y Permisos.cpp</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

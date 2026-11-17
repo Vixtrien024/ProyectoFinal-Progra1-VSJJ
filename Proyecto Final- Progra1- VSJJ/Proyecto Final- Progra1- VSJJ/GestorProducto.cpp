@@ -1,21 +1,92 @@
 
 #include "GestorProductos.h"
+#include "Autenticacion.h"
+#include "GestorActividades.h"
 
-// Constructor: carga los productos guardados
+#include <string>
+
+using namespace std;
+
+// ==========================================
+// CONSTRUCTOR
+// ==========================================
+
 GestorProductos::GestorProductos(ArchivoProductos* archivo)
-    : archivo(archivo) {
-
-    if (this->archivo != nullptr) {
+    : archivo(archivo),
+      gestorActividades(nullptr),
+      autenticacion(nullptr)
+{
+    // Cargar los productos guardados
+    if (this->archivo != nullptr)
+    {
         productos = this->archivo->cargar();
     }
 }
 
-// Buscar la posicion de un producto por codigo
-int GestorProductos::posicionDe(int codigo) const {
+// ==========================================
+// CONECTAR GESTOR DE ACTIVIDADES
+// ==========================================
 
-    for (size_t i = 0; i < productos.size(); i++) {
+void GestorProductos::setGestorActividades(
+    GestorActividades* gestorActividades)
+{
+    this->gestorActividades = gestorActividades;
+}
 
-        if (productos[i].getCodigo() == codigo) {
+// ==========================================
+// CONECTAR AUTENTICACION
+// ==========================================
+
+void GestorProductos::setAutenticacion(
+    Autenticacion* autenticacion)
+{
+    this->autenticacion = autenticacion;
+}
+
+// ==========================================
+// REGISTRAR ACTIVIDAD DE PRODUCTOS
+// ==========================================
+
+void GestorProductos::registrarActividadProducto(
+    const string& tipo,
+    const string& descripcion)
+{
+    // Comprobar que los gestores esten conectados
+    if (gestorActividades == nullptr ||
+        autenticacion == nullptr)
+    {
+        return;
+    }
+
+    // Obtener el usuario conectado
+    Usuario* usuarioActual =
+        autenticacion->getUsuarioActual();
+
+    // No registrar operaciones sin sesion activa
+    if (usuarioActual == nullptr)
+    {
+        return;
+    }
+
+    // Registrar la actividad
+    gestorActividades->registrarActividad(
+        usuarioActual->getId(),
+        usuarioActual->getNombreUsuario(),
+        tipo,
+        descripcion
+    );
+}
+
+// ==========================================
+// BUSCAR POSICION DE PRODUCTO
+// ==========================================
+
+int GestorProductos::posicionDe(int codigo) const
+{
+    for (size_t i = 0; i < productos.size(); i++)
+    {
+        if (productos[i].getCodigo() == codigo)
+        {
             return static_cast<int>(i);
         }
     }
@@ -23,19 +94,24 @@ int GestorProductos::posicionDe(int codigo) const {
     return -1;
 }
 
-// Agregar un producto nuevo
-bool GestorProductos::agregar(const Producto& producto) {
+// ==========================================
+// AGREGAR PRODUCTO
+// ==========================================
 
+bool GestorProductos::agregar(const Producto& producto)
+{
     // Validar los datos
     if (producto.getCodigo() <= 0 ||
         producto.getNombre().empty() ||
         producto.getPrecio() <= 0 ||
-        producto.getExistencias() < 0) {
+        producto.getExistencias() < 0)
+    {
         return false;
     }
 
     // Evitar codigos repetidos
-    if (posicionDe(producto.getCodigo()) != -1) {
+    if (posicionDe(producto.getCodigo()) != -1)
+    {
         return false;
     }
 
@@ -43,22 +119,37 @@ bool GestorProductos::agregar(const Producto& producto) {
     productos.push_back(producto);
 
     // Guardar los cambios
-    if (!guardar()) {
-
-        // Si falla, quitar el producto agregado
+    if (!guardar())
+    {
+        // Restaurar si falla
         productos.pop_back();
         return false;
     }
 
+    // Registrar producto agregado
+    registrarActividadProducto(
+        "PRODUCTO_CREADO",
+        "Se agrego el producto: " +
+        producto.getNombre() +
+        " | Codigo: " +
+        to_string(producto.getCodigo()) +
+        " | Existencias iniciales: " +
+        to_string(producto.getExistencias())
+    );
+
     return true;
 }
 
-// Modificar un producto existente
-bool GestorProductos::modificar(const Producto& producto) {
+// ==========================================
+// MODIFICAR PRODUCTO
+// ==========================================
 
+bool GestorProductos::modificar(const Producto& producto)
+{
     int pos = posicionDe(producto.getCodigo());
 
-    if (pos == -1) {
+    if (pos == -1)
+    {
         return false;
     }
 
@@ -68,90 +159,154 @@ bool GestorProductos::modificar(const Producto& producto) {
     // Crear una copia para aplicar los cambios
     Producto actualizado = original;
 
-    if (!actualizado.setNombre(producto.getNombre())) {
+    if (!actualizado.setNombre(producto.getNombre()))
+    {
         return false;
     }
 
-    if (!actualizado.setPrecio(producto.getPrecio())) {
+    if (!actualizado.setPrecio(producto.getPrecio()))
+    {
         return false;
     }
 
-    if (!actualizado.setExistencias(producto.getExistencias())) {
+    if (!actualizado.setExistencias(
+        producto.getExistencias()))
+    {
         return false;
     }
 
     actualizado.setCategoria(producto.getCategoria());
 
-    // Actualizar el estado
-    if (producto.estaActivo()) {
+    // Actualizar estado
+    if (producto.estaActivo())
+    {
         actualizado.activar();
     }
-    else {
+    else
+    {
         actualizado.desactivar();
     }
 
-    // Aplicar los cambios
+    // Aplicar cambios
     productos[pos] = actualizado;
 
     // Intentar guardar
-    if (!guardar()) {
-
-        // Restaurar el producto original
+    if (!guardar())
+    {
+        // Restaurar producto original
         productos[pos] = original;
         return false;
+    }
+
+    // ======================================
+    // REGISTRAR MODIFICACION
+    // ======================================
+
+    registrarActividadProducto(
+        "PRODUCTO_MODIFICADO",
+        "Se modifico el producto: " +
+        actualizado.getNombre() +
+        " | Codigo: " +
+        to_string(actualizado.getCodigo())
+    );
+
+    // ======================================
+    // REGISTRAR AJUSTE DE INVENTARIO
+    // ======================================
+
+    // Registrar existencias solamente si cambiaron
+    if (original.getExistencias() !=
+        actualizado.getExistencias())
+    {
+        registrarActividadProducto(
+            "INVENTARIO_AJUSTADO",
+            "Producto: " +
+            actualizado.getNombre() +
+            " | Codigo: " +
+            to_string(actualizado.getCodigo()) +
+            " | Existencias anteriores: " +
+            to_string(original.getExistencias()) +
+            " | Existencias nuevas: " +
+            to_string(actualizado.getExistencias())
+        );
     }
 
     return true;
 }
 
-// Desactivar un producto
-bool GestorProductos::desactivar(int codigo) {
+// ==========================================
+// DESACTIVAR PRODUCTO
+// ==========================================
 
+bool GestorProductos::desactivar(int codigo)
+{
     int pos = posicionDe(codigo);
 
-    if (pos == -1) {
+    if (pos == -1)
+    {
         return false;
     }
 
-    // Guardar el estado anterior
+    // Guardar el producto original
     Producto original = productos[pos];
 
     // Desactivar
     productos[pos].desactivar();
 
     // Intentar guardar
-    if (!guardar()) {
-
+    if (!guardar())
+    {
         // Restaurar si falla
         productos[pos] = original;
         return false;
     }
 
+    // Registrar desactivacion
+    registrarActividadProducto(
+        "PRODUCTO_DESACTIVADO",
+        "Se desactivo el producto: " +
+        productos[pos].getNombre() +
+        " | Codigo: " +
+        to_string(codigo)
+    );
+
     return true;
 }
 
-// Buscar un producto por codigo
-optional<Producto> GestorProductos::buscar(int codigo) const {
+// ==========================================
+// BUSCAR PRODUCTO POR CODIGO
+// ==========================================
 
+optional<Producto> GestorProductos::buscar(int codigo) const
+{
     int pos = posicionDe(codigo);
 
-    if (pos == -1) {
+    if (pos == -1)
+    {
         return nullopt;
     }
 
     return productos[pos];
 }
 
-// Obtener la lista de productos
-vector<Producto> GestorProductos::listar() const {
+// ==========================================
+// LISTAR TODOS LOS PRODUCTOS
+// ==========================================
+
+vector<Producto> GestorProductos::listar() const
+{
     return productos;
 }
 
-// Guardar todos los productos
-bool GestorProductos::guardar() {
+// ==========================================
+// GUARDAR PRODUCTOS
+// ==========================================
 
+bool GestorProductos::guardar()
+{
     // Permite trabajar solamente en memoria
-    if (archivo == nullptr) {
+    if (archivo == nullptr)
+    {
         return true;
     }
 

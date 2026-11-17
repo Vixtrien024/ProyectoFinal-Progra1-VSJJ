@@ -11,6 +11,9 @@
 #include "Autenticacion.h"
 #include "GestorUsuarios.h"
 
+// Modulo de registro de actividades
+#include "GestorActividades.h"
+
 // Modulo de productos e inventario
 #include "ArchivoProductos.h"
 #include "GestorProductos.h"
@@ -22,31 +25,55 @@
 
 using namespace std;
 
-// Ventana principal del sistema La Pulpe
+// ==========================================
+// VENTANA PRINCIPAL DEL SISTEMA LA PULPE
+// ==========================================
+
 class ProyectoFinalProgra1VSJJ : public QMainWindow
 {
     Q_OBJECT
 
 private:
 
-    // Interfaz grafica principal
+    // ======================================
+    // INTERFAZ GRAFICA PRINCIPAL
+    // ======================================
+
     Ui::ProyectoFinalProgra1VSJJClass ui;
 
-    // Autenticacion y usuarios
+    // ======================================
+    // AUTENTICACION Y USUARIOS
+    // ======================================
+
     Autenticacion* autenticacion;
     GestorUsuarios* gestorUsuarios;
 
-    // Productos e inventario
+    // ======================================
+    // REGISTRO DE ACTIVIDADES
+    // ======================================
+
+    // Se comparte el gestor creado en main.cpp
+    // No se crea una segunda instancia.
+    GestorActividades* gestorActividades;
+
+    // ======================================
+    // PRODUCTOS E INVENTARIO
+    // ======================================
+
     ArchivoProductos archivo;
     GestorProductos gestor;
     Inventario inventario;
 
-    // Ventas y cobros
-    // Se mantiene una sola instancia para compartir
-    // las ventas realizadas entre los modulos.
+    // ======================================
+    // VENTAS Y COBROS
+    // ======================================
+
     GestorVentas gestorVentas;
 
-    // Navegacion entre pantallas
+    // ======================================
+    // NAVEGACION ENTRE PANTALLAS
+    // ======================================
+
     QStackedWidget* paginas;
     QWidget* paginaMenu;
     QWidget* paginaProductos;
@@ -56,14 +83,21 @@ private:
 
 public:
 
-    // Constructor
+    // ======================================
+    // CONSTRUCTOR
+    // ======================================
+
     ProyectoFinalProgra1VSJJ(
         Autenticacion* autenticacion,
         GestorUsuarios* gestorUsuarios,
+        GestorActividades* gestorActividades,
         QWidget* parent = nullptr
     );
 
-    // Destructor
+    // ======================================
+    // DESTRUCTOR
+    // ======================================
+
     ~ProyectoFinalProgra1VSJJ();
 
 private slots:

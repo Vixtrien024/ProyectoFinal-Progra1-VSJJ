@@ -1,27 +1,92 @@
+
 #pragma once
 
 #include <optional>
 #include <vector>
+#include <string>
+
 #include "Producto.h"
 #include "ArchivoProductos.h"
 
 using namespace std;
 
-class GestorProductos {
-private:
-    vector<Producto> productos;//Coleccion donde se guardaran los productos
-    ArchivoProductos* archivo;//Archivo donde se guardan los cambios (no es dueno de el)
+// Declaraciones anticipadas
+class Autenticacion;
+class GestorActividades;
 
-    int posicionDe(int codigo) const;//Posicion en el vector, o -1 si no existe
+// ==========================================
+// GESTOR DE PRODUCTOS - LA PULPE
+// ==========================================
+
+class GestorProductos
+{
+private:
+
+    // Coleccion de productos
+    vector<Producto> productos;
+
+    // Archivo donde se guardan los productos
+    // El gestor no es dueno de este objeto
+    ArchivoProductos* archivo;
+
+    // ======================================
+    // REGISTRO DE ACTIVIDADES
+    // ======================================
+
+    // Gestor compartido con toda la aplicacion
+    GestorActividades* gestorActividades;
+
+    // Permite identificar al usuario conectado
+    Autenticacion* autenticacion;
+
+    // Buscar la posicion de un producto
+    int posicionDe(int codigo) const;
+
+    // Registrar operaciones de productos
+    void registrarActividadProducto(
+        const string& tipo,
+        const string& descripcion
+    );
 
 public:
-    GestorProductos(ArchivoProductos* archivo);//Carga los productos del archivo al crearse
 
-    bool agregar(const Producto& producto);//Registra un producto nuevo
-    bool modificar(const Producto& producto);//Actualiza el producto que tenga el mismo codigo
-    bool desactivar(int codigo);//Desactiva el producto (NO lo borra)
-    optional<Producto> buscar(int codigo) const;//Devuelve una COPIA, o nada si no existe
-    vector<Producto> listar() const;//Devuelve todos los productos
-    bool guardar();//Escribe la coleccion en el archivo
+    // ======================================
+    // CONSTRUCTOR
+    // ======================================
 
-};//fin de la clase
+    GestorProductos(ArchivoProductos* archivo);
+
+    // ======================================
+    // CONECTAR REGISTRO DE ACTIVIDADES
+    // ======================================
+
+    void setGestorActividades(
+        GestorActividades* gestorActividades
+    );
+
+    void setAutenticacion(
+        Autenticacion* autenticacion
+    );
+
+    // ======================================
+    // ADMINISTRACION DE PRODUCTOS
+    // ======================================
+
+    // Agregar producto nuevo
+    bool agregar(const Producto& producto);
+
+    // Modificar producto existente
+    bool modificar(const Producto& producto);
+
+    // Desactivar producto sin eliminarlo
+    bool desactivar(int codigo);
+
+    // Buscar producto por codigo
+    optional<Producto> buscar(int codigo) const;
+
+    // Obtener todos los productos
+    vector<Producto> listar() const;
+
+    // Guardar productos en el archivo
+    bool guardar();
+};

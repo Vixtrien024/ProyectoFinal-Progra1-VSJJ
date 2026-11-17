@@ -4,73 +4,142 @@
 
 using namespace std;
 
-// Constructor
-Autenticacion::Autenticacion(GestorUsuarios* gestor) {
+// ==========================================
+// CONSTRUCTOR
+// ==========================================
+
+Autenticacion::Autenticacion(GestorUsuarios* gestor)
+{
     this->gestor = gestor;
-    idSesion = -1;
+    this->gestorActividades = nullptr;
+    this->idSesion = -1;
 }
 
-// Iniciar sesion
-bool Autenticacion::iniciarSesion(string nombreUsuario,
-    string clave) {
+// ==========================================
+// CONECTAR GESTOR DE ACTIVIDADES
+// ==========================================
 
-    // Cerrar cualquier sesion anterior
+void Autenticacion::setGestorActividades(
+    GestorActividades* gestorActividades)
+{
+    this->gestorActividades = gestorActividades;
+}
+
+// ==========================================
+// INICIAR SESION
+// ==========================================
+
+bool Autenticacion::iniciarSesion(
+    string nombreUsuario,
+    string clave)
+{
+    // Cerrar una sesion anterior, si existe
     cerrarSesion();
 
-    if (gestor == nullptr) {
+    if (gestor == nullptr)
+    {
         return false;
     }
 
-    // Validar campos vacios
-    if (nombreUsuario.empty() || clave.empty()) {
+    if (nombreUsuario.empty() || clave.empty())
+    {
         return false;
     }
 
-    // Buscar usuario registrado
-    Usuario* usuario = gestor->buscarPorNombre(nombreUsuario);
+    // Buscar usuario
+    Usuario* usuario =
+        gestor->buscarPorNombre(nombreUsuario);
 
-    if (usuario == nullptr) {
+    if (usuario == nullptr)
+    {
         return false;
     }
 
-    // Verificar que este activo
-    if (!usuario->estaActivo()) {
+    // Comprobar que el usuario este activo
+    if (!usuario->estaActivo())
+    {
         return false;
     }
 
-    // Verificar la clave contra el hash almacenado
+    // Verificar la contrasena
     if (!Seguridad::verificarClave(
-        clave, usuario->getClaveHash())) {
+        clave,
+        usuario->getClaveHash()))
+    {
         return false;
     }
 
-    // Registrar la sesion activa
+    // Iniciar sesion
     idSesion = usuario->getId();
+
+    // Registrar inicio de sesion exitoso
+    if (gestorActividades != nullptr)
+    {
+        gestorActividades->registrarActividad(
+            usuario->getId(),
+            usuario->getNombreUsuario(),
+            "LOGIN",
+            "Inicio de sesion exitoso"
+        );
+    }
 
     return true;
 }
 
-// Cerrar sesion
-void Autenticacion::cerrarSesion() {
+// ==========================================
+// CERRAR SESION
+// ==========================================
+
+void Autenticacion::cerrarSesion()
+{
+    // Solo registrar si existe una sesion
+    if (idSesion != -1 && gestor != nullptr)
+    {
+        Usuario* usuario =
+            gestor->buscarPorId(idSesion);
+
+        if (usuario != nullptr &&
+            gestorActividades != nullptr)
+        {
+            gestorActividades->registrarActividad(
+                usuario->getId(),
+                usuario->getNombreUsuario(),
+                "LOGOUT",
+                "Cierre de sesion"
+            );
+        }
+    }
+
+    // Finalizar sesion
     idSesion = -1;
 }
 
-// Comprobar si hay una sesion activa
-bool Autenticacion::haySesionActiva() {
+// ==========================================
+// COMPROBAR SESION ACTIVA
+// ==========================================
 
+bool Autenticacion::haySesionActiva()
+{
     return getUsuarioActual() != nullptr;
 }
 
-// Obtener el usuario conectado
-Usuario* Autenticacion::getUsuarioActual() {
+// ==========================================
+// OBTENER USUARIO ACTUAL
+// ==========================================
 
-    if (gestor == nullptr || idSesion == -1) {
+Usuario* Autenticacion::getUsuarioActual()
+{
+    if (gestor == nullptr || idSesion == -1)
+    {
         return nullptr;
     }
 
-    Usuario* usuario = gestor->buscarPorId(idSesion);
+    Usuario* usuario =
+        gestor->buscarPorId(idSesion);
 
-    if (usuario == nullptr || !usuario->estaActivo()) {
+    if (usuario == nullptr ||
+        !usuario->estaActivo())
+    {
         idSesion = -1;
         return nullptr;
     }
@@ -78,37 +147,46 @@ Usuario* Autenticacion::getUsuarioActual() {
     return usuario;
 }
 
-// Obtener el rol del usuario conectado
-Rol Autenticacion::getRolActual() {
+// ==========================================
+// OBTENER ROL ACTUAL
+// ==========================================
 
+Rol Autenticacion::getRolActual()
+{
     Usuario* usuario = getUsuarioActual();
 
-    if (usuario == nullptr) {
+    if (usuario == nullptr)
+    {
         return Rol::Cajero;
     }
 
     return usuario->getRol();
 }
 
-// Comprobar permisos
-bool Autenticacion::tienePermiso(Permiso permiso) {
+// ==========================================
+// VERIFICAR PERMISOS
+// ==========================================
 
+bool Autenticacion::tienePermiso(Permiso permiso)
+{
     Usuario* usuario = getUsuarioActual();
 
-    if (usuario == nullptr) {
+    if (usuario == nullptr)
+    {
         return false;
     }
 
-    // El administrador tiene todos los permisos
-    if (usuario->getRol() == Rol::Administrador) {
+    // Administrador tiene todos los permisos
+    if (usuario->getRol() == Rol::Administrador)
+    {
         return true;
     }
 
     // Permisos del cajero
-    if (usuario->getRol() == Rol::Cajero) {
-
-        switch (permiso) {
-
+    if (usuario->getRol() == Rol::Cajero)
+    {
+        switch (permiso)
+        {
         case Permiso::RegistrarVenta:
             return true;
 
@@ -128,4 +206,3 @@ bool Autenticacion::tienePermiso(Permiso permiso) {
 
     return false;
 }
-
