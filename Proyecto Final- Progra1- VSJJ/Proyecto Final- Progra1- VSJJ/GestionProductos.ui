@@ -1,0 +1,504 @@
+<?xml version="1.0" ?>
+<ui version="4.0">
+  <class>GestionProductos</class>
+  <widget class="QWidget" name="GestionProductos">
+    <property name="geometry">
+      <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1280</width>
+        <height>700</height>
+      </rect>
+    </property>
+    <property name="windowTitle">
+      <string>La Pulpe - Productos e Inventario</string>
+    </property>
+    <property name="styleSheet">
+      <string>QWidget#GestionProductos { background-color:#101414; color:#f4f7f5; font-family:"Segoe UI"; font-size:13px; }
+QLabel { background:transparent; color:#f4f7f5; }
+QFrame#framePrincipal, QFrame#frameProductos, QFrame#frameDatosProducto { background-color:#101817; border:2px solid #28e77a; border-radius:17px; }
+QLineEdit, QSpinBox, QDoubleSpinBox, QComboBox { background-color:#202a26; color:white; border:2px solid #28e77a; border-radius:9px; padding:6px; min-height:22px; }
+QPushButton { background-color:#07643b; color:white; border:2px solid #28e77a; border-radius:10px; font-weight:bold; padding:8px; }
+QPushButton:hover { background-color:#128a51; }
+QPushButton#btnDesactivar, QPushButton#btnRegresar { background-color:#6d2d39; border-color:#f0657b; }
+QTableWidget { background-color:#101817; alternate-background-color:#192320; color:white; gridline-color:#30473d; border:0px; selection-background-color:#116c42; }
+QHeaderView::section { background-color:#075d39; color:white; padding:8px; font-weight:bold; border:0px; }
+QTableCornerButton::section { background-color:#075d39; }
+</string>
+    </property>
+    <widget class="QLabel" name="lblMarca">
+      <property name="geometry">
+        <rect>
+          <x>20</x>
+          <y>14</y>
+          <width>340</width>
+          <height>46</height>
+        </rect>
+      </property>
+      <property name="text">
+        <string>La Pulpe</string>
+      </property>
+      <property name="font">
+        <font>
+          <pointsize>26</pointsize>
+          <bold>true</bold>
+        </font>
+      </property>
+      <property name="styleSheet">
+        <string>color:#28e77a;</string>
+      </property>
+    </widget>
+    <widget class="QLabel" name="lblSubtitulo">
+      <property name="geometry">
+        <rect>
+          <x>20</x>
+          <y>60</y>
+          <width>500</width>
+          <height>27</height>
+        </rect>
+      </property>
+      <property name="text">
+        <string>Gestión de productos e inventario</string>
+      </property>
+      <property name="font">
+        <font>
+          <pointsize>12</pointsize>
+          <bold>false</bold>
+        </font>
+      </property>
+    </widget>
+    <widget class="QLabel" name="lblUsuario">
+      <property name="geometry">
+        <rect>
+          <x>1000</x>
+          <y>26</y>
+          <width>250</width>
+          <height>27</height>
+        </rect>
+      </property>
+      <property name="text">
+        <string>Víctor Díaz - Administrador</string>
+      </property>
+      <property name="font">
+        <font>
+          <pointsize>12</pointsize>
+          <bold>true</bold>
+        </font>
+      </property>
+      <property name="styleSheet">
+        <string>color:#28e77a;</string>
+      </property>
+    </widget>
+    <widget class="QFrame" name="framePrincipal">
+      <property name="geometry">
+        <rect>
+          <x>16</x>
+          <y>108</y>
+          <width>1248</width>
+          <height>545</height>
+        </rect>
+      </property>
+      <widget class="QLabel" name="lblTitulo">
+        <property name="geometry">
+          <rect>
+            <x>24</x>
+            <y>14</y>
+            <width>520</width>
+            <height>46</height>
+          </rect>
+        </property>
+        <property name="text">
+          <string>◈  Productos e Inventario</string>
+        </property>
+        <property name="font">
+          <font>
+            <pointsize>20</pointsize>
+            <bold>true</bold>
+          </font>
+        </property>
+        <property name="styleSheet">
+          <string>color:#28e77a;</string>
+        </property>
+      </widget>
+      <widget class="QFrame" name="frameProductos">
+        <property name="geometry">
+          <rect>
+            <x>20</x>
+            <y>70</y>
+            <width>715</width>
+            <height>375</height>
+          </rect>
+        </property>
+        <widget class="QLabel" name="lblProductos">
+          <property name="geometry">
+            <rect>
+              <x>20</x>
+              <y>13</y>
+              <width>220</width>
+              <height>35</height>
+            </rect>
+          </property>
+          <property name="text">
+            <string>☷  Productos</string>
+          </property>
+          <property name="font">
+            <font>
+              <pointsize>17</pointsize>
+              <bold>true</bold>
+            </font>
+          </property>
+          <property name="styleSheet">
+            <string>color:#28e77a;</string>
+          </property>
+        </widget>
+        <widget class="QLineEdit" name="txtBuscar">
+          <property name="geometry">
+            <rect>
+              <x>342</x>
+              <y>14</y>
+              <width>352</width>
+              <height>37</height>
+            </rect>
+          </property>
+          <property name="placeholderText">
+            <string>Buscar por código o nombre...</string>
+          </property>
+        </widget>
+        <widget class="QTableWidget" name="tblProductos">
+          <property name="geometry">
+            <rect>
+              <x>16</x>
+              <y>64</y>
+              <width>680</width>
+              <height>290</height>
+            </rect>
+          </property>
+          <property name="rowCount">
+            <number>0</number>
+          </property>
+          <property name="columnCount">
+            <number>6</number>
+          </property>
+          <column>
+            <property name="text">
+              <string>Código</string>
+            </property>
+          </column>
+          <column>
+            <property name="text">
+              <string>Nombre</string>
+            </property>
+          </column>
+          <column>
+            <property name="text">
+              <string>Precio</string>
+            </property>
+          </column>
+          <column>
+            <property name="text">
+              <string>Categoría</string>
+            </property>
+          </column>
+          <column>
+            <property name="text">
+              <string>Existencias</string>
+            </property>
+          </column>
+          <column>
+            <property name="text">
+              <string>Estado</string>
+            </property>
+          </column>
+          <property name="alternatingRowColors">
+            <bool>true</bool>
+          </property>
+          <property name="selectionBehavior">
+            <enum>SelectRows</enum>
+          </property>
+          <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+        </widget>
+      </widget>
+      <widget class="QFrame" name="frameDatosProducto">
+        <property name="geometry">
+          <rect>
+            <x>755</x>
+            <y>70</y>
+            <width>473</width>
+            <height>375</height>
+          </rect>
+        </property>
+        <widget class="QLabel" name="lblDatos">
+          <property name="geometry">
+            <rect>
+              <x>20</x>
+              <y>13</y>
+              <width>420</width>
+              <height>35</height>
+            </rect>
+          </property>
+          <property name="text">
+            <string>▣  Datos del producto</string>
+          </property>
+          <property name="font">
+            <font>
+              <pointsize>17</pointsize>
+              <bold>true</bold>
+            </font>
+          </property>
+          <property name="styleSheet">
+            <string>color:#28e77a;</string>
+          </property>
+        </widget>
+        <widget class="QLabel" name="lblspnCodigo">
+          <property name="geometry">
+            <rect>
+              <x>20</x>
+              <y>66</y>
+              <width>120</width>
+              <height>28</height>
+            </rect>
+          </property>
+          <property name="text">
+            <string>Código:</string>
+          </property>
+        </widget>
+        <widget class="QSpinBox" name="spnCodigo">
+          <property name="geometry">
+            <rect>
+              <x>143</x>
+              <y>62</y>
+              <width>308</width>
+              <height>36</height>
+            </rect>
+          </property>
+          <property name="maximum">
+            <number>999999999</number>
+          </property>
+        </widget>
+        <widget class="QLabel" name="lbltxtNombre">
+          <property name="geometry">
+            <rect>
+              <x>20</x>
+              <y>114</y>
+              <width>120</width>
+              <height>28</height>
+            </rect>
+          </property>
+          <property name="text">
+            <string>Nombre:</string>
+          </property>
+        </widget>
+        <widget class="QLineEdit" name="txtNombre">
+          <property name="geometry">
+            <rect>
+              <x>143</x>
+              <y>110</y>
+              <width>308</width>
+              <height>36</height>
+            </rect>
+          </property>
+          <property name="placeholderText">
+            <string>Nombre del producto</string>
+          </property>
+        </widget>
+        <widget class="QLabel" name="lblspnPrecio">
+          <property name="geometry">
+            <rect>
+              <x>20</x>
+              <y>162</y>
+              <width>120</width>
+              <height>28</height>
+            </rect>
+          </property>
+          <property name="text">
+            <string>Precio:</string>
+          </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="spnPrecio">
+          <property name="geometry">
+            <rect>
+              <x>143</x>
+              <y>158</y>
+              <width>308</width>
+              <height>36</height>
+            </rect>
+          </property>
+          <property name="maximum">
+            <double>999999999</double>
+          </property>
+          <property name="decimals">
+            <number>2</number>
+          </property>
+          <property name="prefix">
+            <string>₡ </string>
+          </property>
+        </widget>
+        <widget class="QLabel" name="lbltxtCategoria">
+          <property name="geometry">
+            <rect>
+              <x>20</x>
+              <y>210</y>
+              <width>120</width>
+              <height>28</height>
+            </rect>
+          </property>
+          <property name="text">
+            <string>Categoría:</string>
+          </property>
+        </widget>
+        <widget class="QLineEdit" name="txtCategoria">
+          <property name="geometry">
+            <rect>
+              <x>143</x>
+              <y>206</y>
+              <width>308</width>
+              <height>36</height>
+            </rect>
+          </property>
+          <property name="placeholderText">
+            <string>Categoría (opcional)</string>
+          </property>
+        </widget>
+        <widget class="QLabel" name="lblspnExistencias">
+          <property name="geometry">
+            <rect>
+              <x>20</x>
+              <y>258</y>
+              <width>120</width>
+              <height>28</height>
+            </rect>
+          </property>
+          <property name="text">
+            <string>Existencias:</string>
+          </property>
+        </widget>
+        <widget class="QSpinBox" name="spnExistencias">
+          <property name="geometry">
+            <rect>
+              <x>143</x>
+              <y>254</y>
+              <width>308</width>
+              <height>36</height>
+            </rect>
+          </property>
+          <property name="maximum">
+            <number>999999</number>
+          </property>
+        </widget>
+        <widget class="QLabel" name="lblcmbEstado">
+          <property name="geometry">
+            <rect>
+              <x>20</x>
+              <y>306</y>
+              <width>120</width>
+              <height>28</height>
+            </rect>
+          </property>
+          <property name="text">
+            <string>Estado:</string>
+          </property>
+        </widget>
+        <widget class="QComboBox" name="cmbEstado">
+          <property name="geometry">
+            <rect>
+              <x>143</x>
+              <y>302</y>
+              <width>308</width>
+              <height>36</height>
+            </rect>
+          </property>
+          <item>
+            <property name="text">
+              <string>Activo</string>
+            </property>
+          </item>
+          <item>
+            <property name="text">
+              <string>Inactivo</string>
+            </property>
+          </item>
+        </widget>
+      </widget>
+      <widget class="QPushButton" name="btnAgregar">
+        <property name="geometry">
+          <rect>
+            <x>20</x>
+            <y>462</y>
+            <width>145</width>
+            <height>52</height>
+          </rect>
+        </property>
+        <property name="text">
+          <string>+  Agregar</string>
+        </property>
+      </widget>
+      <widget class="QPushButton" name="btnEditar">
+        <property name="geometry">
+          <rect>
+            <x>177</x>
+            <y>462</y>
+            <width>135</width>
+            <height>52</height>
+          </rect>
+        </property>
+        <property name="text">
+          <string>✎  Editar</string>
+        </property>
+      </widget>
+      <widget class="QPushButton" name="btnDesactivar">
+        <property name="geometry">
+          <rect>
+            <x>324</x>
+            <y>462</y>
+            <width>145</width>
+            <height>52</height>
+          </rect>
+        </property>
+        <property name="text">
+          <string>⊗  Desactivar</string>
+        </property>
+      </widget>
+      <widget class="QPushButton" name="btnNuevo">
+        <property name="geometry">
+          <rect>
+            <x>481</x>
+            <y>462</y>
+            <width>133</width>
+            <height>52</height>
+          </rect>
+        </property>
+        <property name="text">
+          <string>+  Nuevo</string>
+        </property>
+      </widget>
+      <widget class="QPushButton" name="btnRegresar">
+        <property name="geometry">
+          <rect>
+            <x>1060</x>
+            <y>462</y>
+            <width>166</width>
+            <height>52</height>
+          </rect>
+        </property>
+        <property name="text">
+          <string>←  Regresar</string>
+        </property>
+      </widget>
+    </widget>
+    <widget class="QLabel" name="lblEstado">
+      <property name="geometry">
+        <rect>
+          <x>18</x>
+          <y>664</y>
+          <width>850</width>
+          <height>25</height>
+        </rect>
+      </property>
+      <property name="text">
+        <string>Bienvenido a La Pulpe.</string>
+      </property>
+    </widget>
+  </widget>
+</ui>

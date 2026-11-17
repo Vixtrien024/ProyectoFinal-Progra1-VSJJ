@@ -1,38 +1,60 @@
-# Visual Studio
+# La Pulpe v1.0 - Visual Studio C++ / Qt
+# Archivos temporales de Visual Studio
 .vs/
+*.VC.db
+*.VC.opendb
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
+*.VC.db-shm
+*.VC.db-wal
+ipch/
 
-# Compilaciones
-Debug/
-Release/
+# Compilaciones y archivos intermedios
+[Dd]ebug/
+[Rr]elease/
 x64/
 x86/
-bin/
-obj/
-
-# Archivos temporales C++
+[Bb]in/
+[Oo]bj/
 *.obj
 *.pch
-*.ipch
 *.pdb
-*.ilk
 *.idb
+*.ilk
+*.ipch
 *.tlog
 *.lastbuildstate
 *.log
-*.vsidx
+*.exe
+*.dll
+*.lib
+*.exp
+*.iobj
+*.ipch
 
-# Archivos generados por Visual Studio
-*.VC.db
-*.VC.opendb
-*.cache
+# Qt: archivos generados (NO ignorar los formularios .ui)
+GeneratedFiles/
+*_autogen/
+.moc/
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+*.qrc.dep
+.qmake.stash
+Makefile.Debug
+Makefile.Release
+
+# Archivos temporales y respaldos
 *.tmp
+*.temp
 *.bak
+*.swp
+*~
+Thumbs.db
+Desktop.ini
 
-# Archivos generados por Qt
-moc_*
-qrc_*
-ui_*
+# Mantener bajo versionado: .sln, .vcxproj, .vcxproj.filters,
+# .h, .cpp, .ui, .qrc, README.md, UML, prototipo y documentos.
+# No se ignoran los datos de ejemplo requeridos para la entrega.
