@@ -1,0 +1,368 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="Electron" agent="ChatGPT" pages="5">
+  <diagram id="0f35ab7b55" name="00 General La Pulpe">
+    <mxGraphModel dx="945" dy="606" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1980" pageHeight="2730" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="principal" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;ProyectoFinalProgra1VSJJ «QMainWindow»&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- autenticacion: Autenticacion*&lt;br/&gt;- gestorUsuarios: GestorUsuarios*&lt;br/&gt;- gestorActividades: GestorActividades*&lt;br/&gt;- btnRegistroActividades: QPushButton*&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ abrirUsuarios()&lt;br/&gt;+ abrirRegistroActividades(): void&lt;br/&gt;+ abrirProductos(): void&lt;br/&gt;+ abrirVentas(): void&lt;br/&gt;+ abrirHistorial(): void&lt;br/&gt;+ cerrarSesion(): void" vertex="1">
+          <mxGeometry height="230" width="440" x="60" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="login" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;Login «QDialog»&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- autenticacion: Autenticacion*&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ intentarIngreso(): void" vertex="1">
+          <mxGeometry height="90" width="320" x="80" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="auth" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;Autenticacion&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- gestor: GestorUsuarios*&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ iniciarSesion(...): bool&lt;br/&gt;+ tienePermiso(...): bool" vertex="1">
+          <mxGeometry height="109" width="330" x="550" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="usuarios" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;GestionUsuarios&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- gestor: GestorUsuarios*&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ agregarUsuario(): void&lt;br/&gt;+ modificarUsuario(): void&lt;br/&gt;+ desactivarUsuario(): void" vertex="1">
+          <mxGeometry height="128" width="360" x="600" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="productos" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;GestionProductos&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- gestor: GestorProductos*&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ agregar(): void&lt;br/&gt;+ editar(): void&lt;br/&gt;+ desactivar(): void" vertex="1">
+          <mxGeometry height="128" width="360" x="1060" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="gp" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;GestorProductos&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- productos: vector&amp;lt;Producto&amp;gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ agregar(...): bool&lt;br/&gt;+ modificar(...): bool&lt;br/&gt;+ listar(): vector&amp;lt;Producto&amp;gt;" vertex="1">
+          <mxGeometry height="128" width="360" x="1070" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="inventario" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;Inventario&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- gestor: GestorProductos*&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ hayExistencias(...): bool&lt;br/&gt;+ descontar(...): bool" vertex="1">
+          <mxGeometry height="109" width="350" x="1490" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="ventas" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;VentanaVentas&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- gestor: GestorVentas*&lt;br/&gt;- carrito: Carrito&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ agregarProducto(): void&lt;br/&gt;+ cobrar(): void" vertex="1">
+          <mxGeometry height="128" width="380" x="70" y="850" as="geometry" />
+        </mxCell>
+        <mxCell id="gv" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;GestorVentas&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- inventario: Inventario*&lt;br/&gt;- archivo: ArchivoVentas*&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ confirmar(...): ResultadoVenta" vertex="1">
+          <mxGeometry height="109" width="400" x="570" y="820" as="geometry" />
+        </mxCell>
+        <mxCell id="carrito" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;Carrito&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- articulos: vector&amp;lt;DetalleVenta&amp;gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ agregar(...): bool&lt;br/&gt;+ total(): qint64" vertex="1">
+          <mxGeometry height="109" width="340" x="650" y="1090" as="geometry" />
+        </mxCell>
+        <mxCell id="venta" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;Venta&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- detalles: vector&amp;lt;DetalleVenta&amp;gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ getTotal(): qint64" vertex="1">
+          <mxGeometry height="90" width="320" x="1520" y="830" as="geometry" />
+        </mxCell>
+        <mxCell id="detalle" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;DetalleVenta&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- cantidad: int&lt;br/&gt;- precioUnitario: qint64&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ subtotal(): qint64" vertex="1">
+          <mxGeometry height="109" width="340" x="1510" y="1130" as="geometry" />
+        </mxCell>
+        <mxCell id="vh" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;VentanaHistorial&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- historial: HistorialVentas*&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ buscarVenta(): void&lt;br/&gt;+ exportarTXT(): void" vertex="1">
+          <mxGeometry height="109" width="370" x="70" y="1290" as="geometry" />
+        </mxCell>
+        <mxCell id="hist" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;HistorialVentas&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- archivo: ArchivoVentas*&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ listar(): vector&amp;lt;Venta&amp;gt;&lt;br/&gt;+ generarTicket(...): bool" vertex="1">
+          <mxGeometry height="109" width="390" x="570" y="1280" as="geometry" />
+        </mxCell>
+        <mxCell id="archivo" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;ArchivoVentas&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- ruta: QString&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ guardarVenta(...): bool&lt;br/&gt;+ cargar(): vector&amp;lt;Venta&amp;gt;" vertex="1">
+          <mxGeometry height="109" width="370" x="1050" y="1290" as="geometry" />
+        </mxCell>
+        <mxCell id="gen" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;GeneradorTicket «abstract»&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt; &lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ generar(venta): bool = 0" vertex="1">
+          <mxGeometry height="71" width="410" x="570" y="1640" as="geometry" />
+        </mxCell>
+        <mxCell id="txt" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;TicketTXT&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt; &lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ generar(venta): bool override" vertex="1">
+          <mxGeometry height="71" width="360" x="1070" y="1610" as="geometry" />
+        </mxCell>
+        <mxCell id="html" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;TicketHTML&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt; &lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ generar(venta): bool override" vertex="1">
+          <mxGeometry height="71" width="360" x="1530" y="1610" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" edge="1" parent="1" source="login" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" target="auth" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="principal" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" target="auth" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="principal" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;dashed=1;endArrow=open;endFill=0;" target="usuarios" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="principal" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;dashed=1;endArrow=open;endFill=0;" target="productos" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="principal" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;dashed=1;endArrow=open;endFill=0;" target="ventas" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="principal" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;dashed=1;endArrow=open;endFill=0;" target="vh" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="productos" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" target="gp" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="gp" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" target="inventario" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="ventas" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" target="gv" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="ventas" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;startArrow=diamond;startFill=1;endArrow=none;" target="carrito" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="260" y="980" />
+              <mxPoint x="820" y="980" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="gv" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" target="inventario" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="gv" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;dashed=1;endArrow=open;endFill=0;" target="venta" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="gv" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" target="archivo" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="venta" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;startArrow=diamond;startFill=1;endArrow=none;" target="detalle" value="1 / 1..*">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="vh" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" target="hist" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="hist" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" target="archivo" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="hist" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;dashed=1;endArrow=open;endFill=0;" target="gen" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" edge="1" parent="1" source="txt" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=block;endFill=0;" target="gen" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e18" edge="1" parent="1" source="html" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=block;endFill=0;" target="gen" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      <mxCell id="registro_actividad" value="&lt;b&gt;Actividad&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- id: int&lt;br/&gt;- idUsuario: int&lt;br/&gt;- nombreUsuario: string&lt;br/&gt;- tipo: string&lt;br/&gt;- descripcion: string&lt;br/&gt;- fechaHora: string&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ getId(): int&lt;br/&gt;+ getIdUsuario(): int&lt;br/&gt;+ getNombreUsuario(): string&lt;br/&gt;+ getTipo(): string&lt;br/&gt;+ getDescripcion(): string&lt;br/&gt;+ getFechaHora(): string" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" vertex="1" parent="1"><mxGeometry x="60" y="2110" width="475" height="350" as="geometry" /></mxCell><mxCell id="registro_gestor" value="&lt;b&gt;GestorActividades&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- actividades: vector&amp;lt;Actividad&amp;gt;&lt;br/&gt;- carpetaRegistros: string&lt;br/&gt;- fechaArchivoActual: string&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ registrarActividad(idUsuario, nombreUsuario, tipo, descripcion): bool&lt;br/&gt;+ listarActividades(): vector&amp;lt;Actividad&amp;gt;&lt;br/&gt;+ buscarPorUsuario(idUsuario): vector&amp;lt;Actividad&amp;gt;&lt;br/&gt;+ buscarPorTipo(tipo): vector&amp;lt;Actividad&amp;gt;&lt;br/&gt;+ actualizarActividades(): bool&lt;br/&gt;+ listarPorFecha(fecha): vector&amp;lt;Actividad&amp;gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" vertex="1" parent="1"><mxGeometry x="615" y="2110" width="665" height="350" as="geometry" /></mxCell><mxCell id="registro_ventana" value="&lt;b&gt;VentanaActividades «QDialog»&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- gestorActividades: GestorActividades*&lt;br/&gt;- actividadesCargadas: vector&amp;lt;Actividad&amp;gt;&lt;br/&gt;- tablaActividades: QTableWidget*&lt;br/&gt;- selectorFecha: QDateEdit*&lt;br/&gt;- txtBuscarUsuario: QLineEdit*&lt;br/&gt;- cmbTipoActividad: QComboBox*&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ VentanaActividades(gestorActividades, parent)&lt;br/&gt;- cargarActividades(): void&lt;br/&gt;- aplicarFiltros(): void&lt;br/&gt;- actualizarTiposActividad(): void&lt;br/&gt;- actualizarContador(cantidadMostrada): void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" vertex="1" parent="1"><mxGeometry x="1360" y="2110" width="560" height="350" as="geometry" /></mxCell><mxCell id="registro_e1" value="asociación" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" edge="1" parent="1" source="registro_ventana" target="registro_gestor"><mxGeometry relative="1" as="geometry" /></mxCell><mxCell id="registro_e2" value="asociación" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" edge="1" parent="1" source="registro_gestor" target="registro_actividad"><mxGeometry relative="1" as="geometry" /></mxCell><mxCell id="registro_e3" value="registro compartido" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;dashed=1;" edge="1" parent="1" source="principal" target="registro_gestor"><mxGeometry relative="1" as="geometry" /></mxCell></root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="33e6b12f72" name="01 Productos e Inventario - Julian">
+    <mxGraphModel dx="954" dy="611" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="inventario" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;Inventario&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- gestor: GestorProductos*&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ hayExistencias(codigo,cantidad): bool&lt;br/&gt;+ descontar(codigo,cantidad): bool&lt;br/&gt;+ reponer(codigo,cantidad): bool" vertex="1">
+          <mxGeometry height="128" width="330" x="70" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="vista" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;GestionProductos «QWidget»&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- gestor: GestorProductos*&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ agregar(): void&lt;br/&gt;+ editar(): void&lt;br/&gt;+ desactivar(): void&lt;br/&gt;+ actualizarTabla(): void" vertex="1">
+          <mxGeometry height="147" width="340" x="530" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="gestor" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;GestorProductos&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- productos: vector&amp;lt;Producto&amp;gt;&lt;br/&gt;- archivo: ArchivoProductos*&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ agregar(producto): bool&lt;br/&gt;+ modificar(producto): bool&lt;br/&gt;+ desactivar(codigo): bool&lt;br/&gt;+ buscar(codigo): optional&amp;lt;Producto&amp;gt;&lt;br/&gt;+ listar(): vector&amp;lt;Producto&amp;gt;&lt;br/&gt;+ guardar(): bool" vertex="1">
+          <mxGeometry height="204" width="410" x="300" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="producto" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;Producto&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- codigo: int&lt;br/&gt;- nombre: QString&lt;br/&gt;- precio: qint64&lt;br/&gt;- existencias: int&lt;br/&gt;- activo: bool&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ getCodigo(): int&lt;br/&gt;+ getNombre(): QString&lt;br/&gt;+ getPrecio(): qint64&lt;br/&gt;+ getExistencias(): int&lt;br/&gt;+ estaActivo(): bool&lt;br/&gt;+ actualizarDatos(...): void" vertex="1">
+          <mxGeometry height="261" width="360" x="50" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="archivo" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;ArchivoProductos&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- ruta: QString&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ cargar(): vector&amp;lt;Producto&amp;gt;&lt;br/&gt;+ guardar(productos): bool" vertex="1">
+          <mxGeometry height="109" width="380" x="750" y="594" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" edge="1" parent="1" source="inventario" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" target="gestor" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="vista" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" target="gestor" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="gestor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;startArrow=diamond;startFill=0;endArrow=none;" target="producto" value="1  /  0..*">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="gestor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" target="archivo" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="effb95473a" name="02 Ventas y Cobros - Josue">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1530" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="vista" value="&lt;b&gt;VentanaVentas «QWidget»&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- gestor: GestorVentas*&lt;br/&gt;- carrito: Carrito&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ agregarProducto(): void&lt;br/&gt;+ quitarProducto(): void&lt;br/&gt;+ actualizarTotal(): void&lt;br/&gt;+ cobrar(): void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="410" y="45" width="350" height="166" as="geometry" />
+        </mxCell>
+        <mxCell id="gestor" value="&lt;b&gt;GestorVentas&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- inventario: Inventario*&lt;br/&gt;- archivo: ArchivoVentas*&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ validar(carrito,efectivo): bool&lt;br/&gt;+ confirmar(carrito,efectivo): ResultadoVenta&lt;br/&gt;+ siguienteNumero(): int" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="480" y="390" width="410" height="147" as="geometry" />
+        </mxCell>
+        <mxCell id="carrito" value="&lt;b&gt;Carrito&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- articulos: vector&amp;lt;DetalleVenta&amp;gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ agregar(producto,cantidad): bool&lt;br/&gt;+ quitar(codigo): bool&lt;br/&gt;+ cambiarCantidad(codigo,cantidad): bool&lt;br/&gt;+ total(): qint64&lt;br/&gt;+ detalles(): vector&amp;lt;DetalleVenta&amp;gt;&lt;br/&gt;+ vaciar(): void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="440" width="400" height="185" as="geometry" />
+        </mxCell>
+        <mxCell id="venta" value="&lt;b&gt;Venta&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- numero: int&lt;br/&gt;- fecha: QDateTime&lt;br/&gt;- detalles: vector&amp;lt;DetalleVenta&amp;gt;&lt;br/&gt;- total: qint64&lt;br/&gt;- efectivo: qint64&lt;br/&gt;- cambio: qint64&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ getNumero(): int&lt;br/&gt;+ getDetalles(): vector&amp;lt;DetalleVenta&amp;gt;&lt;br/&gt;+ getTotal(): qint64&lt;br/&gt;+ getCambio(): qint64" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="500" y="780" width="370" height="242" as="geometry" />
+        </mxCell>
+        <mxCell id="resultado" value="&lt;b&gt;ResultadoVenta&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- exitosa: bool&lt;br/&gt;- mensaje: QString&lt;br/&gt;- venta: optional&amp;lt;Venta&amp;gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt; " style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="960" y="420" width="300" height="109" as="geometry" />
+        </mxCell>
+        <mxCell id="detalle" value="&lt;b&gt;DetalleVenta&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- codigoProducto: int&lt;br/&gt;- nombreProducto: QString&lt;br/&gt;- cantidad: int&lt;br/&gt;- precioUnitario: qint64&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ subtotal(): qint64&lt;br/&gt;+ getCantidad(): int" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="50" y="920" width="370" height="166" as="geometry" />
+        </mxCell>
+        <mxCell id="inventario" value="&lt;b&gt;Inventario «Modulo Julian»&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt; &lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ hayExistencias(...): bool&lt;br/&gt;+ descontar(...): bool" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="970" y="710" width="310" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="archivo" value="&lt;b&gt;ArchivoVentas «Modulo Moises»&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt; &lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ guardarVenta(venta): bool" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="980" y="940" width="320" height="71" as="geometry" />
+        </mxCell>
+        <mxCell id="producto" value="&lt;b&gt;Producto «Modulo Julian»&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt; &lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ getPrecio(): qint64" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1230" width="310" height="71" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;startArrow=diamond;startFill=1;endArrow=none;" edge="1" parent="1" source="vista" target="carrito">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" edge="1" parent="1" source="vista" target="gestor">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="gestor" target="carrito">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="gestor" target="venta">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="gestor" target="resultado">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" edge="1" parent="1" source="gestor" target="inventario">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" edge="1" parent="1" source="gestor" target="archivo">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="1 / 0..*" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;startArrow=diamond;startFill=1;endArrow=none;" edge="1" parent="1" source="carrito" target="detalle">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="1 / 1..*" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;startArrow=diamond;startFill=1;endArrow=none;" edge="1" parent="1" source="venta" target="detalle">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="carrito" target="producto">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="ca71d34c06" name="03 Historial y Tickets - Moises">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="1450" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="vista" value="&lt;b&gt;VentanaHistorial «QWidget»&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- historial: HistorialVentas*&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ actualizarTabla(): void&lt;br/&gt;+ buscarVenta(): void&lt;br/&gt;+ mostrarDetalle(): void&lt;br/&gt;+ exportarTXT(): void&lt;br/&gt;+ exportarHTML(): void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="430" y="50" width="380" height="166" as="geometry" />
+        </mxCell>
+        <mxCell id="hist" value="&lt;b&gt;HistorialVentas&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- archivo: ArchivoVentas*&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ listar(): vector&amp;lt;Venta&amp;gt;&lt;br/&gt;+ buscar(numero): optional&amp;lt;Venta&amp;gt;&lt;br/&gt;+ generarTicket(numero,generador): bool" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="440" y="390" width="410" height="128" as="geometry" />
+        </mxCell>
+        <mxCell id="archivo" value="&lt;b&gt;ArchivoVentas&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- ruta: QString&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ cargar(): vector&amp;lt;Venta&amp;gt;&lt;br/&gt;+ guardarVenta(venta): bool&lt;br/&gt;+ buscar(numero): optional&amp;lt;Venta&amp;gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="750" width="370" height="128" as="geometry" />
+        </mxCell>
+        <mxCell id="gen" value="&lt;b&gt;GeneradorTicket «abstract»&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt; &lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ generar(venta: const Venta&amp;amp;): bool = 0" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="690" y="750" width="460" height="71" as="geometry" />
+        </mxCell>
+        <mxCell id="venta" value="&lt;b&gt;Venta «Modulo Josue»&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- numero: int&lt;br/&gt;- fecha: QDateTime&lt;br/&gt;- detalles: vector&amp;lt;DetalleVenta&amp;gt;&lt;br/&gt;- total: qint64&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ getNumero(): int&lt;br/&gt;+ getDetalles(): vector&amp;lt;DetalleVenta&amp;gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1130" width="390" height="166" as="geometry" />
+        </mxCell>
+        <mxCell id="txt" value="&lt;b&gt;TicketTXT&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt; &lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ generar(venta: const Venta&amp;amp;): bool override" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="550" y="1150" width="390" height="71" as="geometry" />
+        </mxCell>
+        <mxCell id="html" value="&lt;b&gt;TicketHTML&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt; &lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ generar(venta: const Venta&amp;amp;): bool override" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="1150" width="390" height="71" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" edge="1" parent="1" source="vista" target="hist">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" edge="1" parent="1" source="hist" target="archivo">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="hist" target="gen">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="archivo" target="venta">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="gen" target="venta">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=block;endFill=0;" edge="1" parent="1" source="txt" target="gen">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=block;endFill=0;" edge="1" parent="1" source="html" target="gen">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="c1f4e8e8ef" name="04 Usuarios Login Permisos">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1650" pageHeight="1770" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="login" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;Login «QDialog»&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- autenticacion: Autenticacion*&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ intentarIngreso(): void&lt;br/&gt;+ mostrarError(): void" vertex="1">
+          <mxGeometry height="109" width="320" x="500" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="vista" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;GestionUsuarios «QDialog»&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- gestor: GestorUsuarios*&lt;br/&gt;- autenticacion: Autenticacion*&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ agregarUsuario(): void&lt;br/&gt;+ modificarUsuario(): void&lt;br/&gt;+ desactivarUsuario(): void&lt;br/&gt;+ cargarUsuariosEnTabla(): void" vertex="1">
+          <mxGeometry height="166" width="390" x="-440" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="auth" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;Autenticacion&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- gestor: GestorUsuarios*&lt;br/&gt;- idSesion: int&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ iniciarSesion(usuario,clave): bool&lt;br/&gt;+ cerrarSesion(): void&lt;br/&gt;+ haySesionActiva(): bool&lt;br/&gt;+ getUsuarioActual(): Usuario*&lt;br/&gt;+ getRolActual(): Rol&lt;br/&gt;+ tienePermiso(permiso: Permiso): bool" vertex="1">
+          <mxGeometry height="204" width="440" x="70" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="gestor" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;GestorUsuarios&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- usuarios: vector&amp;lt;Usuario&amp;gt;&lt;br/&gt;- archivo: ArchivoUsuarios*&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ agregarUsuario(usuario): bool&lt;br/&gt;+ modificarUsuario(usuario): bool&lt;br/&gt;+ desactivarUsuario(id): bool&lt;br/&gt;+ buscarPorId(id): Usuario*&lt;br/&gt;+ buscarPorNombre(nombre): Usuario*&lt;br/&gt;+ listarUsuarios(): vector&amp;lt;Usuario&amp;gt;&lt;br/&gt;+ guardarUsuarios(): bool&lt;br/&gt;+ cargarUsuarios(): bool&lt;br/&gt;+ generarId(): int" vertex="1">
+          <mxGeometry height="261" width="450" x="1450" y="-145" as="geometry" />
+        </mxCell>
+        <mxCell id="perm" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;Permiso «enumeration»&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt; &lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;GestionarUsuarios&lt;br/&gt;GestionarProductos&lt;br/&gt;RegistrarVenta&lt;br/&gt;ConsultarHistorial&lt;br/&gt;GenerarTickets" vertex="1">
+          <mxGeometry height="147" width="290" x="-240" y="800" as="geometry" />
+        </mxCell>
+        <mxCell id="user" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;Usuario&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- id: int&lt;br/&gt;- nombre: string&lt;br/&gt;- nombreUsuario: string&lt;br/&gt;- claveHash: string&lt;br/&gt;- rol: Rol&lt;br/&gt;- activo: bool&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ getId(): int&lt;br/&gt;+ getNombre(): string&lt;br/&gt;+ getNombreUsuario(): string&lt;br/&gt;+ getClaveHash(): string&lt;br/&gt;+ getRol(): Rol&lt;br/&gt;+ estaActivo(): bool&lt;br/&gt;+ setNombre(...): void&lt;br/&gt;+ setNombreUsuario(...): void&lt;br/&gt;+ setClaveHash(...): void&lt;br/&gt;+ setRol(...): void&lt;br/&gt;+ setActivo(...): void" vertex="1">
+          <mxGeometry height="375" width="430" x="560" y="910" as="geometry" />
+        </mxCell>
+        <mxCell id="archivo" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;ArchivoUsuarios&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- ruta: string&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ cargar(): vector&amp;lt;Usuario&amp;gt;&lt;br/&gt;+ guardar(usuarios): bool" vertex="1">
+          <mxGeometry height="109" width="390" x="1940" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="rol" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;Rol «enumeration»&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt; &lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;Administrador&lt;br/&gt;Cajero" vertex="1">
+          <mxGeometry height="90" width="280" x="1190" y="1050" as="geometry" />
+        </mxCell>
+        <mxCell id="seg" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;Seguridad&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;«utility»&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ crearHashClave(clave): string&lt;br/&gt;+ verificarClave(clave,hash): bool" vertex="1">
+          <mxGeometry height="109" width="360" x="960" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="principal" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=9;fillColor=none;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontFamily=Arial;fontSize=13;overflow=fill;fontStyle=0;" value="&lt;b&gt;ProyectoFinalProgra1VSJJ «QMainWindow»&lt;/b&gt;&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;- autenticacion: Autenticacion*&lt;br/&gt;- gestorUsuarios: GestorUsuarios*&lt;br/&gt;- gestorActividades: GestorActividades*&lt;hr style=&quot;border:0;border-top:1px solid white;margin:5px 0&quot;/&gt;+ abrirGestionUsuarios(): void&lt;br/&gt;+ cerrarSesion(): void&lt;br/&gt;+ actualizarPermisos(): void" vertex="1">
+          <mxGeometry height="172" width="410" x="-870" y="1000" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" edge="1" parent="1" source="login" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" target="auth" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="vista" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" target="auth" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="vista" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" target="gestor" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-245" y="-10" />
+              <mxPoint x="700" y="-10" />
+              <mxPoint x="700" y="-14.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="auth" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" target="gestor" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="auth" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;dashed=1;endArrow=open;endFill=0;" target="perm" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="auth" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;dashed=1;endArrow=open;endFill=0;" target="seg" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="gestor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;startArrow=diamond;startFill=0;endArrow=none;" target="user" value="1 / 0..*">
+          <mxGeometry relative="1" x="0.0584" as="geometry">
+            <Array as="points">
+              <mxPoint x="1780" y="750" />
+              <mxPoint x="775" y="750" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="gestor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" target="archivo" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="user" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;dashed=1;endArrow=open;endFill=0;" target="rol" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="principal" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;endArrow=open;endFill=0;" target="auth" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="105" y="1140" />
+              <mxPoint x="290" y="1140" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="principal" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fontSize=12;dashed=1;endArrow=open;endFill=0;" target="vista" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-400" y="1073.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
