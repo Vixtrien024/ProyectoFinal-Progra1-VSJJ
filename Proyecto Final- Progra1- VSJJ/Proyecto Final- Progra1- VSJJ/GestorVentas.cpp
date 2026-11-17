@@ -2,13 +2,19 @@
 #include "GestorVentas.h"
 
 #include <ctime>
+#include <map>
+#include <vector>
+
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QJsonValue>
 
 using namespace std;
 
-// Devuelve la fecha y hora actual
+// ==========================================
+// OBTENER FECHA Y HORA ACTUAL
+// ==========================================
+
 static string fechaActual()
 {
     time_t ahora = time(nullptr);
@@ -28,21 +34,38 @@ static string fechaActual()
     return string(texto);
 }
 
-// Constructor
+// ==========================================
+// CONSTRUCTOR
+// ==========================================
+
 GestorVentas::GestorVentas()
     : archivoVentas("ventas.json")
 {
     cargarVentas();
 }
 
-// Cargar las ventas guardadas en el archivo JSON
+// ==========================================
+// CONECTAR INVENTARIO
+// ==========================================
+
+void GestorVentas::setInventario(
+    Inventario* inventarioActual)
+{
+    inventario = inventarioActual;
+}
+
+// ==========================================
+// CARGAR VENTAS DESDE JSON
+// ==========================================
+
 void GestorVentas::cargarVentas()
 {
     ventas.clear();
 
     bool correcto = false;
 
-    QJsonArray datos = archivoVentas.cargarVentas(&correcto);
+    QJsonArray datos =
+        archivoVentas.cargarVentas(&correcto);
 
     if (!correcto)
     {
@@ -53,16 +76,18 @@ void GestorVentas::cargarVentas()
     {
         if (valor.isObject())
         {
-            Venta venta = Venta::desdeJson(
-                valor.toObject()
-            );
+            Venta venta =
+                Venta::desdeJson(valor.toObject());
 
             ventas.push_back(venta);
         }
     }
 }
 
-// Guardar todas las ventas en el archivo JSON
+// ==========================================
+// GUARDAR VENTAS EN JSON
+// ==========================================
+
 bool GestorVentas::guardarVentas()
 {
     QJsonArray datos;
@@ -75,83 +100,283 @@ bool GestorVentas::guardarVentas()
     return archivoVentas.guardarVentas(datos);
 }
 
-// Validar el carrito y el efectivo recibido
+// ==========================================
+// VALIDAR CARRITO, EFECTIVO E INVENTARIO
+// ==========================================
+
 bool GestorVentas::validar(
     Carrito carrito,
-    qint64 efectivo
-)
+    qint64 efectivo)
 {
-    if (carrito.detalles().empty())
+    vector<DetalleVenta> detalles =
+        carrito.detalles();
+
+    // Verificar que el carrito no este vacio
+    if (detalles.empty())
     {
         return false;
     }
 
-    if (efectivo < carrito.total())
+    // Verificar que exista un inventario conectado
+    if (inventario == nullptr)
     {
         return false;
     }
 
-    return true;
-}
-
-// Confirmar y guardar una venta
-ResultadoVenta GestorVentas::confirmar(
-    Carrito carrito,
-    qint64 efectivo
-)
-{
-    // Verificar que el carrito tenga productos
-    if (carrito.detalles().empty())
+    // Verificar que el total sea valido
+    if (carrito.total() <= 0)
     {
-        return ResultadoVenta(
-            false,
-            "El carrito esta vacio",
-            Venta()
-        );
+        return false;
     }
 
     // Verificar que el efectivo alcance
     if (efectivo < carrito.total())
     {
+        return false;
+    }
+
+    // Acumular cantidades por codigo de producto
+    map<int, int> cantidades;
+
+    for (const DetalleVenta& detalle : detalles)
+    {
+        if (detalle.getCodigoProducto() <= 0 ||
+            detalle.getCantidad() <= 0 ||
+            detalle.getPrecioUnitario() <= 0)
+        {
+            return false;
+        }
+
+        cantidades[detalle.getCodigoProducto()] +=
+            detalle.getCantidad();
+    }
+
+    // Verificar existencias reales
+    for (const auto& producto : cantidades)
+    {
+        int codigo = producto.first;
+        int cantidad = producto.second;
+
+        if (!inventario->hayExistencias(
+            codigo, cantidad))
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+// ==========================================
+// CONFIRMAR VENTA
+// ==========================================
+
+ResultadoVenta GestorVentas::confirmar(
+    Carrito carrito,
+    qint64 efectivo)
+{
+    vector<DetalleVenta> detalles =
+        carrito.detalles();
+
+    // VALIDAR CARRITO
+
+    if (detalles.empty())
+    {
         return ResultadoVenta(
             false,
-            "El efectivo no alcanza para pagar",
+            "El carrito esta vacio.",
             Venta()
         );
     }
 
-    // Crear la nueva venta
+    // VALIDAR INVENTARIO
+
+    if (inventario == nullptr)
+    {
+        return ResultadoVenta(
+            false,
+            "No se ha conectado el inventario al modulo de ventas.",
+            Venta()
+        );
+    }
+
+    // VALIDAR TOTAL
+
+    if (carrito.total() <= 0)
+    {
+        return ResultadoVenta(
+            false,
+            "El total de la venta no es valido.",
+            Venta()
+        );
+    }
+
+    // VALIDAR EFECTIVO
+
+    if (efectivo < carrito.total())
+    {
+        return ResultadoVenta(
+            false,
+            "El efectivo no alcanza para pagar.",
+            Venta()
+        );
+    }
+
+    // AGRUPAR PRODUCTOS Y CANTIDADES
+
+    map<int, int> cantidades;
+
+    for (const DetalleVenta& detalle : detalles)
+    {
+        if (detalle.getCodigoProducto() <= 0 ||
+            detalle.getCantidad() <= 0 ||
+            detalle.getPrecioUnitario() <= 0)
+        {
+            return ResultadoVenta(
+                false,
+                "El carrito contiene productos invalidos.",
+                Venta()
+            );
+        }
+
+        cantidades[detalle.getCodigoProducto()] +=
+            detalle.getCantidad();
+    }
+
+    // VERIFICAR EXISTENCIAS ANTES DE DESCONTAR
+
+    for (const auto& producto : cantidades)
+    {
+        int codigo = producto.first;
+        int cantidad = producto.second;
+
+        if (!inventario->hayExistencias(
+            codigo, cantidad))
+        {
+            return ResultadoVenta(
+                false,
+                "No hay suficientes existencias para uno de los productos.",
+                Venta()
+            );
+        }
+    }
+
+    // DESCONTAR PRODUCTOS DEL INVENTARIO
+
+    vector<pair<int, int>> descontados;
+
+    for (const auto& producto : cantidades)
+    {
+        int codigo = producto.first;
+        int cantidad = producto.second;
+
+        if (!inventario->descontar(
+            codigo, cantidad))
+        {
+            // Intentar restaurar los descuentos anteriores
+            bool restaurado = true;
+
+            for (const auto& anterior : descontados)
+            {
+                if (!inventario->reponer(
+                    anterior.first,
+                    anterior.second))
+                {
+                    restaurado = false;
+                }
+            }
+
+            if (!restaurado)
+            {
+                return ResultadoVenta(
+                    false,
+                    "Error al descontar inventario. "
+                    "No se pudieron restaurar todas las existencias. "
+                    "Revise el inventario manualmente.",
+                    Venta()
+                );
+            }
+
+            return ResultadoVenta(
+                false,
+                "No se pudo actualizar el inventario. "
+                "La venta no fue registrada.",
+                Venta()
+            );
+        }
+
+        // Registrar producto descontado
+        descontados.push_back(
+            { codigo, cantidad }
+        );
+    }
+
+    // CREAR LA NUEVA VENTA
+
     Venta nueva(
         siguienteNumero(),
         fechaActual(),
-        carrito.detalles(),
+        detalles,
         efectivo
     );
 
-    // Agregar temporalmente la venta
+    // AGREGAR VENTA TEMPORALMENTE
+
     ventas.push_back(nueva);
 
-    // Guardar en ventas.json
+    // GUARDAR VENTA EN JSON
+
     if (!guardarVentas())
     {
-        // Si falla el archivo, revertir el registro
+        // Quitar venta de la lista en memoria
         ventas.pop_back();
+
+        // Intentar restaurar inventario
+        bool restaurado = true;
+
+        for (const auto& producto : descontados)
+        {
+            if (!inventario->reponer(
+                producto.first,
+                producto.second))
+            {
+                restaurado = false;
+            }
+        }
+
+        if (!restaurado)
+        {
+            return ResultadoVenta(
+                false,
+                "No se pudo guardar la venta y "
+                "fallo la restauracion del inventario. "
+                "Revise los archivos y las existencias.",
+                Venta()
+            );
+        }
 
         return ResultadoVenta(
             false,
-            "No se pudo guardar la venta en el archivo",
+            "No se pudo guardar la venta. "
+            "Se intento restaurar el inventario.",
             Venta()
         );
     }
 
+    // VENTA COMPLETADA
+
     return ResultadoVenta(
         true,
-        "Venta realizada y guardada correctamente",
+        "Venta realizada correctamente. "
+        "Inventario actualizado y venta guardada.",
         nueva
     );
 }
 
-// Obtener el numero de la siguiente venta
+// ==========================================
+// OBTENER SIGUIENTE NUMERO DE VENTA
+// ==========================================
+
 int GestorVentas::siguienteNumero()
 {
     int mayorNumero = 0;
@@ -167,7 +392,10 @@ int GestorVentas::siguienteNumero()
     return mayorNumero + 1;
 }
 
-// Devolver todas las ventas registradas
+// ==========================================
+// LISTAR VENTAS
+// ==========================================
+
 vector<Venta> GestorVentas::listarVentas() const
 {
     return ventas;

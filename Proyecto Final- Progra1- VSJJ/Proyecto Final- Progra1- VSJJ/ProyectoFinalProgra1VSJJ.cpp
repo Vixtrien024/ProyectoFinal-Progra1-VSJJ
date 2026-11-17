@@ -13,42 +13,87 @@
 
 using namespace std;
 
-// Constructor
+// ==========================================
+// CONSTRUCTOR
+// ==========================================
+
 ProyectoFinalProgra1VSJJ::ProyectoFinalProgra1VSJJ(
     Autenticacion* autenticacion,
     GestorUsuarios* gestorUsuarios,
+    GestorActividades* gestorActividades,
     QWidget* parent
 ) : QMainWindow(parent),
+    autenticacion(autenticacion),
+    gestorUsuarios(gestorUsuarios),
+    gestorActividades(gestorActividades),
     archivo("productos.txt"),
     gestor(&archivo),
-    inventario(&gestor)
+    inventario(&gestor),
+    paginas(nullptr),
+    paginaMenu(nullptr),
+    paginaProductos(nullptr),
+    pantallaProductos(nullptr)
 {
     ui.setupUi(this);
 
-    this->autenticacion = autenticacion;
-    this->gestorUsuarios = gestorUsuarios;
+    // ======================================
+    // CONECTAR VENTAS CON INVENTARIO
+    // ======================================
 
-    // Configurar las paginas de la ventana principal
+    gestorVentas.setInventario(&inventario);
+
+    // ======================================
+    // REGISTRO DE ACTIVIDADES
+    // ======================================
+
+    // Utilizar el mismo gestor creado en main.cpp.
+    // No se crea una segunda instancia.
+    if (this->autenticacion != nullptr)
+    {
+        this->autenticacion->setGestorActividades(
+            this->gestorActividades
+        );
+    }
+
+    // ======================================
+    // CONFIGURAR PAGINAS
+    // ======================================
+
     paginas = ui.centralWidget;
     paginaMenu = ui.pageMenu;
     paginaProductos = ui.pageProductos;
     pantallaProductos = ui.pantallaProductos;
 
     // Conectar el gestor de productos
-    pantallaProductos->setGestor(&gestor);
+    if (pantallaProductos != nullptr)
+    {
+        pantallaProductos->setGestor(&gestor);
+    }
 
     // Mostrar inicialmente el menu principal
-    paginas->setCurrentWidget(paginaMenu);
+    if (paginas != nullptr && paginaMenu != nullptr)
+    {
+        paginas->setCurrentWidget(paginaMenu);
+    }
 
-    // Boton regresar de productos
-    connect(
-        pantallaProductos,
-        &GestionProductos::regresar,
-        this,
-        &ProyectoFinalProgra1VSJJ::mostrarMenu
-    );
+    // ======================================
+    // BOTON REGRESAR DE PRODUCTOS
+    // ======================================
 
-    // Boton Productos
+    if (pantallaProductos != nullptr)
+    {
+        connect(
+            pantallaProductos,
+            &GestionProductos::regresar,
+            this,
+            &ProyectoFinalProgra1VSJJ::mostrarMenu
+        );
+    }
+
+    // ======================================
+    // BOTON PRODUCTOS
+    // ======================================
+
     connect(
         ui.btnProductos,
         &QPushButton::clicked,
@@ -56,7 +101,10 @@ ProyectoFinalProgra1VSJJ::ProyectoFinalProgra1VSJJ(
         &ProyectoFinalProgra1VSJJ::abrirProductos
     );
 
-    // Boton Ventas
+    // ======================================
+    // BOTON VENTAS
+    // ======================================
+
     connect(
         ui.btnVentas,
         &QPushButton::clicked,
@@ -64,7 +112,10 @@ ProyectoFinalProgra1VSJJ::ProyectoFinalProgra1VSJJ(
         &ProyectoFinalProgra1VSJJ::abrirVentas
     );
 
-    // Boton Historial
+    // ======================================
+    // BOTON HISTORIAL
+    // ======================================
+
     connect(
         ui.btnHistorial,
         &QPushButton::clicked,
@@ -72,7 +123,10 @@ ProyectoFinalProgra1VSJJ::ProyectoFinalProgra1VSJJ(
         &ProyectoFinalProgra1VSJJ::abrirHistorial
     );
 
-    // Boton Usuarios
+    // ======================================
+    // BOTON USUARIOS
+    // ======================================
+
     connect(
         ui.btnUsuarios,
         &QPushButton::clicked,
@@ -80,7 +134,10 @@ ProyectoFinalProgra1VSJJ::ProyectoFinalProgra1VSJJ(
         &ProyectoFinalProgra1VSJJ::abrirUsuarios
     );
 
-    // Boton Cerrar Sesion
+    // ======================================
+    // BOTON CERRAR SESION
+    // ======================================
+
     connect(
         ui.btnCerrarSesion,
         &QPushButton::clicked,
@@ -88,32 +145,51 @@ ProyectoFinalProgra1VSJJ::ProyectoFinalProgra1VSJJ(
         &ProyectoFinalProgra1VSJJ::cerrarSesion
     );
 
+    // ======================================
+    // MOSTRAR USUARIO Y PERMISOS
+    // ======================================
+
     mostrarUsuarioActual();
     configurarPermisos();
 
-    // Ocultar barras innecesarias
-    if (menuBar() != nullptr) {
+    // ======================================
+    // OCULTAR BARRAS INNECESARIAS
+    // ======================================
+
+    if (menuBar() != nullptr)
+    {
         menuBar()->hide();
     }
 
-    if (statusBar() != nullptr) {
+    if (statusBar() != nullptr)
+    {
         statusBar()->hide();
     }
 
-    if (ui.mainToolBar != nullptr) {
+    if (ui.mainToolBar != nullptr)
+    {
         ui.mainToolBar->hide();
     }
 }
 
-// Destructor
+// ==========================================
+// DESTRUCTOR
+// ==========================================
+
 ProyectoFinalProgra1VSJJ::~ProyectoFinalProgra1VSJJ()
 {
+    // El gestor de actividades pertenece a main.cpp.
+    // No se elimina ni se desconecta aqui.
 }
 
-// Mostrar usuario conectado
+// ==========================================
+// MOSTRAR USUARIO CONECTADO
+// ==========================================
+
 void ProyectoFinalProgra1VSJJ::mostrarUsuarioActual()
 {
-    if (autenticacion == nullptr) {
+    if (autenticacion == nullptr)
+    {
         ui.lblUsuarioActual->setText("Sin sesion");
         ui.lblBienvenido->setText("Acceso no autorizado");
         return;
@@ -121,7 +197,8 @@ void ProyectoFinalProgra1VSJJ::mostrarUsuarioActual()
 
     Usuario* usuario = autenticacion->getUsuarioActual();
 
-    if (usuario == nullptr) {
+    if (usuario == nullptr)
+    {
         ui.lblUsuarioActual->setText("Sin sesion");
         ui.lblBienvenido->setText("Acceso no autorizado");
         return;
@@ -130,10 +207,12 @@ void ProyectoFinalProgra1VSJJ::mostrarUsuarioActual()
     string nombre = usuario->getNombre();
     string rol;
 
-    if (usuario->getRol() == Rol::Administrador) {
+    if (usuario->getRol() == Rol::Administrador)
+    {
         rol = "Administrador";
     }
-    else {
+    else
+    {
         rol = "Cajero";
     }
 
@@ -143,17 +222,22 @@ void ProyectoFinalProgra1VSJJ::mostrarUsuarioActual()
         QString::fromStdString(informacion)
     );
 
-    string bienvenida = "Bienvenido a La Pulpe, " + nombre;
+    string bienvenida =
+        "Bienvenido a La Pulpe, " + nombre;
 
     ui.lblBienvenido->setText(
         QString::fromStdString(bienvenida)
     );
 }
 
-// Configurar permisos
+// ==========================================
+// CONFIGURAR PERMISOS
+// ==========================================
+
 void ProyectoFinalProgra1VSJJ::configurarPermisos()
 {
-    if (autenticacion == nullptr) {
+    if (autenticacion == nullptr)
+    {
         ui.btnProductos->setEnabled(false);
         ui.btnVentas->setEnabled(false);
         ui.btnHistorial->setEnabled(false);
@@ -186,14 +270,17 @@ void ProyectoFinalProgra1VSJJ::configurarPermisos()
     );
 }
 
-// Verificar permisos
+// ==========================================
+// VERIFICAR PERMISOS
+// ==========================================
+
 bool ProyectoFinalProgra1VSJJ::verificarAcceso(
     Permiso permiso
 )
 {
     if (autenticacion == nullptr ||
-        !autenticacion->tienePermiso(permiso)) {
-
+        !autenticacion->tienePermiso(permiso))
+    {
         QMessageBox::warning(
             this,
             "Acceso denegado",
@@ -207,17 +294,21 @@ bool ProyectoFinalProgra1VSJJ::verificarAcceso(
     return true;
 }
 
-// Abrir Productos e Inventario
+// ==========================================
+// ABRIR PRODUCTOS E INVENTARIO
+// ==========================================
+
 void ProyectoFinalProgra1VSJJ::abrirProductos()
 {
-    if (!verificarAcceso(Permiso::GestionarProductos)) {
+    if (!verificarAcceso(Permiso::GestionarProductos))
+    {
         return;
     }
 
     if (paginas == nullptr ||
         paginaProductos == nullptr ||
-        pantallaProductos == nullptr) {
-
+        pantallaProductos == nullptr)
+    {
         QMessageBox::critical(
             this,
             "Error",
@@ -235,10 +326,14 @@ void ProyectoFinalProgra1VSJJ::abrirProductos()
     resize(1280, 700);
 }
 
-// Regresar al menu principal
+// ==========================================
+// REGRESAR AL MENU PRINCIPAL
+// ==========================================
+
 void ProyectoFinalProgra1VSJJ::mostrarMenu()
 {
-    if (paginas == nullptr || paginaMenu == nullptr) {
+    if (paginas == nullptr || paginaMenu == nullptr)
+    {
         return;
     }
 
@@ -248,49 +343,56 @@ void ProyectoFinalProgra1VSJJ::mostrarMenu()
     resize(900, 600);
 }
 
-// Abrir Ventas y Cobros
+// ==========================================
+// ABRIR VENTAS Y COBROS
+// ==========================================
+
 void ProyectoFinalProgra1VSJJ::abrirVentas()
 {
-    if (!verificarAcceso(Permiso::RegistrarVenta)) {
+    if (!verificarAcceso(Permiso::RegistrarVenta))
+    {
         return;
     }
 
-    // Crear la ventana de Josue
+    // Crear ventana de ventas de Josue
     VentanaVentas ventana(&gestorVentas, this);
 
-    // Cargar los productos registrados por Julian
+    // Cargar productos del inventario de Julian
     ventana.setProductos(gestor.listar());
 
     ventana.setWindowTitle(
         "La Pulpe - Ventas y Cobros"
     );
 
-    // Abrir la ventana de ventas
+    // Mostrar ventana de ventas
     ventana.exec();
 
-    // Al cerrar, mostrar el menu
+    // Regresar al menu principal
     mostrarMenu();
 }
 
-// Abrir Historial y Tickets
+// ==========================================
+// ABRIR HISTORIAL Y TICKETS
+// ==========================================
+
 void ProyectoFinalProgra1VSJJ::abrirHistorial()
 {
-    if (!verificarAcceso(Permiso::ConsultarHistorial)) {
+    if (!verificarAcceso(Permiso::ConsultarHistorial))
+    {
         return;
     }
 
-    // Crear la ventana de Moises
+    // Crear ventana de historial de Moises
     VentanaHistorial* ventana = new VentanaHistorial();
 
     ventana->setWindowTitle(
         "La Pulpe - Historial y Tickets"
     );
 
-    // Liberar la memoria cuando se cierre
+    // Liberar memoria al cerrar
     ventana->setAttribute(Qt::WA_DeleteOnClose);
 
-    // Cerrar esta ventana cuando se cierre
-    // la ventana principal
+    // Cerrar historial al destruir la ventana principal
     connect(
         this,
         &QObject::destroyed,
@@ -298,23 +400,28 @@ void ProyectoFinalProgra1VSJJ::abrirHistorial()
         &QWidget::close
     );
 
-    // Mostrar historial
     ventana->show();
 }
 
-// Abrir Gestion de Usuarios
+// ==========================================
+// ABRIR GESTION DE USUARIOS
+// ==========================================
+
 void ProyectoFinalProgra1VSJJ::abrirUsuarios()
 {
-    if (!verificarAcceso(Permiso::GestionarUsuarios)) {
+    if (!verificarAcceso(Permiso::GestionarUsuarios))
+    {
         return;
     }
 
-    if (gestorUsuarios == nullptr) {
+    if (gestorUsuarios == nullptr)
+    {
         QMessageBox::critical(
             this,
             "Error",
             "No se pudo acceder al gestor de usuarios."
         );
+
         return;
     }
 
@@ -330,7 +437,10 @@ void ProyectoFinalProgra1VSJJ::abrirUsuarios()
     configurarPermisos();
 }
 
-// Cerrar sesion
+// ==========================================
+// CERRAR SESION
+// ==========================================
+
 void ProyectoFinalProgra1VSJJ::cerrarSesion()
 {
     int respuesta = QMessageBox::question(
@@ -340,11 +450,14 @@ void ProyectoFinalProgra1VSJJ::cerrarSesion()
         QMessageBox::Yes | QMessageBox::No
     );
 
-    if (respuesta != QMessageBox::Yes) {
+    if (respuesta != QMessageBox::Yes)
+    {
         return;
     }
 
-    if (autenticacion != nullptr) {
+    // Registrar LOGOUT mediante Autenticacion
+    if (autenticacion != nullptr)
+    {
         autenticacion->cerrarSesion();
     }
 

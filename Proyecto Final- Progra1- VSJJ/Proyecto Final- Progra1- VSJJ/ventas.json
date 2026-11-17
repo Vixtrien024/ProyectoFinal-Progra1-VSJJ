@@ -73,5 +73,65 @@
         "fecha": "2026-11-13 16:27:02",
         "numero": 5,
         "total": 5874
+    },
+    {
+        "cambio": 100,
+        "detalles": [
+            {
+                "cantidad": 2,
+                "codigoProducto": 1,
+                "nombreProducto": "Frijol Negro Tio Pelon",
+                "precioUnitario": 1950
+            }
+        ],
+        "efectivo": 4000,
+        "fecha": "2026-11-16 16:16:46",
+        "numero": 6,
+        "total": 3900
+    },
+    {
+        "cambio": 0,
+        "detalles": [
+            {
+                "cantidad": 4,
+                "codigoProducto": 7993,
+                "nombreProducto": "Arroz Tio Pelon 99%",
+                "precioUnitario": 1750
+            }
+        ],
+        "efectivo": 7000,
+        "fecha": "2026-11-16 18:22:26",
+        "numero": 7,
+        "total": 7000
+    },
+    {
+        "cambio": 0,
+        "detalles": [
+            {
+                "cantidad": 2,
+                "codigoProducto": 7993,
+                "nombreProducto": "Arroz Tio Pelon 99%",
+                "precioUnitario": 1750
+            }
+        ],
+        "efectivo": 3500,
+        "fecha": "2026-11-16 18:23:09",
+        "numero": 8,
+        "total": 3500
+    },
+    {
+        "cambio": 500,
+        "detalles": [
+            {
+                "cantidad": 2,
+                "codigoProducto": 7993,
+                "nombreProducto": "Arroz Tio Pelon 99%",
+                "precioUnitario": 1750
+            }
+        ],
+        "efectivo": 4000,
+        "fecha": "2026-11-16 19:12:44",
+        "numero": 9,
+        "total": 3500
     }
 ]

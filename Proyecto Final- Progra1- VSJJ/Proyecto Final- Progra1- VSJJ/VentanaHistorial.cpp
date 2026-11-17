@@ -13,6 +13,15 @@
 #include <QMessageBox>
 #include <QSignalBlocker>
 #include <QString>
+#include <QFile>
+#include <QTextDocument>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QLayout>
+
+#include <filesystem>
+#include <string>
+#include <vector>
 
 using namespace std;
 
@@ -33,7 +42,6 @@ static void mostrarMensaje(
     ventana.setText(mensaje);
     ventana.setStandardButtons(QMessageBox::Ok);
 
-    // Estilo exclusivo para esta ventana de mensaje
     ventana.setStyleSheet(R"(
         QMessageBox {
             background-color: #101C18;
@@ -128,7 +136,7 @@ VentanaHistorial::VentanaHistorial(QWidget* parent)
     ui->tablaDetalles->horizontalHeader()
         ->setSectionResizeMode(QHeaderView::Stretch);
 
-    // CONECTAR BOTONES
+    // CONECTAR BOTONES EXISTENTES
 
     connect(
         ui->btnActualizar,
@@ -170,6 +178,76 @@ VentanaHistorial::VentanaHistorial(QWidget* parent)
         &QPushButton::clicked,
         this,
         &QWidget::close
+    );
+
+    // ==========================================
+    // CREAR BOTON PARA IMPRIMIR TICKET
+    // ==========================================
+
+    QWidget* contenedor =
+        ui->btnTicketHTML->parentWidget();
+
+    QPushButton* btnImprimirTicket =
+        new QPushButton("Imprimir ticket", contenedor);
+
+    btnImprimirTicket->setObjectName(
+        "btnImprimirTicket"
+    );
+
+    btnImprimirTicket->setCursor(
+        Qt::PointingHandCursor
+    );
+
+    btnImprimirTicket->setMinimumHeight(38);
+
+    btnImprimirTicket->setStyleSheet(R"(
+        QPushButton {
+            background-color: #008C50;
+            color: white;
+            border: 2px solid #20D875;
+            border-radius: 10px;
+            padding: 8px 15px;
+            font-weight: bold;
+        }
+
+        QPushButton:hover {
+            background-color: #00B865;
+        }
+
+        QPushButton:pressed {
+            background-color: #006B3D;
+        }
+    )");
+
+    // Agregar el boton al layout del contenedor
+    if (contenedor != nullptr &&
+        contenedor->layout() != nullptr)
+    {
+        contenedor->layout()->addWidget(
+            btnImprimirTicket
+        );
+    }
+    else
+    {
+        // Posicion alternativa si no hay layout
+        QRect posicion =
+            ui->btnTicketHTML->geometry();
+
+        btnImprimirTicket->setGeometry(
+            posicion.x(),
+            posicion.y() + posicion.height() + 10,
+            posicion.width(),
+            38
+        );
+
+        btnImprimirTicket->show();
+    }
+
+    connect(
+        btnImprimirTicket,
+        &QPushButton::clicked,
+        this,
+        &VentanaHistorial::imprimirTicket
     );
 
     // CARGAR VENTAS AL ABRIR
@@ -477,4 +555,117 @@ void VentanaHistorial::exportarHTML()
             "No se pudo generar el ticket HTML."
         );
     }
+}
+
+// ==========================================
+// IMPRIMIR TICKET DE UNA VENTA EXISTENTE
+// ==========================================
+
+void VentanaHistorial::imprimirTicket()
+{
+    // Verificar que haya una venta seleccionada
+    int fila = ui->tablaVentas->currentRow();
+
+    if (fila < 0 ||
+        fila >= static_cast<int>(ventas.size()))
+    {
+        mostrarMensaje(
+            this,
+            QMessageBox::Warning,
+            "Imprimir ticket",
+            "Primero seleccione una venta del historial."
+        );
+
+        return;
+    }
+
+    // Recuperar la venta seleccionada
+    const Venta& venta = ventas[fila];
+
+    // Generar comprobante HTML
+    TicketHTML generador;
+
+    if (!generador.generar(venta))
+    {
+        mostrarMensaje(
+            this,
+            QMessageBox::Warning,
+            "Imprimir ticket",
+            "No se pudo generar el comprobante HTML."
+        );
+
+        return;
+    }
+
+    // Obtener la ruta del comprobante
+    filesystem::path ruta =
+        filesystem::current_path() /
+        "Tickets" /
+        "HTML" /
+        ("Ticket_Venta_" +
+            to_string(venta.getNumero()) +
+            ".html");
+
+    QString rutaTicket =
+        QString::fromStdString(ruta.string());
+
+    // Abrir archivo HTML
+    QFile archivo(rutaTicket);
+
+    if (!archivo.open(QIODevice::ReadOnly))
+    {
+        mostrarMensaje(
+            this,
+            QMessageBox::Warning,
+            "Imprimir ticket",
+            "No se pudo abrir el comprobante para imprimir."
+        );
+
+        return;
+    }
+
+    // Leer el contenido del ticket
+    QString contenidoHTML =
+        QString::fromUtf8(archivo.readAll());
+
+    archivo.close();
+
+    // Preparar el documento
+    QTextDocument documento;
+    documento.setHtml(contenidoHTML);
+
+    // Configurar impresora
+    QPrinter impresora(QPrinter::HighResolution);
+
+    impresora.setDocName(
+        "La Pulpe - Ticket Venta " +
+        QString::number(venta.getNumero())
+    );
+
+    // Mostrar selector de impresoras
+    QPrintDialog dialogo(&impresora, this);
+
+    dialogo.setWindowTitle(
+        "La Pulpe - Imprimir ticket"
+    );
+
+
+    // Si cancela, no imprimir
+    if (dialogo.exec() != QDialog::Accepted)
+    {
+        return;
+    }
+
+    // Imprimir el comprobante
+    documento.print(&impresora);
+
+    mostrarMensaje(
+        this,
+        QMessageBox::Information,
+        "Imprimir ticket",
+        QString(
+            "El ticket de la venta N° %1 "
+            "fue enviado a la impresora seleccionada."
+        ).arg(venta.getNumero())
+    );
 }

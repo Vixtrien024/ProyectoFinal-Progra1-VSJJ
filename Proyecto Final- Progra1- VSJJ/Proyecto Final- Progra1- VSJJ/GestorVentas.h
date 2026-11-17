@@ -9,6 +9,7 @@
 #include "Venta.h"
 #include "ResultadoVenta.h"
 #include "ArchivoVentas.h"
+#include "Inventario.h"
 
 using namespace std;
 
@@ -23,6 +24,9 @@ private:
     // Archivo donde se guardan las ventas
     ArchivoVentas archivoVentas;
 
+    // Inventario compartido con el modulo de productos
+    Inventario* inventario = nullptr;
+
     // Cargar ventas guardadas en el archivo JSON
     void cargarVentas();
 
@@ -34,16 +38,18 @@ public:
     // Constructor
     GestorVentas();
 
-    // Verifica que el carrito tenga productos
-    // y que el efectivo sea suficiente.
+    // Asignar el inventario que utilizara ventas
+    void setInventario(Inventario* inventarioActual);
+
+    // Verifica el carrito y el efectivo recibido
     bool validar(Carrito carrito, qint64 efectivo);
 
-    // Confirma una venta y devuelve su resultado.
+    // Confirma una venta y devuelve su resultado
     ResultadoVenta confirmar(Carrito carrito, qint64 efectivo);
 
-    // Obtiene el numero de la siguiente venta.
+    // Obtiene el numero de la siguiente venta
     int siguienteNumero();
 
-    // Devuelve las ventas registradas.
+    // Devuelve las ventas registradas
     vector<Venta> listarVentas() const;
 };

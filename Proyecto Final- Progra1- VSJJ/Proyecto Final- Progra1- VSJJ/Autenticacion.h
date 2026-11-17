@@ -2,12 +2,17 @@
 #pragma once
 
 #include <string>
+
 #include "Usuario.h"
 #include "GestorUsuarios.h"
+#include "GestorActividades.h"
 
 using namespace std;
 
-// Permisos disponibles en el sistema
+// ==========================================
+// PERMISOS DISPONIBLES EN EL SISTEMA
+// ==========================================
+
 enum class Permiso {
     GestionarUsuarios,
     GestionarProductos,
@@ -16,26 +21,43 @@ enum class Permiso {
     GenerarTickets
 };
 
+// ==========================================
+// CLASE AUTENTICACION
+// ==========================================
+
 class Autenticacion {
 private:
+
     // Gestor donde se encuentran los usuarios
     GestorUsuarios* gestor;
 
-    // ID del usuario que inició sesión
-    // -1 significa que no hay sesión activa
+    // Gestor encargado del registro de actividades
+    GestorActividades* gestorActividades;
+
+    // ID del usuario que inicio sesion
+    // -1 significa que no hay sesion activa
     int idSesion;
 
 public:
+
     // Constructor
     Autenticacion(GestorUsuarios* gestor);
 
-    // Iniciar sesión
-    bool iniciarSesion(string nombreUsuario, string clave);
+    // Conectar el gestor de actividades
+    void setGestorActividades(
+        GestorActividades* gestorActividades
+    );
 
-    // Cerrar sesión
+    // Iniciar sesion
+    bool iniciarSesion(
+        string nombreUsuario,
+        string clave
+    );
+
+    // Cerrar sesion
     void cerrarSesion();
 
-    // Comprobar si existe una sesión activa
+    // Comprobar si existe una sesion activa
     bool haySesionActiva();
 
     // Obtener el usuario conectado

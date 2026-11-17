@@ -4,6 +4,7 @@
 #include "Autenticacion.h"
 #include "GestionUsuarios.h"
 #include "GestorUsuarios.h"
+#include "GestorActividades.h"
 #include "Login.h"
 #include "Seguridad.h"
 #include "Usuario.h"
@@ -17,9 +18,17 @@
 
 using namespace std;
 
+// ==========================================
+// FUNCION PRINCIPAL DE LA PULPE
+// ==========================================
+
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
+
+    // ======================================
+    // CONFIGURAR ARCHIVOS DEL SISTEMA
+    // ======================================
 
     // Archivo de usuarios junto al ejecutable
     string rutaUsuarios =
@@ -27,25 +36,30 @@ int main(int argc, char* argv[])
         .filePath("usuarios.json")
         .toStdString();
 
-    // Crear sistema de almacenamiento
+    // ======================================
+    // CREAR SISTEMA DE USUARIOS
+    // ======================================
+
     ArchivoUsuarios archivo(rutaUsuarios);
 
-    // Crear gestor de usuarios
     GestorUsuarios gestor(&archivo);
 
     // Cargar usuarios registrados
     gestor.cargarUsuarios();
 
-    // Crear administrador inicial si no hay usuarios
-    if (gestor.listarUsuarios().empty()) {
+    // ======================================
+    // CREAR ADMINISTRADOR INICIAL
+    // ======================================
 
+    if (gestor.listarUsuarios().empty())
+    {
         Usuario admin;
 
         admin.setId(gestor.generarId());
         admin.setNombre("Administrador");
         admin.setNombreUsuario("admin");
 
-        // Guardar hash, no contrasena en texto plano
+        // Guardar hash de la contrasena
         admin.setClaveHash(
             Seguridad::crearHashClave("admin")
         );
@@ -53,30 +67,86 @@ int main(int argc, char* argv[])
         admin.setRol(Rol::Administrador);
         admin.setActivo(true);
 
-        if (!gestor.agregarUsuario(admin)) {
+        if (!gestor.agregarUsuario(admin))
+        {
             return 1;
         }
     }
 
-    // Crear sistema de autenticacion
+    // ======================================
+    // CREAR SISTEMA DE AUTENTICACION
+    // ======================================
+
     Autenticacion autenticacion(&gestor);
 
-    // Mostrar ventana de inicio de sesion
+    // ======================================
+    // CREAR REGISTRO DE ACTIVIDADES
+    // ======================================
+
+    // Una sola instancia para toda la aplicacion
+    GestorActividades gestorActividades;
+
+    // Conectar actividades con autenticacion
+    autenticacion.setGestorActividades(
+        &gestorActividades
+    );
+
+    // ======================================
+    // CONECTAR GESTION DE USUARIOS
+    // ======================================
+
+    // Permitir que el gestor registre las
+    // operaciones realizadas por usuarios.
+    gestor.setGestorActividades(
+        &gestorActividades
+    );
+
+    // Identificar al usuario responsable
+    gestor.setAutenticacion(
+        &autenticacion
+    );
+
+    // ======================================
+    // MOSTRAR INICIO DE SESION
+    // ======================================
+
     Login login(&autenticacion);
 
-    if (login.exec() != QDialog::Accepted) {
+    if (login.exec() != QDialog::Accepted)
+    {
         return 0;
     }
 
-    // Crear ventana principal con los objetos necesarios
+    // ======================================
+    // CREAR VENTANA PRINCIPAL
+    // ======================================
+
     ProyectoFinalProgra1VSJJ window(
         &autenticacion,
-        &gestor
+        &gestor,
+        &gestorActividades
     );
 
     // Mostrar ventana principal
     window.show();
 
-    // Ejecutar aplicacion
-    return app.exec();
+    // ======================================
+    // EJECUTAR APLICACION
+    // ======================================
+
+    int resultado = app.exec();
+
+    // ======================================
+    // REGISTRAR CIERRE DE SESION
+    // ======================================
+
+    // Registrar LOGOUT si se cerro directamente
+    // la ventana sin utilizar Cerrar Sesion.
+    if (autenticacion.haySesionActiva())
+    {
+        autenticacion.cerrarSesion();
+    }
+
+    return resultado;
 }
+

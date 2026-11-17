@@ -48,4 +48,7 @@ private:
     // Generar comprobantes
     void exportarTXT();
     void exportarHTML();
+
+    // Imprimir el ticket de una venta existente
+    void imprimirTicket();
 };
