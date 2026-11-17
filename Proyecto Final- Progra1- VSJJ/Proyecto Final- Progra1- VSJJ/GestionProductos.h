@@ -24,8 +24,17 @@ private:
     int siguienteCodigo() const;//Sugiere un codigo libre para un producto nuevo
 
 public:
+    // Constructor para usar la pantalla como widget promovido dentro de otro .ui.
+    // El gestor se asigna despues con setGestor().
+    explicit GestionProductos(QWidget* parent = nullptr);
+
+    // Constructor que recibe el gestor directamente
     GestionProductos(GestorProductos* gestor, QWidget* parent = nullptr);
+
     ~GestionProductos();
+
+    // Asigna el gestor existente y refresca la pantalla
+    void setGestor(GestorProductos* gestor);
 
 signals:
     void regresar();//Se emite al presionar "Regresar"; VentanaPrincipal decide que hacer

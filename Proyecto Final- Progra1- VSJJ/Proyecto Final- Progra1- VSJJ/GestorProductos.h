@@ -1,27 +1,141 @@
+
 #pragma once
 
 #include <optional>
 #include <vector>
+#include <string>
+
 #include "Producto.h"
 #include "ArchivoProductos.h"
 
 using namespace std;
 
-class GestorProductos {
-private:
-    vector<Producto> productos;//Coleccion donde se guardaran los productos
-    ArchivoProductos* archivo;//Archivo donde se guardan los cambios (no es dueno de el)
+// Declaraciones anticipadas
+class Autenticacion;
+class GestorActividades;
 
-    int posicionDe(int codigo) const;//Posicion en el vector, o -1 si no existe
+// ==========================================
+// GESTOR DE PRODUCTOS - LA PULPE
+// ==========================================
+
+class GestorProductos
+{
+private:
+
+    // ======================================
+    // COLECCION DE PRODUCTOS
+    // ======================================
+
+    vector<Producto> productos;
+
+    // Archivo donde se guardan los productos
+    // El gestor no es dueno de este objeto
+    ArchivoProductos* archivo;
+
+    // ======================================
+    // REGISTRO DE ACTIVIDADES
+    // ======================================
+
+    // Gestor compartido con toda la aplicacion
+    GestorActividades* gestorActividades;
+
+    // Permite identificar al usuario conectado
+    Autenticacion* autenticacion;
+
+    // ======================================
+    // METODOS INTERNOS
+    // ======================================
+
+    // Buscar la posicion de un producto
+    int posicionDe(int codigo) const;
+
+    // Registrar operaciones de productos
+    void registrarActividadProducto(
+        const string& tipo,
+        const string& descripcion
+    );
 
 public:
-    GestorProductos(ArchivoProductos* archivo);//Carga los productos del archivo al crearse
 
-    bool agregar(const Producto& producto);//Registra un producto nuevo
-    bool modificar(const Producto& producto);//Actualiza el producto que tenga el mismo codigo
-    bool desactivar(int codigo);//Desactiva el producto (NO lo borra)
-    optional<Producto> buscar(int codigo) const;//Devuelve una COPIA, o nada si no existe
-    vector<Producto> listar() const;//Devuelve todos los productos
-    bool guardar();//Escribe la coleccion en el archivo
+    // ======================================
+    // CONSTRUCTOR
+    // ======================================
 
-};//fin de la clase
+    GestorProductos(
+        ArchivoProductos* archivo
+    );
+
+    // ======================================
+    // CONECTAR REGISTRO DE ACTIVIDADES
+    // ======================================
+
+    void setGestorActividades(
+        GestorActividades* gestorActividades
+    );
+
+    void setAutenticacion(
+        Autenticacion* autenticacion
+    );
+
+    // ======================================
+    // ADMINISTRACION DE PRODUCTOS
+    // ======================================
+
+    // Agregar producto nuevo
+    bool agregar(
+        const Producto& producto
+    );
+
+    // Modificar producto existente
+    // Registra la modificacion manual
+    bool modificar(
+        const Producto& producto
+    );
+
+    // Desactivar producto sin eliminarlo
+    bool desactivar(
+        int codigo
+    );
+
+    // ======================================
+    // ACTUALIZACION INTERNA DE INVENTARIO
+    // ======================================
+
+    // Actualizar existencias sin generar
+    // actividades de modificacion manual.
+    //
+    // Se utilizara desde Inventario para
+    // descontar productos durante una venta
+    // o restaurarlos cuando sea necesario.
+    //
+    // El cambio se guarda en productos.txt.
+    // Si falla el guardado, se restaura
+    // el valor anterior en memoria.
+    //
+    // El registro de ventas exitosas se
+    // realiza desde GestorVentas.
+
+    bool actualizarExistenciasInterno(
+        int codigo,
+        int nuevasExistencias
+    );
+
+    // ======================================
+    // CONSULTAS DE PRODUCTOS
+    // ======================================
+
+    // Buscar producto por codigo
+    optional<Producto> buscar(
+        int codigo
+    ) const;
+
+    // Obtener todos los productos
+    vector<Producto> listar() const;
+
+    // ======================================
+    // GUARDAR PRODUCTOS
+    // ======================================
+
+    // Guardar productos en el archivo
+    bool guardar();
+};

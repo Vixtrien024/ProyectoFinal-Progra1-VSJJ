@@ -37,12 +37,12 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>6.12.0_msvc2022_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;widgets;printsupport</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>6.12.0_msvc2022_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;widgets;printsupport</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
@@ -104,8 +104,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actividad.cpp" />
     <ClCompile Include="GestionProductos.cpp" />
     <ClCompile Include="GeneradorTicket.cpp" />
+    <ClCompile Include="GestorActividades.cpp" />
     <ClCompile Include="HistorialVentas.cpp" />
     <ClCompile Include="TicketHTML.cpp" />
     <ClCompile Include="TicketTXT.cpp" />
@@ -117,6 +119,7 @@
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="Seguridad.cpp" />
     <ClCompile Include="Usuario.cpp" />
+    <ClCompile Include="VentanaActividades.cpp" />
     <ClCompile Include="VentanaHistorial.cpp" />
     <QtRcc Include="ProyectoFinalProgra1VSJJ.qrc" />
     <QtUic Include="GestionUsuarios.ui" />
@@ -139,14 +142,17 @@
     <QtUic Include="VentanaHistorial.ui" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actividad.h" />
     <ClInclude Include="ArchivoVentas.h" />
     <ClInclude Include="GeneradorTicket.h" />
+    <ClInclude Include="GestorActividades.h" />
     <ClInclude Include="HistorialVentas.h" />
     <ClInclude Include="TicketHTML.h" />
     <ClInclude Include="TicketTXT.h" />
     <ClInclude Include="third_party\nlohmann\json.hpp" />
     <ClInclude Include="ArchivoUsuarios.h" />
     <ClInclude Include="Autenticacion.h" />
+    <QtMoc Include="VentanaActividades.h" />
     <QtMoc Include="GestionUsuarios.h" />
     <ClInclude Include="GestorUsuarios.h" />
     <QtMoc Include="Login.h" />
